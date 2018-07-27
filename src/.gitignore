@@ -1,0 +1,10 @@
+.idea
+tmp
+tmp/*
+.idea/
+.DS_Store
+node_modules/
+uploads/
+uploads/*
+cache
+.project
