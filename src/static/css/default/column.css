@@ -1,0 +1,185 @@
+.clearfix:after {
+    content:"";
+    display: block;
+    clear:both;
+}
+body{
+    background: #F8F8F8;    
+}
+/*专栏用户内容部分*/
+.left-content{
+    width:75%;
+}
+.right-content{
+    width:25%;
+}
+
+
+.left-content .first-box .nav-tabs,
+.left-content .second-box .nav-tabs{
+    position: relative;
+    z-index: 1;
+    height: 50px;
+    background-color: #FFF;
+    border:1px solid #EFEFEF;
+    margin-bottom:15px;
+    padding:15px;
+}
+
+.aw-nav-tabs h3 {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 18px;
+}
+
+.left-content .first-box{
+    margin-bottom: 40px;
+}
+.left-content .first-box .user-list .user-info {
+    border:1px solid #EFEFEF;
+    background-color: #FFF;
+    width: 49%;
+    height: 126px;
+    margin-bottom:15px;
+}
+.left-content .first-box .user-list .user-info p{
+     font-size: 12px;
+     margin:0;
+     line-height:20px; color:#999;
+}
+
+.left-content .first-box .user-list .user-info p span{ color:#333; font-size:16px;}
+.left-content .first-box .user-list .user-info .content-box1{
+    width: 65%;
+    border-right:1px solid #EFEFEF;
+}
+.left-content .first-box .user-list .user-info .content-box2{
+    width: 35%;
+    padding:30px 0 30px 5%;
+}
+.left-content .first-box .user-list .user-info .content-box1 .content{
+    padding: 10% 0;
+}
+.left-content .first-box .user-list .show-left {
+    margin-right:1%;
+}
+.left-content .first-box .user-list .show-right {
+    margin-left:1%;
+}
+.left-content .first-box .user-list .user-info .content{
+    width: 58%;
+    height: 126px;
+}
+.left-content .first-box .user-list .user-info .user-img{
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+    margin: 20px 25px 20px 10px;
+}
+.left-content .first-box .user-list .user-info .user-img .avatar{
+    width:70px;
+    height:70px;
+    position: relative; border-radius: 50%;
+}
+.left-content .first-box .user-list .user-info .user-img .follow img{
+    width:20px;
+    height:20px;
+    position: relative;
+    top: -22px;
+    left: 25px;
+}
+.left-content .first-box .user-list .user-info .nickname{
+     font-size:16px;
+    color: #0064b5;
+
+}
+.left-content .first-box .replace,
+.left-content .second-box .replace{
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    margin-top:13px;
+}
+
+
+/*文章内容部分*/
+.second-box .article-list ul li{
+    width: 230px;
+    display: inline-block;
+    margin-bottom: 10px;
+    background-color: #FFF;
+}
+.second-box .article-list ul li.first{
+    margin-right: 14px;
+}
+.second-box .article-list ul li.three{
+    margin-left: 14px;
+}
+.second-box .article-list ul li .content{
+    padding: 8px 10px 10px 5px;
+}
+.second-box .article-list ul li .content .article-title{
+    width: 210px;
+    height:36px;
+    font-size: 16px;
+    line-height: 18px;
+    overflow: hidden;
+}
+.second-box ul li .content .votes{
+   margin-right: 15px;
+}
+
+
+.right-content .recommend-box{
+    position: relative;
+    z-index: 1;
+    height: 50px;
+    background-color: #FFF;
+    border: 1px solid #EFEFEF;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+.right-content .recommend-item{
+    height: 190px;
+    display: block;
+    background-color: #FFF;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+
+}
+.right-content .recommend-item .digest{
+    height: 36px;
+
+}
+.right-content .recommend-left,
+.right-content .recommend-right{
+    display: inline-block;
+}
+.right-content .recommend-left{
+    width: 80% ;
+    border-right: 1px solid #EFEFEF;
+    padding-right: 5px;
+}
+.right-content .recommend-right{
+    width: 20% ;
+    text-align: center;
+    line-height: 190px;
+}
+
+
+
+/*20180411新加*/
+
+.aw-nav-tabs > li > a{ color:#999; font-size:14px;}
+
+.aw-nav-tabs > li.active > a{ color:#499ef3;border-bottom:2px solid #499ef3; font-weight:normal; padding:0 5px}
+
+
+.left-content .first-box .user-list .user-info p.digest{
+     font-size: 14px;
+     margin:0;
+     line-height:21px; color:#333;max-height:42px; overflow:hidden;
+}
+.left-content .first-box .user-list .user-info  span{ font-size:12px; color:#999; margin-right:20px;}

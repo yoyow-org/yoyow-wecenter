@@ -1,0 +1,333 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<style>
+   textarea{outline:none}
+   
+   body{
+   	   background: rgb(107,156,228);
+   }
+
+   
+   .share_body{
+   	   width:100%;
+   	   background: rgb(190,216,255);
+   	   height:auto;
+
+
+   }
+   .share_head{
+   	   margin:20px 20% 0 20%;
+   	   width:60%;
+   	   height:350px;
+   	   /*background:url("<?php echo $this->poster_url; ?>") no-repeat;*/
+   	   /*background:url("<?php echo G_STATIC_URL; ?>/common/assets/Group1.png") no-repeat;*/
+   	   position:absolute;
+	   background-size: cover;   
+	   -webkit-background-size: cover;   
+	   -moz-background-size: cover;   
+	   -o-background-size: cover;
+   }
+
+   .share_head img{
+   	   width:100%;
+   	   height:100%;
+   }
+
+   .share_main{
+   	   margin-bottom:10%;
+   	   width:100%; 
+   	   height:auto;
+   	   background:url("<?php echo G_STATIC_URL; ?>/common/assets/Artboard.png") no-repeat;
+   	   top:235px;
+   	   position:relative;
+	   background-size: 100%; 
+	   margin-bottom:50px;
+   }
+
+	.share_main_title{
+		position:relative;
+		top:80px;
+		width:38%;
+		margin:0 31%;
+		padding:5px;
+		background: #fff;
+		border-radius: 5px;
+		text-align: center;
+		font: normal 50% Helvetica, Arial,sans-serif;
+		color:#5F9CEC;
+		font-family: PingFangSC-Medium;
+	}
+
+	.share_main_cos{
+
+		position:relative;
+		margin:7px auto 5px auto;
+		width:94%;
+		height:50px;
+		top:80px;
+		display: block;
+	}
+
+	.share_main_cos_text{
+		float:left;
+		width:70%;
+		height:50px;
+	    color:#5F9CEC;
+	    padding:4px 7px;
+		overflow:auto; 
+		word-break:break-all;
+		border-radius: 5px;
+		border: 2px solid rgb(107,156,228);
+		resize:none;
+	}
+
+	.share_main_cos_btn{
+		display:inline;
+		float:right;
+        width:27%;
+        height:50px;
+        line-height:45px;
+        text-align: center;
+        color:#5F9CEC;
+        margin:0 0 0 3%;
+        background: #fff;
+        border: 2px solid rgb(107,156,228);
+        border-radius: 5px;	
+	}
+
+	.share_main_msg{
+	   margin:0 auto;
+   	   width:94%; 
+   	   height:72px;   
+   	   background:url("<?php echo G_STATIC_URL; ?>/common/assets/Group3.png") no-repeat;
+   	   background-size:100%;  
+   	   top:83px;
+   	   position:relative;
+   	   font-family: PingFangSC-Medium;
+	}
+	.share_main_msg_div{
+   	  display: inline-block;
+   	  width:49%;
+   	  height:100%;
+   }
+
+   .share_main_msg_div_span{
+   	  display: block;
+   	  width:100%;
+   	  height:40%;
+   	  text-align:center;
+   	  padding:5% 0 0 0;
+   	  font: normal 150% Helvetica, Arial,sans-serif;
+   	  color:#FF6D6D;
+   }
+   .share_main_msg_div_p{
+   	  display: block;
+   	  width:90%;
+   	  height:25%;
+   	  text-align:center;
+   	  font: normal 50% Helvetica, Arial,sans-serif;
+   	  margin:0 5%;
+
+   }
+
+   .info_table{
+   	  width: 100%;
+      margin-bottom: 20px;
+   }
+
+   .info_tr{
+      width:100%;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.10); 
+   }
+
+   .info_td td{
+   	  text-align: left;
+   	  color:#666666;
+   }
+
+   .info_tr th{
+   	  color:#999999;
+   	  text-align: left;
+   	  font-size:13px;
+   	  word-wrap:break-word;
+
+   }
+
+   .share_main_info{
+      position:relative;
+	  margin:0 3%;
+	  width:94%; 
+      top:85px;
+      min-height:100px;
+   	  max-height:400px;
+   	  overflow-y:auto;
+	  background: rgb(255,255,255);
+	  border-radius: 5px;
+	  border: 1px solid rgb(255,255,255);
+   }
+   
+   .share_main_info::-webkit-scrollbar {
+            width: 4px;     
+            height: 4px;
+    }
+
+   .share_main_info::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.2);
+    }
+   .share_main_info::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        border-radius: 0;
+        background: rgba(0,0,0,0.1);
+    }
+
+
+    .share_main_footer{
+       position:relative;
+	   top:95px;
+   	   margin:0 3% 18% 3%;
+   	   width:94%; 
+   	   height:100%;   
+   	   font-family: PingFangSC-Medium;
+   	   border-radius: 5px;
+   }
+
+</style>
+
+<div class="share_body">
+	<div class="share_head" id="source" >
+	   <img id="downImg" src="/<?php echo $this->poster_url; ?>" onclick="SaveAs1(this.src)">
+	</div>
+
+	<div class="share_main">
+	    
+	    <!-- <input id="source" type="hidden" readonly="readonly" value="<?php echo G_STATIC_URL; ?>/common/assets/Group1.png"/> -->
+	    <p class="share_main_title" id="copyimg" onclick="goDown($('#downImg').attr('src'));" ><?php _e('点击下载个人邀请海报'); ?></p>
+
+	    <div class="share_main_cos">
+
+           <textarea id="copys" class="share_main_cos_text" rows="2" ><?php echo get_setting('share_content'); ?><?php _e($this->invitation_code?base_url().'/?/account/register/invitation_code-'.$this->invitation_code:base_url().'/?/account/register/'); ?></textarea>
+           <span class="share_main_cos_btn" onclick="ButtonClick()" ><?php _e('复制'); ?></span>
+	    </div>
+        
+
+        <div class="share_main_msg">
+             <div class="share_main_msg_div">
+             	<span class="share_main_msg_div_span"><?php echo $this->invitation_num > 999?'999+':$this->invitation_num ;?></span>
+             	<font size=1 class="share_main_msg_div_p">已邀请好友</font>
+             	<font size=1 class="share_main_msg_div_p">(人)</font>
+             </div>
+
+             <div class="share_main_msg_div">
+             	<span class="share_main_msg_div_span"><?php echo $this->invitation_sum_yoyow? :0; ?></span>
+             	<font size=1 class="share_main_msg_div_p">预期总收益</font>
+             	<font size=1 class="share_main_msg_div_p">(YOYOW)</font>
+             </div>
+        </div>
+
+
+        <div class="share_main_info">
+            
+        	 <table class="info_table table-striped table-condensed">
+        	     <thead>
+                    <tr class="info_tr info">
+                        <th style="text-align: center;"><?php _e('序号'); ?></th>
+                        <th><?php _e('用户名'); ?></th>
+                        <th><?php _e('日期'); ?></th>
+                        <th><?php _e('奖励'); ?></th>
+                        <th><?php _e('备注'); ?></th>
+                    </tr>
+                 </thead>
+                 <tbody id="invitation_list2">
+                     
+                 </tbody>
+
+             </table>
+            <a id="load_favorite" class="aw-load-more" style="width:50%;margin:0 auto 5px auto;"><i class="icon icon-loading icon-spin"></i>
+                            <span><?php _e('更多'); ?></span></a> 
+        </div>
+        
+        <img class="share_main_footer" src="<?php echo G_STATIC_URL; ?>/common/assets/Group2.png">
+        
+	</div>
+    
+</div>
+
+
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
+<script type="text/javascript">
+    
+    // function copys()
+    // {
+    // 	$('#copys').select();
+    // 	document.execCommand('copy',false,null); 
+    // 	alert('复制成功～');
+    // }
+
+    function ButtonClick(){
+	    var clipboard = new Clipboard('.share_main_cos_btn', {
+	        target: function() {
+	            return document.querySelector('#copys');
+	        }
+
+	    });
+	    clipboard.on('success',function(){
+	        alert("复制成功");
+	    })
+	}
+
+    function goDown(src)
+    {   
+        location.href = G_BASE_URL + '/m/ajax/downImg/?src='+src;
+    }
+
+
+    function SaveAs1(imgURL)
+	{   
+		var oPop = window.open(imgURL,"","width=1, height=1, top=5000, left=5000");
+
+		for(; oPop.document.readyState != "complete"; )
+
+		{ if (oPop.document.readyState == "complete")break; }
+
+		oPop.document.execCommand("SaveAs"); oPop.close();
+
+	}
+
+    $(document).ready(function() {
+
+            // AWS.load_indexs_view(G_BASE_URL + '/invitation/ajax/invitation_list2/',{},$("#load_explore"),$("#invitation_list2"),$("#load_explore").attr('data-page'));
+            
+
+            AWS.load_list_view(G_BASE_URL + '/invitation/ajax/invitation_list2/', $('#load_favorite'), $('#invitation_list2'));
+
+         //    var range = 50;  
+	        // var _srollPos = 0;
+	        // var pageNum = 2;
+	        // var totalheight = 0; 
+	        // var main = $("#list_article");
+	        // var js = 0;
+	        // $(window).scroll(function(){
+	        //     var srollPos = $(window).scrollTop();
+	        //    if(srollPos<_srollPos){
+	        //         return;
+	        //     }else{
+	        //         _srollPos = srollPos;
+	        //     }
+	        //     totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+	        //     if(($(document).height()-range) <= totalheight ) {
+	            
+	        //             if($("#load_explore").attr('data-check') == 1)
+		       //          {  
+		       //             $("#load_explore").show();
+		       //             AWS.load_indexs_view(G_BASE_URL + '/invitation/ajax/invitation_list2/',{},$("#load_explore"),$("#invitation_list2"),$("#load_explore").attr('data-page'));
+		       //          }
+	        //     }
+	        // }); 
+    	
+    });
+</script>

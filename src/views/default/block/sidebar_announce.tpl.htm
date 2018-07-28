@@ -1,0 +1,21 @@
+<?php if($this->announce_list){ ?>
+        <style>
+			.pre{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;}
+			.p{ word-wrap: break-word;word-break: break-all;overflow: hidden;}
+		</style>
+
+<div class="aw-mod side-nav">
+<div class="mod-body">
+	<ul>
+		<li><a href="home/#site_announce__list" style="background-color: #499ef3;color:#fff;" rel="site_announce__list"><i class="icon icon-reader" style="color:#fff;"></i><?php _e('公告'); ?><span style="margin-left:90px;"><?php _e('更多'); ?></span></a></li>
+		<?php if($this->announce_list){ ?>
+		<?php foreach($this->announce_list as $key => $val){ ?>
+		<li><a href="home/#site_announce__detail++<?php echo $val['id'];?>"  rel="site_announce__detail++<?php echo $val['id'];?>"><?php if(mb_strlen($val['title'],'utf-8')>10){?><?php echo mb_substr($val['title'],0,10,'utf-8').'...'; ?><?php }else{?><?php echo $val['title'];?><?php }?></a></li>
+		<?php } ?>
+
+		<?php } ?>
+
+	</ul>
+</div>
+</div>
+<?php } ?>

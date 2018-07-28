@@ -1,0 +1,45 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+
+<body class="aw-wechat-body">
+	<div class="aw-wechat-login-box">
+		<h1><?php _e('YOYOW 扫码登录'); ?></h1>
+		<!--<i class="icon-wechat"></i>-->
+		<p align="center"><img src="data:image/png;base64, <?php echo $this->base64img ?>" alt="" /></p>
+		<span class="info" style="width:340px;">
+			<?php _e('请使用YOYOW APP扫描二维码登录'); ?>
+		</span>
+	</div>
+
+<script type="text/javascript">
+	var RETURN_URL = '<?php if ($_GET['return_url']) { echo base64_decode($_GET['return_url']); } ?>';
+
+	$(document).ready(function () {
+		setInterval(function () {
+			$.get(G_BASE_URL + '/account/ajax/yoyow_login_process/', function (response) {
+				if (response.errno == 1)
+				{
+					if (RETURN_URL != '')
+					{
+						window.location = RETURN_URL;
+					}
+					else
+					{
+					    // 跳转至首页
+						window.location = G_BASE_URL;
+					}
+				}
+                if (response.errno == 2)
+                {
+						// 跳转至注册页面
+                    window.location = G_BASE_URL + "/account/register/?yoyow="+response.rsm;
+                }
+			}, 'json');
+		}, 1500);
+	});
+
+	setInterval(function () {
+		window.location.reload();
+	}, 300000);
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<!-- 内容 -->
+<div class="container padding-0">
+    <!-- 个人信息 -->
+    <div class="aw-people-income">
+        <div class="mod-head clearfix">
+            <!--<img src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" alt="" class="img" width="50" />-->
+            <div class="title clearfix">
+                <h1 class="pull-left">
+                    <span>收益概述</span>
+                </h1>
+            </div>
+        </div>
+        <div class="mod-body clearfix">
+            <ul>
+                <li>
+                    <?php _e('说明')?>
+                </li>
+                <li>
+                    <?php _e('获得奖励(yoyow)')?>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end 个人信息 -->
+    <div class="aw-income-box">
+        <div class="tab-content">
+            <!-- 参与列表 -->
+            <div class="tab-pane active" id="income-sum">
+                <div class="aw-income-list active">
+                    <div class="mod-body">
+                        <ul id="income-sum-listview">
+                            <?php foreach ($this->income_sum_list AS $key => $val) {?>
+                            <li>
+                                <div class="mod-body list-cotnent"  style="padding:10px 0;display:flex;display: -webkit-flex;align-items:center;">
+                                    <p style="display: inline-block;width: 50%;">
+                                        <?php if($val['type'] == 0){ ?>
+                                        <!--积分奖励-->
+                                            <span style="text-align:left; width: 85%;">
+                                                从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>
+                                                    到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>
+                                                    ，获取<?php echo $val['coin'] . 'yoyow'; ?>
+                                            </span><br/><br/>
+                                            <span style="width: 15%;">
+                                                <span style="border-radius: 10px;background-color: #cc6633; color: #ffffff;padding: 5px 10px;">日常奖励</span>
+                                            </span>
+                                        <!--积分奖励 end-->
+                                        <?php } else if($val['type'] == 1) { ?>
+                                        <!--提成奖励-->
+                                            <span style="text-align:left; width: 85%;">
+                                                从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>
+                                                    到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>
+                                                    ，获得提成<?php echo $val['coin'] . 'yoyow'; ?>
+                                            </span><br/><br/>
+                                            <span style="width: 15%;">
+                                                <span style="border-radius: 10px;background-color: #a47e3c; color: #ffffff;padding: 5px 10px;">提成奖励</span>
+                                            </span>
+                                        <!--提成奖励 end-->
+                                        <?php } else if($val['type'] == 2) { ?>
+                                        <!--邀请奖励-->
+                                            <span style="text-align:left; width: 85%;">
+                                                <?php if($val['distribute_result'] == 0) {?>
+                                                    <!--直接奖励-->
+                                                    <?php _e('注册奖励'.$val['coin'].'yoyow'); ?>
+                                                <?php } else if($val['distribute_result'] == 1) { ?>
+                                                    <!--一级奖励-->
+                                                     被邀请用户<a href="people/<?php echo $val['remark']; ?>"><?php _e($val['remark']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+                                                 <?php } else if($val['distribute_result'] == 2) { ?>
+                                                    <!--二级奖励-->
+                                                被邀请用户<a href="people/<?php echo $val['remark']; ?>"><?php _e($val['remark']); ?></a>邀请新用户
+                                                        <a href="people/<?php echo $val['origin']; ?>"><?php _e($val['origin']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+                                                 <?php } ?>
+                                            </span><br/><br/>
+                                            <span style="width: 15%;">
+                                                <?php  if($val['distribute_result'] == 0){?>
+                                                    <span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;">注册奖励</span>
+                                                <?php }else{?>
+                                                    <span style="border-radius: 10px;background-color: #3c763d; color: #ffffff;padding: 5px 10px;">邀请奖励</span>
+                                                <?php }?>
+                                            </span>
+                                        <!--邀请奖励 end-->
+                                        <?php } else if($val['type'] == 4){?>
+                                            <!--注册奖励-->
+                                            <span style="text-align:left; width: 85%;">
+                                                <?php echo $val['remark'].",获取".$val['coin']."yoyow";?>
+                                            </span><br/><br/>
+                                            <span style="width: 15%;">
+                                                    <?php if(strpos($val['remark'],'用户威望奖励')!==false){?>
+                                                <span style="border-radius: 10px;background-color: #499ef3; color: #ffffff;padding: 5px 10px;"><?php echo '额外奖励';?></span>
+                                                <?php }else{?>
+                                                <span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;"><?php echo '注册奖励';?></span>
+                                                <?php }?>
+                                            </span>
+                                            <!--注册奖励 end-->
+                                        <?php }?>
+                                    </p>
+                                    <p style="display: inline-block;width: 30%;padding-left: 10px;">
+                                        <?php echo $val['coin']; ?>
+                                    </p>
+                                </div>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+
+                    <div class="mod-footer">
+                        <a class="aw-load-more" id="load_join" data-page="2" auto-load="false"><i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- end 参与列表 -->
+        </div>
+    </div>
+</div>
+<!-- end 内容 -->
+
+<script type="text/javascript">
+    $(function(){
+        $("#load_join").click(function(){
+            var _this = $(this);
+            $(this).addClass('loading');
+            var page = $(this).attr("data-page");
+            var next_page = parseInt(page) + 1;
+            $.ajax({
+                type:'POST',
+                url: G_BASE_URL + '/m/ajax/ajax_people_income_sum/',
+                data:{page:page},
+                success:function(res){
+                    if(res){
+                        $("#income-sum-listview").append(res);
+                        $("#load_join").attr("data-page",next_page);
+                        _this.removeClass('loading');
+                    }else{
+                        _this.removeClass('loading');
+                        alert("已经展示全部内容");
+                    }
+
+                }
+            })
+        });
+    });
+
+
+
+    var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
+
+    var ACTIVITY_ACTIONS = '<?php echo implode(',', array(
+    ACTION_LOG::ADD_QUESTION,
+        ACTION_LOG::ANSWER_QUESTION,
+        ACTION_LOG::ADD_REQUESTION_FOCUS,
+        ACTION_LOG::ADD_AGREE,
+        ACTION_LOG::ADD_TOPIC,
+        ACTION_LOG::ADD_TOPIC_FOCUS,
+        ACTION_LOG::ADD_ARTICLE,
+        ACTION_LOG::ADD_AGREE_ARTICLE,
+        ACTION_LOG::ADD_COMMENT_ARTICLE
+    )); ?>';
+
+
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

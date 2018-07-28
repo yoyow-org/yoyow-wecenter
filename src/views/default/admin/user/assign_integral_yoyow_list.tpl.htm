@@ -1,0 +1,47 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+                <?php if ($this->integral_coin_list) { ?>
+                <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><?php _e('积分获取时间');?></th>
+                                <th><?php _e('积分数');?></th>
+                                <th><?php _e('分币数');?></th>
+                                <th><?php _e('备注');?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->integral_coin_list AS $key => $val) { ?>
+                            <tr>
+                                <td><?php _e($val['integral_time'] ? date('Y-m-d H:i:s',$val['integral_time']) : ''); ?></td>
+                                <td><?php _e($val['integral']); ?></td>
+                                <td><?php _e($val['coin']); ?></td>
+                                <td><?php _e($val['note']); ?></td>
+                            </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                </div>
+                <div class="mod-table-foot">
+                    <span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+                </div>
+                <?php } else { ?>
+                <div class="alert alert-info">
+                        无数据
+                </div>
+                <?php }?>
+                <div class="mod-table-foot">
+                    <a class="btn btn-default" onclick="window.history.go(-1);"><?php _e('返回'); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

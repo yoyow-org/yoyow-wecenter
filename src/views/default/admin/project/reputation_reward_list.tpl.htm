@@ -1,0 +1,98 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li><a href="admin/project/register_bind_list/"><?php _e('注册绑定活动管理'); ?></a></li>
+                    <li class="active"><a href="admin/project/reputation_reward_list/"><?php _e('威望奖励发放'); ?></a></li>
+                    <li><a href="admin/project/register_bind_setting/"><?php _e('注册绑定参数设置'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+            <form action="admin/user/reputation_reward_list" method="post" onsubmit="return false;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><?php _e('ID'); ?></th>
+                            <th><?php _e('用户名称'); ?></th>
+                            <th><?php _e('威望'); ?></th>
+                            <th><?php _e('状态'); ?></th>
+                            <th><?php _e('发币状态'); ?></th>
+                        </tr>
+                    </thead>
+
+                    <?php if ($this->reputation_reward_list) { ?>
+                    <tbody>
+                        <?php foreach ($this->reputation_reward_list AS $info) { ?>
+                        <tr>
+                            <td><?php echo $info['id']; ?></td>
+                            <td><?php echo $info['user_name']; ?></td>
+                            <td>
+                                <?php echo $info['reputation'] ?>
+                            </td>
+                            <td>
+                                <?php switch ($info['status']) {
+                                case 0:
+                                    _e('未发放');
+                                    break;
+
+                                case 1:
+                                    _e('已发放');
+                                    break;
+                                } ?>
+                            </td>
+                            <td>
+                                <?php switch ($info['yoyow_status']) {
+                                case 0:
+                                    _e('发放成功');
+                                    break;
+
+                                case 1:
+                                    _e('发放失败');
+                                    break;
+                                case 2:
+                                    _e('未提现');
+                                    break;
+                                case 3:
+                                    _e('--');
+                                    break;
+                                } ?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                    <?php } ?>
+            </table>
+                <div class="mod-table-foot">
+                    <a class="btn btn-primary add" id="reputationrewardBtnId"><?php _e('威望奖励分币'); ?></a>
+                    <?php _e('待发放总奖励：'.$this->issued_sum_yoyow.'yoyow'); ?>
+                    <?php _e('&nbsp;&nbsp;平台余额：'.$this->account_prepaid.'yoyow'); ?>
+                </div>
+            </form>
+
+            <div class="mod-table-foot">
+                <span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        $('#reputationrewardBtnId').click(function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定发放威望奖励？'); ?>'},function(){
+                $('.modal-backdrop').css({display:'none'});
+                AWS.ajax_request(G_BASE_URL + '/admin/ajax/reputation_reward_task/' , $('form').serialize())
+            });
+        })
+
+    })
+
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

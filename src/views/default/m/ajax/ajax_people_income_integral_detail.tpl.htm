@@ -1,0 +1,15 @@
+<?php foreach ($this->integral_detail AS $key => $val) { ?>
+<li>
+    <div class="mod-body" style="padding-top: 10px;">
+        <p style="margin: 0 0 0 20px;padding: 5px 0;">
+            <span>获取时间：</span><span><?php echo $val['integral_time']; ?></span>
+        </p>
+        <p style="margin: 0 0 0 20px;padding: 5px 0;">
+            <span>获得币数：</span><?php echo $val['coin']; ?>
+        </p>
+        <p style="margin: 0 0 0 20px;padding: 5px 0;">
+            <span>相关信息：</span><?php echo $val['note']; ?>
+        </p>
+    </div>
+</li>
+<?php }?>

@@ -1,0 +1,9 @@
+<?php if ($this->invitation_sort_list) { ?>
+<?php foreach($this->invitation_sort_list as $key => $val) { ?>
+<tr>
+    <td><?php echo $val['ranking'];?></td>
+    <td><?php echo $val['user_name'];?></td>
+    <td><?php echo $val['invite_num'];?></td>
+    <td><?php echo $val['yoyow_num'];?></td>
+</tr>
+<?php  } } ?>

@@ -1,0 +1,29 @@
+<?php if ($this->invitation_list) { ?>
+<?php foreach($this->invitation_list as $key => $val) { ?>
+<tr class="info_td info">
+<?php if($val['coin_type'] == 1) { ?>
+<!--一级奖励-->
+
+    <td style="text-align: center;" ><?php _e($val['ranking']); ?></td>
+    <td ><a href="people/<?php echo $val['first_name']; ?>"><?php _e($val['first_name']); ?></a></td>
+    <td ><?php _e($val['invitation_detail']['active_time'] ? date('Y-m-d',$val['invitation_detail']['active_time']) : ''); ?></td>
+    <td ><?php _e($val['coin']. '<br/>YOYOW'); ?></td>
+
+    <td width="26%">邀请<a href="people/<?php echo $val['first_name']; ?>"><?php _e($val['first_name']); ?></a>注册</td>
+<!--二级奖励-->
+<?php } else if($val['coin_type'] == 2) { ?>
+    <td style="text-align: center;"><?php _e($val['ranking']); ?></td>
+    <td><a href="people/<?php echo $val['second_name']; ?>"><?php _e($val['second_name']); ?></a></td>
+    <td><?php _e($val['invitation_detail']['active_time'] ? date('Y-m-d',$val['invitation_detail']['active_time']) : ''); ?></td>
+    <td><?php _e($val['coin'].'<br/>YOYOW'); ?></td>
+
+    <td >
+        <a href="people/<?php echo $val['first_name']; ?>">
+            <?php _e($val['first_name']); ?>
+        </a>邀请
+        <a href="people/<?php echo $val['second_name']; ?>">
+            <?php _e($val['second_name']); ?>
+        </a>注册
+    </td>
+</tr>
+<?php } } } ?>

@@ -1,0 +1,72 @@
+<?php if($this->user_lists_count > 0){?>
+<?php foreach($this->user_lists as $key => $val){?>
+<?php $class = $key % 2 == 0 ? "show-left fl" : "show-right fr" ?>
+<div class="<?php echo $class?> user-info clearfix">
+    <div class="content-box1 clearfix fl">
+        <div class="user-img fl">
+            <a href="column/detail/uid-<?php echo $val['uid']?>">
+                <img class="avatar" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
+            </a>
+            <?php if($this->friend_uids){?>
+            <?php if ($val['uid'] != $this->user_id AND $this->user_id) { ?>
+            <a class="follow <?php if (in_array($val['uid'],$this->friend_uids)){?>active<?php } ?>" data-uid="<?php echo $val['uid']?>"  href="javascript:void(0)">
+                                                            <span>
+                                                                <?php if (in_array($val['uid'],$this->friend_uids)){ ?>
+                                                                    <input type="hidden" value="关注">
+                                                                    <img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/follow_del.png">
+                                                                <?php } else {?>
+                                                                <input type="hidden" value="取消关注">
+                                                                    <img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/follow_add.png">
+                                                                <?php }?>
+                                                            </span>
+            </a>
+            <?php }?>
+            <?php }else{?>
+            <a class="follow" href="<?php echo base_url()?>/?/account/login/">
+                                                    <span>
+                                                        <img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/follow_add.png">
+                                                    </span>
+            </a>
+            <?php }?>
+        </div>
+        <div class="content fl">
+            <a href="column/detail/uid-<?php echo $val['uid']?>">
+                <p class="nickname"><?php echo $val['user_name']?> <?php if ($val['verified']) { ?><i class="icon-v <?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></p>
+            </a>
+            <p class="digest">
+                <!--测试数据暂无-->
+            </p>
+            <div>
+                <?php $votes = isset($val['all_votes']) ? $val['all_votes'] : 0?>
+                <?php if($votes > 10000){?>
+                <span>
+                                                        <i class="icon icon-agree"></i>
+                    <?php echo sprintf("%.1f",$votes / 10000) ?>万+
+                                                    </span>
+                <?php }else{ ?>
+                <span>
+                                                        <i class="icon icon-agree"></i>
+                    <?php echo $votes?>
+                                                    </span>
+                <?php }?>
+                <span><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/fans.png">  <?php echo $val['fans_count']?></span>
+            </div>
+        </div>
+    </div>
+    <div class="content-box2 fl">
+        <div>
+            <?php $views = isset($val['all_views']) ? $val['all_views'] : 0 ?>
+            <?php if($views >= 10000){?>
+            <p>浏览量　<span><?php echo sprintf("%.1f",$views / 10000) ?></span>万+</p>
+            <?php }else{ ?>
+            <p>浏览量　<span><?php echo $views?></span></p>
+            <?php }?>
+            <p>文章数　<span><?php echo $val['article_count']?></span></p>
+            <p>收益数　<span><?php echo ceil($val['all_coin'])?></span></p>　
+        </div>
+    </div>
+</div>
+<?php }?>
+<?php }?>
+<input id="user-list-page" type="hidden" data-page="<?php echo $this->next_page?>">
+<input id="user-list-sort" type="hidden" data-column-sort="<?php echo $this->column_sort?>">

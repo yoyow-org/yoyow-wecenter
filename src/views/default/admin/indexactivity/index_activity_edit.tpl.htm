@@ -1,0 +1,117 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+<style>
+	.form_control{display: block;height:30px;width:400px;font-size:14px;color:#555;background-color: #fff;border:1px solid #ccc;border-radius: 4px;margin-left:500px;margin-top:-20px;margin-bottom: 10px;}
+</style>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/index_activity_list/"><?php _e('首页活动'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="tab-content mod-content">
+
+			<form id="site_link_form" action="admin/ajax/save_index_activity/" method="post">
+				<?php if(!empty($this->index_activity) && !empty($this->index_activity["id"])){ ?>
+				<input type="hidden" name="id" value="<?php echo $this->index_activity['id']; ?>" />
+				<?php } ?>
+				<table class="table table-striped">
+                <div class="col-sm- col-xs-9">
+                    <?php if(!empty($this->index_activity)){ ?>
+
+						标题：<input class="form_control " name="title" value="<?php echo $this->index_activity['title'] ?>"/>
+					图片：<div class="aw-mod aw-editor-box article-cover" style="margin-left:500px;margin-bottom: 10px;">
+						<div class="side-bar clearfix">
+							<p>
+								<input id='doc' type="file" name="linkurl" accept="image/*" class="form-control" multiple />
+								<?php _e('支持 jpg、jpeg、png、gif格式的图片,图片最大为5M'); ?>
+							</p>
+							<img class="live_img aw-border-radius-5 fl" style="width:230px;height:250px;" src="<?php echo $this->index_activity['linkurl']; ?>?rand=<?php echo rand(1, 999); ?>" id="article_src" />
+							<div style="width:230px;height:250px;" class="fl" id="localImag">
+								<img src="" class="aw-border-radius-5" id="preview" alt="">
+							</div>
+
+						</div>
+					</div>
+                    <?php }else{ ?>
+                        标题：<input class="form_control " name="title"/>
+					图片：<div class="aw-mod aw-editor-box article-cover" style="margin-left:500px;margin-bottom: 10px;">
+						<div class="side-bar clearfix">
+							<p>
+								<input id='doc' type="file" name="linkurl" accept="image/*" class="form-control" multiple />
+								<?php _e('支持 jpg、jpeg、png、gif格式的图片，图片最大为5M'); ?>
+							</p>
+							<img class="live_img aw-border-radius-5 fl" src="/static/common/article-cover-min.png?rand=<?php echo rand(1, 999); ?>">
+							<div style="width:230px;height:250px;" class="fl" id="localImag">
+								<img src="" class="aw-border-radius-5" id="preview" alt="">
+							</div>
+
+						</div>
+					</div>
+                    <?php } ?>
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#site_link_form'));" />
+						</td>
+					</tr>
+
+                </div>
+				</table>
+			</form>
+
+		</div>
+	</div>
+</div>
+<script>
+    $(function(){
+        $("#localImag").css("display","none");
+        $(".article-cover input[name='linkurl']").change(function(){
+            var file = $(this).val();
+            if(file.length > 0){
+                setImagePreview(file);
+                $("#localImag").css("display","block");
+                $(".live_img").css("display","none");
+            }
+        });
+    })
+
+    function setImagePreview(avalue) {
+        var docObj = document.getElementById("doc");
+        //img
+        var imgObjPreview = document.getElementById("preview");
+        //div
+        var divs = document.getElementById("localImag");
+        if (docObj.files && docObj.files[0]) {
+            //火狐下，直接设img属性
+            imgObjPreview.style.display = 'block';
+            imgObjPreview.style.width = '230px';
+            imgObjPreview.style.height = '250px';
+            //imgObjPreview.src = docObj.files[0].getAsDataURL();
+            //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+        } else {
+            //IE下，使用滤镜
+            docObj.select();
+            var imgSrc = document.selection.createRange().text;
+            var localImagId = document.getElementById("localImag");
+            //必须设置初始大小
+            localImagId.style.width = "230px";
+            localImagId.style.height = "250px";
+            //图片异常的捕捉，防止用户修改后缀来伪造图片
+            try {
+                localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"
+                localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+            } catch(e) {
+                alert("您上传的图片格式不正确，请重新选择!");
+                return false;
+            }
+            imgObjPreview.style.display = 'none';
+            document.selection.empty();
+        }
+        return true;
+    }
+</script>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

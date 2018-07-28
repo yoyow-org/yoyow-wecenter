@@ -1,0 +1,135 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li><a href="admin/user/assign_task_list/"><?php _e('手动分配任务'); ?></a></li>
+					<!--<li><a href="admin/user/assign_trigger_list/"><?php _e('自动分配任务'); ?></a></li>-->
+					<li class="active"><a href="admin/user/reward_task_list/"><?php _e('奖励分配任务'); ?></a></li>
+					<li><a href="admin/user/yoyow_coin_settings/"><?php _e('YOYOW币设置'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active">
+				<div class="table-responsive">
+					<form action="admin/user/reward_task_list" method="post" onsubmit="return false;">
+						<table class="table table-striped table-list">
+							<thead>
+							<tr>
+								<th><input type="checkbox" class="check-all"></th>
+								<th>ID</th>
+								<th><?php _e('获取奖励用户'); ?></th>
+								<th><?php _e('币数'); ?></th>
+								<th><?php _e('类型');?></th>
+								<th><?php _e('说明'); ?></th>
+								<th><?php _e('时间');?></th>
+								<th><?php _e('是否分币');?></th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($this->task_list AS $key => $val) { ?>
+							<tr>
+								<?php if($val['has_ditribute']=='0' ){?>
+								<td><input type="checkbox" name="id[]" id="ischeck"  value="<?php _e($val['id']); ?>"></td>
+								<?php }else{ ?>
+								<td></td>
+								<?php } ?>
+								<td><?php _e($val['id']); ?></td>
+								<td><?php _e($val['coin_user_name']); ?></td>
+								<td><?php _e($val['coin']); ?></td>
+								<td><?php if($val['coin_type']=='0'){
+										_e('注册奖励');
+									}else if($val['coin_type']=='1'){
+										_e('一级奖励');
+									}else if($val['coin_type']=='2'){
+										_e('二级奖励');
+									}?></td>
+								<td><?php _e($val['mark']);?></td>
+								<td><?php _e(date('Y-m-d H:i:s',$val['time'])); ?></td>
+								<td><?php if($val['has_ditribute']=='0' && $val['bind'] ==1){
+										_e('未分币');
+									}else if($val['has_ditribute']=='1' && $val['bind'] ==1){
+										_e('已分币');
+									}else if($val['has_ditribute']=='2' && $val['bind'] ==1){
+										_e('分币失败');
+									}else if($val['has_ditribute']=='3' && $val['bind'] ==0){
+										_e('未提现');
+									}else if($val['has_ditribute']=='4'){
+										_e('已作废');
+								    }else {
+										_e('未绑定yoyow账号');
+								    }?></td>
+							</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+						<div class="mod-table-foot">
+							<a class="btn btn-primary add" id="rewardBtnId"><?php _e('分币'); ?></a>
+							<a class="btn btn-primary add" id="allrewardBtnId"><?php _e('全部分币'); ?></a>
+							<?php _e('待发放总奖励：'.$this->issued_sum_yoyow.'yoyow'); ?>
+							<?php _e('&nbsp;&nbsp;平台余额：'.$this->account_prepaid.'yoyow'); ?>
+						</div>
+					</form>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
+    $(function() {
+
+        $('#rewardBtnId').click(function () {
+            var ischeck = false;
+            var ck = $(':input[type=checkbox]');
+            ck.each(function () {
+                if ($(this).is(':checked')) {
+                    ischeck = true;
+                }
+            });
+            if(ischeck==true) {
+                AWS.dialog('confirm',{'message': '<?php _e('确定对所选数据进行分币？'); ?>'},function(){
+                    AWS.ajax_request(G_BASE_URL + '/admin/ajax/reward_task_id/' , $('form').serialize())
+                });
+            }else{
+                AWS.alert('请选择要分币的数据');
+            }
+        })
+        $('#allrewardBtnId').click(function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定全部发放奖励？'); ?>'},function(){
+                $('.modal-backdrop').css({display:'none'});
+                AWS.ajax_request(G_BASE_URL + '/admin/ajax/all_invite_reward_task/' , $('form').serialize())
+            });
+        })
+
+        function DateToUnix($date) {
+            /**
+             * 日期 转换为 Unix时间戳
+             * @param <string> 2014-01-01 20:20:20  日期格式
+             * @return <int>        unix时间戳(毫秒)
+             */
+            var f = $date.split(' ', 2);
+            var d = (f[0] ? f[0] : '').split('-', 3);
+            var t = (f[1] ? f[1] : '').split(':', 3);
+            return (new Date(
+                parseInt(d[0], 10) || null,
+                (parseInt(d[1], 10) || 1) - 1,
+                parseInt(d[2], 10) || null,
+                parseInt(t[0], 10) || null,
+                parseInt(t[1], 10) || null,
+                parseInt(t[2], 10) || null
+            )).getTime();
+
+
+        }
+    })
+
+</script>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

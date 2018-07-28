@@ -1,0 +1,97 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<div class="aw-container-wrap">
+    <?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+
+                    <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+
+
+                        <h2 class="hidden-xs"> <b><?php _e('全部公告'); ?></b></h2>
+                    </ul>
+                    <!-- end tab切换 -->
+
+
+                    <div class="aw-mod aw-explore-list">
+                        <div class="mod-body">
+                            <div class="aw-feed-list" style="">
+                                <?php foreach($this->announce_lists as $key => $val){?>
+                                <div class="aw-item" style="border-bottom: 1px solid #e6e6e6;">
+                                    <a href="explore/ajax/site_announce_detail/id-<?php echo $val['id'];?>" id="site_announce_link" rel="site_announce__detail++<?php echo $val['id'];?>"><?php echo $val['title']; ?></a><span style="float:right;font-size: 12px;color:#666;"><?php echo date('Y-m-d H:i:s',$val['time']);?></span>
+                                </div>
+                                <?php }?>
+
+                            </div>
+                        </div>
+                        <div class="mod-footer">
+                            <!-- 加载更多内容 -->
+                            <a id="bp_more" class="aw-load-more-content" data-page="1">
+                                <span><?php _e('更多'); ?></span>
+                            </a>
+                            <!-- end 加载更多内容 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_announces.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+                </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function()
+    {
+
+
+        $('#bp_more').click(function()
+        {
+            var _this = this;
+            var request_url = G_BASE_URL + '/explore/ajax/site_announce_list_model/page\-' + $(this).attr('data-page');
+            $(this).addClass('loading');
+
+
+            $.get(request_url, function (response)
+            {
+
+                if (response.length)
+                {
+                    if ($(this).attr('data-page') == 0)
+                    {
+                        $('.aw-feed-list').html(response);
+                    }
+                    else
+                    {
+                        $('.aw-feed-list').append(response);
+                    }
+
+
+                    $(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
+                }
+                else
+                {
+                    $(_this).addClass('disabled');
+
+                    $(_this).find('span').html(_t('没有更多了'));
+                }
+
+                $(_this).removeClass('loading');
+            })
+
+            return false;
+        });
+
+    })
+
+</script>
+<?php TPL::output('global/footer1.tpl.htm'); ?>

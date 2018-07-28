@@ -1,0 +1,166 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<style>
+	.bdshare-button-style0-16 a{
+		margin: 6px 15px 6px 10px;
+	}
+	.bd_weixin_popup .bd_weixin_popup_main {
+		padding: 10px 10px;
+	}
+	.aw-user-name img, .aw-topic-name img{width: 230px;height: 150px;}
+	.aw-article-list .aw-item{position: relative;margin-top:20px;padding:0 20px 40px 260px;border-bottom:1px solid #e1e1e1;height:200px;}
+</style>
+<div class="aw-container-wrap">
+	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-article-list">
+						<?php if ($this->article_list) { ?>
+						<?php foreach ($this->article_list AS $key => $val) { ?>
+						<div class="aw-item">
+							<?php if(get_article_cover_url($val['id'])){?>
+
+								<a class="aw-user-name hidden-xs" href="article/<?php echo $val['id']?>">
+									<img src="<?php echo get_article_cover_url($val['id']); ?>?rand=<?php echo rand(1, 999); ?>">
+								</a>
+							<?php }else{?>
+								<a class="aw-user-name hidden-xs" href="article/<?php echo $val['id']?>">
+									<img class="live_img aw-border-radius-5 fl" src="/static/common/Article_default_cover_<?php echo rand(1,5)?>.jpg">
+								</a>
+							<?php }?>
+
+							<div class="aw-content">
+								<div class="mod-body">
+									<h2>
+										<?php if (cjk_strlen($val['title']) > 21 ) { ?>
+										<a href="article/<?php echo $val['id']; ?>"><?php echo cjk_substr($val['title'],0,21,'UTF-8','...'); ?></a>
+										<?php }else{?>
+										<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+										<?php }?>
+                                        <?php if($val['is_top']){?>
+                                            <span style="position: relative;bottom: 3px;color:white;background-color:red;margin:0 0 5px 5px;font-size:12px;padding:2px;">置顶</span>
+                                        <?php }?>
+                                    </h2>
+									<div class="aw-topic-bar">
+										<div class="tag-bar clearfix">
+											<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
+											<span class="topic-tag">
+												<a href="topic/<?php echo $topic_val['url_token']; ?>" class="text" data-id="<?php echo $topic_val['topic_id']; ?>"><?php echo $topic_val['topic_title']; ?></a>
+											</span>
+											<?php } ?>
+										</div>
+									</div>
+									<div class="content-wrap">
+										<div class="content" id="detail_<?php echo $val['id']; ?>">
+											<div class="hide-content markitup-box">
+												<?php
+												$m1=array();
+												$strbefore = htmlspecialchars_decode($val['message']);
+
+												$strafter='';
+                                                    preg_match_all('/<[a-z]*?>/i',$strbefore,$m1);
+												    foreach($m1[0] as $k=>$value){
+												      $strbefore = strip_tags(str_replace($value,'',$strbefore));
+												     }
+													preg_match_all('/<img.*?>/i',$strbefore,$m1);
+													foreach($m1[0] as $k=>$value){
+														$strbefore = strip_tags(str_replace($value,'',$strbefore));
+													}
+												    $strafter = cjk_substr($strbefore,0,50,'UTF-8','...');
+
+                                                   echo $strafter;
+                                                 ?>
+											</div>
+
+											<?php if (cjk_strlen($strbefore) > 50 ) { ?>
+											<a class="more" href="/article/<?php echo $val['id']; ?>"><?php _e('继续阅读'); ?> »</a>
+											<?php } ?>
+										</div>
+									</div>
+								</div>
+								<input type="hidden" id="share_content" value=""/>
+								<input type="hidden" id="share_url" value=""/>
+								<input type="hidden" id="share_title" value=""/>
+								<div class="mod-footer clearfix">
+									<span class="pull-right more-operate text-color-999">
+										<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
+										<?php if($val['yoyow_article_income']>0){?> <span style="color:#999;margin-left:10px;">奖励：¥<?php echo $val['yoyow_article_income'];?></span><?php } ?>
+										<a class="text-color-999" href="article/<?php echo $val['id']; ?>"><i class="icon icon-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a>
+										<a class="text-color-999 dropdown-toggle" data-toggle="dropdown" data-name="<?php echo $val['title'];?>" data-id="<?php echo base_url().'/?/article/'.$val['id'];?>" onclick="article_share(this)">
+											<i class="icon icon-share"></i> <?php _e('分享'); ?>
+										</a>
+										<!--<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+											<ul class="aw-dropdown-list">
+												<li><a onclick="AWS.User.share_out({webid: 'tsina', content: $(this).parents('.aw-item').find('.markitup-box')});"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'qzone', content: $(this).parents('.aw-item')});"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'weixin', content: $(this).parents('.aw-item')});"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
+											</ul>
+										</div>-->
+										<div class="bdsharebuttonbox aw-dropdown shareout pull-right">
+										<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+										<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+										<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+									</div>
+									</span>
+								</div>
+							</div>
+						</div>
+						<?php } ?>
+
+						<?php echo $this->pagination; ?>
+
+						<?php } ?>
+					</div>
+					<!-- end 文章列表 -->
+				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-3 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<!-- 热门文章 -->
+					<div class="aw-mod aw-text-align-justify">
+						<div class="mod-head">
+							<h3><?php _e('热门文章'); ?></h3>
+						</div>
+						<div class="mod-body font-size-14">
+							<ul>
+								<?php foreach($this->hot_articles AS $key => $val) { ?>
+								<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+					<!-- end 热门文章 -->
+					<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+        function article_share(obj){
+            $('#share_content').val($(obj).attr("data-name"));
+            $('#share_title').val($(obj).attr("data-name"));
+            $('#share_url').val($(obj).attr("data-id"));
+        }
+        window._bd_share_config={
+            "common":{
+                bdText : '',
+                bdDesc : '',
+                bdUrl : '',
+                onBeforeClick:function(cmd,config){
+                    return {bdText:$('#share_content').val(),
+                        bdDesc:$('#share_title').val(),
+                        bdUrl:$('#share_url').val()
+                    }
+                }
+            },
+            "share":{}
+        };
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src=document.location.protocol + '//'+ window.location.host +'/bdimgshare/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

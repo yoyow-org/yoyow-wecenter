@@ -1,0 +1,93 @@
+<?php if ($this->log) { ?>
+<?php foreach ($this->log AS $key => $val) { ?>
+<tr>
+	<!--<td style="text-align:center"><span><?php echo $val['id']; ?></span></td>-->
+	<td style="text-align:center"><?php echo date('Y-m-d',$val['act_strat_time']); ?>——<?php echo date('Y-m-d',$val['act_end_time']); ?></td>
+	<td style="text-align:center"><span><?php echo $val['coin'] . 'yoyow'; ?></span></td>
+	<td style="text-align:center">
+        <?php if(sizeof($val['integral_list']) > 0){ ?>
+            <span
+                    onclick="if($(this).parent().parent().next().css('display') == 'none'){
+                            $('.table_detail').hide();
+                            $(this).parent().parent().next().show();
+                        }else {
+                            $(this).parent().parent().next().hide();
+                        }"
+                    style="color: #00a0e9; cursor: pointer;">
+                <?php echo _e('明细'); ?>
+            </span>
+        <?php } ?>
+    </td>
+	<!--<td><?php echo $val['remark']; ?></td>-->
+	<!--<td><?php echo substr( $val[1]['block_timestamp'],0,10); ?>——<?php echo substr( $val[1]['block_timestamp'],0,10);; ?></td>-->
+	<!--<td><span><?php echo $val[1]['op']['1']['fee']['total']['amount']; ?></span></td>-->
+	<!--<td><?php echo $val['remark']; ?></td>-->
+</tr>
+
+    <?php if(sizeof($val['integral_list']) > 0){ ?>
+        <tr style="display: none;" class="table_detail clear">
+            <td colspan="3">
+                <table style="width: calc(100% - 30px); margin: 10px 0 10px 30px;">
+                        <tr style="border-bottom: 1px solid #CCCCCC; height: 30px;">
+                            <td  width="20%" style="text-align:center"><?php _e('时间');?></td>
+                            <!--<td width="10%" style="text-align:center"><?php _e('积分数');?></td>-->
+                            <td width="10%" style="text-align:center"><?php _e('币数');?></td>
+                            <!--<td width="10%" style="text-align:center"><?php _e('备注');?></td>-->
+                            <td width="70%" style="text-align:center"><?php _e('相关信息');?></td>
+                        </tr>
+                        <?php foreach ($val['integral_list'] AS $key2 => $val2) { ?>
+                        <tr style="height: 30px;">
+                            <td style="text-align:center"><?php echo date('Y-m-d',$val2['integral_time']);?></td>
+                            <!--<td style="text-align:center"><?php echo $val2['integral'];?></td>-->
+                            <td style="text-align:center"><?php echo $val2['coin'];?></td>
+                            <!--<td style="text-align:center"><?php echo $val2['note'];?></td>-->
+                            <td style="text-align:center"><?php
+                                if ($this->integral_log_detail[$val2['integral_id']]) {
+                                    ?>
+                                    <a href="<?php echo $this->integral_log_detail[$val2['integral_id']]['url']; ?>">
+                                        <?php echo strip_tags(htmlspecialchars_decode($this->integral_log_detail[$val2['integral_id']]['title'])); ?></a>
+                                    <?php
+                                    } else {
+                                        ?> <?php
+                                        if(strstr($val2['note'],'#')){?>
+                                             <?php if(strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'点赞') && !strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'取消点赞')){ ?>
+                                             <?php echo "回答被赞";?>
+                                             <?php }else if(strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'踩') && !strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'取消踩')){?>
+                                             <?php echo "回答被踩";?>
+                                             <?php }else if(strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'取消踩')){?>
+                                             <?php echo "回答取消踩";?>
+                                             <?php }else if(strpos(substr($val2['note'],0,strpos($val2['note'], '#')),'取消点赞')){?>
+                                             <?php echo "回答取消点赞";?>
+                                            <?php }else {?>
+                                           <?php echo substr($val2['note'],0,strpos($val2['note'], '#'));?><?php }?>
+                                        <?php
+                                        }else{
+                                        ?>
+                                <?php if(strpos($val2['note'],'点赞') && !strpos($val2['note'],'取消点赞')){ ?>
+                                <?php echo "回答被赞";?>
+                                <?php }else if(strpos($val2['note'],'踩') && !strpos($val2['note'],'取消踩')){?>
+                                <?php echo "回答被踩";?>
+                                <?php }else if(strpos($val2['note'],'取消踩')){?>
+                                <?php echo "回答取消踩";?>
+                                <?php }else if(strpos($val2['note'],'取消点赞')){?>
+                                <?php echo "回答取消点赞";?>
+                                <?php }else {?>
+                                <?php echo $val2['note'];?><?php } ?><?php
+                                    }?> <?php
+                                } ?>
+                            </td>
+                            <!--<td style="text-align:center"><?php
+                                if ($this->integral_log_detail[$val2['integral_id']]) { ?>
+                                <a href="<?php echo $this->integral_log_detail[$val2['integral_id']]['url']; ?>">
+                                    <?php echo $val2['note'] ?></a>
+                                <?php } else { ?> <?php if(strstr($val2['note'],'#')){?><?php echo substr($val2['note'],0,strpos($val2['note'], '#'));?>
+                                <?php }else{?><?php echo $val2['note'];?><?php }?> <?php } ?>
+                            </td>-->
+                        </tr>
+                        <?php } ?>
+                </table>
+            </td>
+        </tr>
+    <?php } ?>
+<?php } ?>
+<?php } ?>

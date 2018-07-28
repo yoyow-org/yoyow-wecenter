@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css">
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/default/common.css">
+
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/icon.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<?php if (is_array($this->_import_css_files)) { ?>
+<?php foreach ($this->_import_css_files AS $import_css) { ?>
+<link type="text/css" rel="stylesheet" href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" />
+<?php } ?>
+<?php } ?>
+
+
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap-markdown.min.css">
+
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/jquery.2.js"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/bootstrap/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/bootstrap/marked.js"></script>
+
+<textarea id='editor' style='color:#000' ><?php echo html_entity_decode($this->question_info['question_detail'])?></textarea>
+
+<script>
+    var $markdownEditor = $("#editor");
+    $markdownEditor.markdown({
+        height:300,
+        savable:true,
+        onSave: function (e) {
+            parent.markdownIsSave = true;
+            parent.markdownContent =e.parseContent();
+        }
+    });
+
+</script>

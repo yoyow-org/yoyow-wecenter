@@ -1,0 +1,244 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<form action="admin/ajax/save_problem/" id="settings_form" method="post" onsubmit="return false">
+	<input type="hidden" name="id" value="<?php echo $this->problem_info['id']; ?>" />
+	<input type="hidden" id="right_keys" name="right_keys" value="<?php echo $this->problem_info['right_key']; ?>">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<?php if ($this->problem_info) { ?>
+				<ul class="nav nav-tabs">
+					<li><a href="admin/problem/list/"><?php _e('问题管理'); ?></a></li>
+					<li class="active"><a href="javascript:;"><?php _e('问题编辑'); ?></a></li>
+				</ul>
+				<!-- <span class="pull-left"><?php _e('问题编辑'); ?></span> -->
+				<?php } else { ?>
+				<ul class="nav nav-tabs">
+					<li><a href="admin/problem/list/"><?php _e('问题管理'); ?></a></li>
+					<li class="active"><a href="admin/problem/edit/"><?php _e('新建问题'); ?></a></li>
+				</ul>
+				<?php } ?>
+			</h3>
+		</div>
+
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题标题'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="text" name="title" value="<?php echo $this->problem_info['title']; ?>" class="form-control" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题答案'); ?>:</span>
+
+
+							<div class="col-sm-5 col-xs-8" id="yoyows">
+							</div>
+                            <button style="margin-top: 10px;" id="add_content"><?php _e('新增答案'); ?></button>
+
+                            <?php if ($this->problem_info) { ?>
+                            <button style="margin-top: 10px;" id="remove_content"><?php _e('重置答案'); ?></button>
+                            <?php } ?>
+						</div>
+					</td>
+				</tr>
+				<!-- <tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('正确答案'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input id="rightkey" type="text" name="right_key" value="<?php echo $this->problem_info['right_key']; ?>" class="form-control" />
+							</div>
+						</div>
+					</td>
+				</tr> -->
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('锁定状态'); ?>:</span>
+							<div class="col-sm-6 col-xs-8">
+								<div class="btn-group mod-btn">
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="status" value="1"<?php if ($this->problem_info['status']) { ?> checked="checked"<?php } ?> /> <?php _e('正常'); ?>
+									</label>
+
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="status" value="0"<?php if (!$this->problem_info['status']) { ?> checked="checked"<?php } ?> /> <?php _e('禁止'); ?>
+									</label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+    var ABC = '<?php echo $this->ABC; ?>',check = 0,arr = [],num = '<?php echo $this->ABC_NUM; ?>',problem_content = '<?php echo $this->problen_content; ?>',id = '<?php echo $this->problem_info['id']; ?>';
+	$(document).ready(function () {
+          
+		  
+		  if(id){
+
+		  	   var content = eval('('+problem_content+')');
+	  		   var rightkey = $("#right_keys").val();
+	  		   for (var index in content){
+		  	   
+			  	   if(rightkey == content[index][0])
+			  	   {
+			  	   	   $("#yoyows").append('<div class="contents"><input type="radio" checked="true" name="right_key" value="'+content[index][0]+'" >'+content[index][0]+'<input style="margin-top:5px;" type="text" name="content[]" value="'+content[index][1]+'" class="form-control " /> </div> ')
+			  	   }else
+			  	   {
+			  	   	  $("#yoyows").append('<div class="contents"><input type="radio" name="right_key" value="'+content[index][0]+'" >'+content[index][0]+'<input style="margin-top:5px;" type="text" name="content[]" value="'+content[index][1]+'" class="form-control " /> </div> ')
+			  	   }
+               }
+		  }else{
+
+          	  $("#yoyows").append('<div class="contents"><input type="radio"  name="right_key" value="'+ABC+'" >'+ABC+'<input style="margin-top:5px;" type="text" name="content[]" value="" class="form-control " /> </div> ')
+          }
+		  
+
+		  $("#add_content").on('click',function(){
+
+             num++;
+             ABC = return_letter(parseInt(num));
+             
+             if($('#yoyows').children().length + 1 > 5)
+             {  
+                alert('答案过多');return;
+             }
+
+             $("#yoyows").append('<div class="contents"><input type="radio"  name="right_key" value="'+ABC+'" >'+ABC+'<input style="margin-top:5px;" type="text" name="content[]" value="" class="form-control" /> </div> ');
+		  })
+
+
+		  $("#remove_content").on('click',function(){
+               $("#yoyows").html(' ');
+               var content = eval('('+problem_content+')');
+               num = 0;
+               for (var index in content){
+                   num++;
+               	   ABC = return_letter(parseInt(num));
+		  	       $("#yoyows").append('<div class="contents"><input type="radio" name="right_key" value="'+ABC+'" >'+ABC+'<input style="margin-top:5px;" type="text" name="content[]" value="'+content[index][1]+'" class="form-control " /> </div> ')
+			  	   
+               }
+             
+		  })
+		  
+	});
+
+function check_arr(a)
+{
+   return /(\x0f[^\x0f]+)\x0f[\s\S]*\1/.test("\x0f"+a.join("\x0f\x0f") +"\x0f");
+}
+
+
+function return_letter($num)
+{
+       switch ($num) {
+       	case 1:
+       		return 'A';
+       		break;
+       	case 2:
+       		return 'B';
+       		break;
+       	case 3:
+       		return 'C';
+       		break;
+       	case 4:
+       		return 'D';
+       		break;
+       	case 5:
+       		return 'E';
+       		break;
+       	case 6:
+       		return 'F';
+       		break;
+       	case 7:
+       		return 'G';
+       		break;
+       	case 8:
+       		return 'H';
+       		break;
+       	case 9:
+       		return 'I';
+       		break;
+       	case 10:
+       		return 'J';
+       		break;
+       	case 11:
+       		return 'K';
+       		break;
+       	case 12:
+       		return 'L';
+       		break;
+       	case 13:
+       		return 'M';
+       		break;
+       	case 14:
+       		return 'N';
+       		break;
+       	case 15:
+       		return 'O';
+       		break;
+       	case 16:
+       		return 'P';
+       		break;
+       	case 17:
+       		return 'Q';
+       		break;
+       	case 18:
+       		return 'R';
+       		break;
+       	case 19:
+       		return 'S';
+       		break;
+       	case 20:
+       		return 'T';
+       		break;
+       	case 21:
+       		return 'U';
+       		break;
+        case 22:
+       		return 'V';
+       		break;
+       	case 23:
+       		return 'W';
+       		break;
+        case 24:
+       		return 'X';
+       		break;
+        case 25:
+       		return 'Y';
+       		break;
+       	case 26:
+       		return 'Z';
+       		break;
+       	default:
+       	    return false;
+       	    break;
+     }
+     return false;
+}
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

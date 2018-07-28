@@ -1,0 +1,27 @@
+<div class="modal aw-first-login first show">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body clearfix">
+				<span><i style="float:right;margin-top: -3px;" onclick="close_welcome();"><img style="height:14px;" src="../../static/common/close2.png"></i></span>
+				<div class="aw-mod">
+					<div class="mod-head">
+						<h2>Hi , <?php echo $this->user_info['user_name']; ?><br/><?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
+					</div>
+					<div class="mod-body">
+					</div>
+					<div class="mod-footer">
+                         <span style="color:#999;margin-top: 65px;">(目前只有Android版本)</span>
+						<a class="btn btn-large btn-success pull-right" href="http://app.xiaomi.com/details?id=com.simpo.wecenter"><?php _e('点击下载APP	'); ?></a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+</script>
+<div class="modal-backdrop fade in"></div>
+
+

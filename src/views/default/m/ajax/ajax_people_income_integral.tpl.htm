@@ -1,0 +1,14 @@
+<?php foreach ($this->log AS $key => $val) { ?>
+<li>
+    <div class="mod-body list-cotnent">
+        <a href="m/people_income_integral_detail/id-<?php echo $val['id']?>"  style="color: #666;">
+            <p style="display: inline-block;width: 50%;">
+                <span><?php echo $val['act_strat_time']; ?>~<?php echo $val['act_end_time']; ?></span>
+            </p>
+            <p style="display: inline-block;width: 30%;padding-left: 10px;">
+                <?php echo $val['coin']; ?>
+            </p>
+        </a>
+    </div>
+</li>
+<?php }?>

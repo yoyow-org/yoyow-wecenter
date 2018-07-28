@@ -1,0 +1,96 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#list" data-toggle="tab"><?php _e('问题管理'); ?></a></li>
+                    <li><a href="admin/problem/edit/"><?php _e('新建问题'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+
+                <div class="table-responsive">
+                <form id="batchs_form" action="admin/ajax/problem_manage/" method="post">
+                    <input type="hidden" id="action" name="action" value="" />
+                    <input type="hidden" id="parent_id" name="parent_id" value="" />
+                <?php if ($this->list) { ?>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-all"></th>
+                                <th><?php _e('问题'); ?></th>
+                                <th><?php _e('答案'); ?></th>
+                                <th><?php _e('正确答案'); ?></th>
+                                <th><?php _e('创建时间'); ?></th>
+                                <th><?php _e('状态'); ?></th>
+                                <th><?php _e('操作'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->list AS $problem_info) { ?>
+                            <tr>
+                                <td><input type="checkbox" name="problem_ids[]" value="<?php echo $problem_info['id']; ?>"></td>
+
+                                <td><a href="#" target="_blank"><?php echo $problem_info['title']; ?></a></td>
+
+                                <td><?php echo $problem_info['content']; ?></td>
+
+                                <td><?php echo $problem_info['right_key']; ?></td>
+
+                                 <td><?php echo date_friendly($problem_info['add_time']); ?></td>
+
+                                <td>
+                                    <?php if ($problem_info['status'] == 1) { ?>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_problem/', 'id=<?php echo $problem_info['id']; ?>&status=0');" title="<?php _e('锁定话题'); ?>" data-toggle="tooltip" class="icon icon-unlock md-tip"></a>
+                                    <?php } else { ?>
+                                    <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_problem/', 'id=<?php echo $problem_info['id']; ?>&status=1');" data-toggle="tooltip" title="<?php _e('解除锁定'); ?>" class="icon icon-lock md-tip"></a>
+                                    <?php } ?>
+                                </td>
+
+                                <td><a href="admin/problem/edit/id-<?php echo $problem_info['id']; ?>" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>" data-toggle="tooltip"></a></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
+                </form>
+                </div>
+
+                <div class="mod-table-foot">
+                    <?php echo $this->pagination; ?>
+
+                    <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除问题'); ?></a>
+                    <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定问题'); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function(){
+
+        var json = '';
+
+        $.each($('#target-category option').toArray(), function (i, e)
+        {
+            if (i >= 1)
+            {
+                json += ',';
+            }
+
+            json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
+        });
+
+    })
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

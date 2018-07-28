@@ -1,0 +1,228 @@
+<?php TPL::output('m/header_meta.tpl.htm'); ?>
+
+<!-- 内容 -->
+<div class="container" style="background:#fff;">
+	<div class="aw-login-box">
+		<div class="mod-head">
+			<img style="width:30%;" src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/res_logo.png" alt="" />
+			<h1 style="color:rgb(96,152,245);font-weight:600;letter-spacing:2px;font-size:18px;" ><?php _e('注册瓜分2500000YOYOW'); ?></h1>
+			<a href="m/login/" class="register btn btn-default"><?php _e('登录'); ?></a>
+		</div>
+		<div class="mod-body">
+			<form id="register_form" method="post">
+				<input type="hidden" name="agreement_chk" value="agree" />
+
+				<?php if ($this->icode) { ?>
+					<input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" />
+				<?php } ?>
+				
+				<?php if ($this->return_url) { ?>
+					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+				<?php } ?>
+
+				<ul>
+					 <li>
+						<input type="text" class="form-control" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" />
+					</li>
+					<!--<li>-->
+						<!--<input type="text" class="form-control" name="email" placeholder="<?php _e('邮箱'); ?>" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" />-->
+					<!--</li>-->
+					<li>
+						<input class="form-control" type="text" placeholder="<?php _e('手机'); ?>" name="mobile" value="<?php echo htmlspecialchars($_GET['mobile']); ?>" />
+					</li>
+
+					<?php if (get_setting('register_seccode') == 'Y') { ?>
+					<!--<li class="captcha">
+						<input type="text" class="form-control" name="seccode_verify" placeholder="<?php /*_e('验证码'); */?>" />
+						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" width="96" />
+					</li>-->
+                        <li class="aw-register-verify">
+                            <div id="embed-captcha"></div>
+                            <p id="wait" class="show">正在加载验证码......</p>
+                            <p id="notice" class="hide">请先完成验证</p>
+                        </li>
+					<?php } ?>
+					<li>
+						<input class=" form-control" id="smscode" style="width:65%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" />
+						<button style="width: 30%;pointer-events:initial;float:right; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 15px 9px;" id="Smsbtn" type="button"  class="btn btn-primary btn-block">获取验证码</button>
+					</li>
+					<li>
+						<input class=" form-control" type="text" placeholder="<?php _e('邀请码(非必填)'); ?>" name="inviteCode" value="<?php if($this->inviteCode){?><?php echo $this->inviteCode; ?><?php }?>" />
+					</li>
+					<li>
+						<input type="password" class="form-control" name="password" placeholder="<?php _e('密码'); ?>" />
+					</li>
+					<li>
+						<a class="btn btn-primary btn-block" id="saveregister"><?php _e('注册'); ?></a>
+					</li>
+				</ul>
+			</form>
+		</div>
+        <div class="screen">
+            <img style="width:100%;height:100%;" src="<?php echo G_STATIC_URL; ?>/common/activite_rule.png">
+        </div>
+        
+	</div>
+    
+</div>
+<!-- end 内容 -->
+    <style type="text/css">
+        .screen{
+            margin:10% auto;
+            box-sizing: border-box;
+            width:90%;
+            height:auto;
+        }
+    </style>
+    <style>
+        .show {
+            display: block;
+        }
+        .hide {
+            display: none;
+        }
+        #notice {
+            color: red;
+        }
+        #embed-captcha span {
+            position: static;
+        }
+    </style>
+    <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/slide_captcha/gt.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+        /*仿刷新：检测是否存在cookie*/
+        if($.cookie("captcha")){
+            var count = $.cookie("captcha");
+            var btn = $('#Smsbtn');
+            $('#Smsbtn').prop('disabled', true);
+            btn.text(count+'秒后重新获取')
+            var resend = setInterval(function(){
+                count--;
+                if (count > 0){
+                    btn.text(count+'秒后重新获取')
+                    $.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                }else {
+                    $('#Smsbtn').prop('disabled', false);
+                    clearInterval(resend);
+                    btn.text("获取验证码")
+                }
+            }, 1000);
+        }
+
+        var photoflag=0;
+
+
+
+        $('#saveregister').click(function(){
+            $('#register_form').attr('action',G_BASE_URL+'/account/ajax/register_process/');
+            AWS.ajax_post($('#register_form')); return false;
+        })
+
+
+        var handlerEmbed = function (captchaObj) {
+            $("#Smsbtn").click(function (e) {
+                var phonereg = /^1[3456789]\d{9}$/;
+
+                var mobile = $('input[name="mobile"]').val();
+                var seccode_verify=$('input[name="seccode_verify"]').val();
+                var register_verify_code = '<?php echo get_setting('register_seccode'); ?>';
+                if(mobile=='' ){
+                    alert("请输入手机号");
+                    return false;
+                }
+                if(!phonereg.test(mobile)){
+                    alert("手机号格式不正确");
+                    return false;
+                }
+                if($('#Smsbtn').text()!="获取验证码"){
+                    return false;
+                }
+
+
+                var validate = captchaObj.getValidate();
+                if (!validate) {
+                    alert("请先完成验证");
+                    return false;
+                } else{
+                    $.post(G_BASE_URL + '/account/ajax/check_mobile/',
+					{
+						mobile:mobile
+					}, function (result)
+					{
+						if (result.errno == -1)
+						{
+							alert("手机号已经注册！");
+							captchaObj.reset();
+							return false;
+						}else{
+							var count = 60;
+							var inl = setInterval(function () {
+								$('#Smsbtn').prop('disabled', true);
+								count -= 1;
+								var text = count + ' 秒后重新获取';
+								$.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+								$('#Smsbtn').text(text);
+								if (count <= 0) {
+									clearInterval(inl);
+									$('#Smsbtn').prop('disabled', false);
+									$('#Smsbtn').text('获取验证码');
+								}
+							}, 1000);
+							$('input[name="smsflag"]').val('0');
+
+							$.post(G_BASE_URL + '/account/ajax/send_mobile/',
+								{
+									mobile:mobile,
+									geetest_challenge: validate.geetest_challenge,
+									geetest_validate: validate.geetest_validate,
+									geetest_seccode: validate.geetest_seccode,
+									client_type: 'h5'
+								}, function (result)
+								{
+									if (result.errno == -1)
+									{
+										alert("短信发送成功，请注意查收");
+										return false;
+									}else{
+										alert(result.err);
+										return false;
+									}
+								}, 'json');
+						}
+					}, 'json');
+                }
+
+
+            });
+            // 将验证码加到id为captcha的元素里，同时会有三个input的值：geetest_challenge, geetest_validate, geetest_seccode
+            captchaObj.appendTo("#embed-captcha");
+            captchaObj.onReady(function () {
+                $("#wait")[0].className = "hide";
+            });
+        };
+        $.ajax({
+            // 获取id，challenge，success（是否启用failback）
+            url: G_BASE_URL+ "/account/slide_captcha/?t=" + (new Date()).getTime()+"&client_type='h5'", // 加随机数防止缓存
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                var dataObj = eval('(' + data.rsm + ')');
+                // 使用initGeetest接口
+                // 参数1：配置参数
+                // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                initGeetest({
+                    gt: dataObj.gt,
+                    challenge: dataObj.challenge,
+                    new_captcha: dataObj.new_captcha,
+                    offline: !dataObj.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                    product: "embed", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                    width: '100%' // 设置按钮宽度, 与父元素宽度一致
+                }, handlerEmbed);
+            }
+        });
+	})
+
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

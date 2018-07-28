@@ -1,0 +1,9 @@
+<?php if ($this->commission) { ?>
+<?php foreach ($this->commission AS $key => $val) { ?>
+<tr>
+    <td style="text-align:center"><span><?php echo $val['remark']; ?></span></td>
+	<td style="text-align:center"><?php echo date('Y-m-d',$val['act_strat_time']).'~'.date('Y-m-d',$val['act_end_time']); ?></td>
+	<td style="text-align:center"><span><?php echo $val['coin'] . 'yoyow'; ?></span></td>
+</tr>
+<?php } ?>
+<?php } ?>

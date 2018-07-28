@@ -1,0 +1,54 @@
+<div class="aw-mod aw-text-align-justify">
+	<div class="mod-head">
+		<a href="people/" class="pull-right"><?php _e('更多'); ?> &gt;</a>
+		<h3><?php _e('热门用户'); ?></h3>
+	</div>
+	<div class="mod-body">
+		<?php if (is_array($this->sidebar_hot_users)) { ?>
+		<?php foreach($this->sidebar_hot_users AS $key => $val) {?>	
+		<dl>
+			<dt class="pull-left aw-border-radius-5">
+				<a href="people/<?php echo $val['url_token']; ?>"><img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
+			</dt>
+			<dd class="pull-left">
+				<a href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>" class="aw-user-name"><?php echo $val['user_name']; ?><?php if ($val['verified']) { ?><i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
+						<?php echo $val['signature']; ?></a>
+				<p class="signature"><?php echo $val['signature']; ?></p>
+				<p><?php _e('%s 个问题', '<b>' . $val['answer_count'] . '</b>'); ?>, <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?></p>
+			</dd>
+		</dl>
+		<?php } ?>
+		<?php } ?>
+	</div>
+</div>
+<?php if(is_array($this->index_activity)){?>
+<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/js/roll/assets/css/style.css">
+
+<!-- <div class="aw-mod aw-text-align-justify">
+	<center><p style="font-size: 16px; width:210px;color: rgb(51, 51, 51);text-decoration-color: rgb(51, 51, 51); text-rendering: optimizeLegibility;"><?php echo $v['title']?></p></center>
+	<img src="<?php echo $v['linkurl']?>" height="210" width="210">
+</div> -->
+<div class="slider">
+  <div class="slider-container">
+    <div class="slider-wrapper">
+    <?php foreach($this->index_activity AS $k => $v) {?>
+      <div class="slide" title="<?php echo $v['title']?>"> 
+      	<span ><?php if($v['title']){echo mb_substr($v['title'],0,15);}else{echo '&nbsp;';};?></span>
+      	<img src="<?php echo $v['linkurl']?>" height="210" width="210"> 
+      </div>
+    <?php }?>
+    </div>
+  </div>
+</div>
+
+<script src="<?php echo G_STATIC_URL; ?>/js/roll/assets/js/slider.js"></script> 
+<script type="text/javascript">
+	(function() {
+		Slider.init({
+			target: $('.slider'),
+			time: 5000
+		});
+	})();
+</script>
+<?php }?>
+

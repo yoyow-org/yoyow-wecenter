@@ -1,0 +1,131 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="admin/project/register_bind_list/"><?php _e('注册绑定活动管理'); ?></a></li>
+                    <li><a href="admin/project/reputation_reward_list/"><?php _e('威望奖励发放'); ?></a></li>
+                    <li><a href="admin/project/register_bind_setting/"><?php _e('注册绑定参数设置'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+            <form action="admin/user/reward_task_list" method="post" onsubmit="return false;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="check-all"></th>
+                            <th><?php _e('用户'); ?></th>
+                            <th><?php _e('操作类型'); ?></th>
+                            <th><?php _e('操作时间'); ?></th>
+                            <th><?php _e('奖励'); ?></th>
+                            <th><?php _e('状态'); ?></th>
+                            <th><?php _e('发币状态'); ?></th>
+                        </tr>
+                    </thead>
+
+                    <?php if ($this->register_bind_list) { ?>
+                    <tbody>
+                        <?php foreach ($this->register_bind_list AS $info) { ?>
+                        <tr>
+                            <?php if($info['status'] == 0){ ?><td><input type="checkbox" name="id[]" id="ischeck"  value="<?php _e($info['id']); ?>"></td><?php }else{?><td></td><?php }?>
+                            <td><?php echo $info['user_name']; ?></td>
+                            <td>
+                                <?php switch ($info['operate']) {
+                                case 1:
+                                    _e('注册');
+                                    break;
+
+                                case 2:
+                                    _e('绑定yoyow账号');
+                                    break;
+                                } ?>
+                            </td>
+                            <td><?php echo date_friendly($info['ope_time']); ?></td>
+                            <td><?php echo $info['coin']; ?> YOYOW</td>
+                            <td>
+                                <?php switch ($info['status']) {
+                                case 0:
+                                    _e('未发放');
+                                    break;
+
+                                case 1:
+                                    _e('已发放');
+                                    break;
+                                 case 2:
+                                    _e('已作废');
+                                    break;
+                                } ?>
+                            </td>
+                            <td>
+                                <?php switch ($info['yoyow_status']) {
+                                case 0:
+                                    _e('发放成功');
+                                    break;
+
+                                case 1:
+                                    _e('发放失败');
+                                    break;
+                                case 2:
+                                    _e('未提现');
+                                    break;
+                                case 3:
+                                    _e('--');
+                                    break;
+                                } ?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                    <?php } ?>
+            </table>
+                <div class="mod-table-foot">
+                    <a class="btn btn-primary add" id="rewardBtnId"><?php _e('分币'); ?></a>
+                    <a class="btn btn-primary add" id="allrewardBtnId"><?php _e('全部分币'); ?></a>
+                    <?php _e('待发放总奖励：'.$this->issued_sum_yoyow.'yoyow'); ?>
+                    <?php _e('&nbsp;&nbsp;平台余额：'.$this->account_prepaid.'yoyow'); ?>
+                </div>
+            </form>
+
+            <div class="mod-table-foot">
+                <span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+
+        $('#rewardBtnId').click(function () {
+            var ischeck = false;
+            var ck = $(':input[type=checkbox]');
+            ck.each(function () {
+                if ($(this).is(':checked')) {
+                    ischeck = true;
+                }
+            });
+            if(ischeck==true) {
+                AWS.dialog('confirm',{'message': '<?php _e('确定对所选数据进行分币？'); ?>'},function(){
+                    AWS.ajax_request(G_BASE_URL + '/admin/ajax/register_reward_task/' , $('form').serialize())
+                });
+            }else{
+                AWS.alert('请选择要分币的数据');
+            }
+        })
+        $('#allrewardBtnId').click(function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定全部发放奖励？'); ?>'},function(){
+                $('.modal-backdrop').css({display:'none'});
+                AWS.ajax_request(G_BASE_URL + '/admin/ajax/all_register_reward_task/' , $('form').serialize())
+            });
+        })
+
+    })
+
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

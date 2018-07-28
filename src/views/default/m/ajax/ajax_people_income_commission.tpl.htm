@@ -1,0 +1,15 @@
+<?php foreach ($this->commission AS $key => $val) {?>
+<li>
+    <div class="mod-body list-content">
+        <p style="display: inline-block;width: 20%;margin: 0;padding: 10px 0 10px 20px;">
+            <span><?php echo $val['remark']; ?></span>
+        </p>
+        <p style="display: inline-block;width: 40%;">
+            <span><?php echo date("Y-m-d",$val['act_strat_time']); ?>~<?php echo date("Y-m-d",$val['act_end_time']); ?></span>
+        </p>
+        <p style="display: inline-block;width: 25%;">
+            <?php echo $val['coin']; ?>
+        </p>
+    </div>
+</li>
+<?php }?>

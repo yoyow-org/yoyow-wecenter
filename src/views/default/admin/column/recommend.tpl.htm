@@ -1,0 +1,76 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<style>
+    .form_control{display: block;height:100px;width:500px;font-size:14px;color:#555;background-color: #fff;border:1px solid #ccc;border-radius: 4px;margin-left:100px;margin-bottom: 10px;}
+</style>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="<?php echo $_GET['act'] == 'list' ? 'active' : ''?>"><a href="admin/column/list/"><?php _e('专栏列表'); ?></a></li>
+                    <li class="<?php echo $_GET['act'] == 'recommend' ? 'active' : ''?>"><a href="admin/column/recommend/"><?php _e('推荐列表'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+        <div class="mod-body tab-content">
+            <div class="tab-pane active">
+                <div class="table-responsive">
+                    <form action="admin/column/list" method="post" onsubmit="return false;">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <!--<th width="10%"><input type="checkbox" class="check-all"></th>-->
+                                <th width="20%">ID</th>
+                                <th width="40%">用户名</th>
+                                <th width="40%">是否推荐</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbody">
+                            <?php foreach ($this->columns_list AS $key => $val) { ?>
+                            <tr>
+                                <!--<td width="10%"><input type="checkbox" name="id[]" value="<?php _e($val['id']); ?>"></td>-->
+                                <td width="10%"><?php  echo $val['id']?></td>
+                                <td width="40%"><a href="people/<?php if ($val['user_info']['url_token']) echo $val['user_info']['url_token']; else echo urlencode($val['user_info']['user_name']); ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a> <?php if ($val['user_info']['forbidden']) { ?><span class="text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } ?></td>
+                                <td width="40%" class="column_recommend">
+                                    <?php if( $val['is_recommend'] == 0 || $val['is_recommend'] == NULL){?>
+                                    <a class="icon icon-plus md-tip red-button recommend-btn" data-id="<?php echo $val['id']?>" data-value="1" href="javascript:void(0)" data-original-title="推荐"></a>
+                                    <?php }else{ ?>
+                                    <a class="icon icon-forbid md-tip green-button recommend-btn" data-id="<?php echo $val['id']?>" data-value="0"  href="javascript:void(0)" data-original-title="取消推荐"></a>
+                                    <?php }?>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            <input id="recommend-num" type="hidden" data-recommend-num="<?php echo $this->recommend_num?>">
+                            <input id="column-type" type="hidden" data-value="recommend">
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".tbody").on('click','.recommend-btn',function(){
+            var _this = $(this);
+            var value = _this.attr("data-value");
+            var id = _this.attr("data-id");
+            var type = $("#column-type").attr("data-value");
+            var page = '<?php echo $_GET["page"]?>';
+            $.ajax({
+                type:'POST',
+                url:'/admin/column/ajax_set_recommend/',
+                data:{value:value,id:id,type:type,page:page},
+                success:function(res){
+                    $(".table .tbody").html(res);
+                }
+            })
+        })
+    })
+</script>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

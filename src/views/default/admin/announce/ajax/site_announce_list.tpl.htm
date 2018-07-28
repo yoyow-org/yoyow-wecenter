@@ -1,0 +1,69 @@
+<?php if ($this->announce_list) { ?>
+<script type="text/javascript">
+    var site_id;
+    $('.aw-item a').click(function () {
+
+        if ($('#main_title').attr('id') != null && $(this).attr('rel'))
+        {
+            $('.aw-mod.side-nav a').removeClass('active');
+
+            $(this).addClass('active');
+
+            window.location.hash = $(this).attr('rel');
+            if(window.location.hash.indexOf('++') != -1){
+                site_id = window.location.hash.split('++')[1];
+                window.location.hash = window.location.hash.split('++')[0];
+                $('#main_title').html("<b>公告详情</b>").find('i').detach();
+            }
+            $('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+            var _this = this;
+            $('.mod-footer').show();
+            switch (window.location.hash)
+            {
+                case "#site_announce__detail":
+                    var request_url = G_BASE_URL + '/home/ajax/site_announce_detail/id-'+ site_id;
+                    $('.mod-footer').hide();
+                    break;
+            }
+
+            $(this).addClass('loading');
+
+            if (window.location.hash == '#focus_topic__focus')
+            {
+                $('.aw-feed-list').addClass('aw-topic-list');
+
+            }
+            else
+            {
+                $('.aw-feed-list').removeClass('aw-topic-list');
+            }
+
+            $.get(request_url, function (response)
+            {
+                if (response.length)
+                {
+                    $('#main_contents').html(response);
+                }
+                else
+                {
+                    $(_this).addClass('disabled');
+
+                    $(_this).find('span').html(_t('没有更多了'));
+                }
+
+                $(_this).removeClass('loading');
+            })
+
+            return false;
+        }
+    });
+
+
+
+</script>
+<?php foreach($this->announce_list as $key => $val){?>
+<div class="aw-item" style="border-bottom: 1px solid #e6e6e6">
+    <a href="javascript:;" id="site_announce_link" rel="site_announce__detail++<?php echo $val['id'];?>"><?php echo $val['title']; ?></a><span style="float:right;font-size: 12px;color:#666;"><?php echo date('Y-m-d H:i:s',$val['time']);?></span>
+</div>
+<?php }?>
+<?php } ?>

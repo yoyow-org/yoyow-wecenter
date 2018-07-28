@@ -1,0 +1,34 @@
+<?php foreach ($this->invitation_list AS $key => $val) { ?>
+<li>
+    <div class="mod-body list-content"   style="padding:5px 0;">
+        <p style="display: inline-block;width: 40%;margin: 0;padding: 10px 0 10px 20px;">
+            <?php if($val['coin_type'] == 0) {?>
+            <!--直接奖励--><?php _e('自己邀请注册奖励'); ?>
+            <?php } else if($val['coin_type'] == 1) { ?>
+            <!--一级奖励-->
+            被邀请用户
+            <a href="people/<?php echo $val['first_user_info']['user_name']; ?>">
+                <?php _e($val['first_user_info']['user_name']); ?>
+            </a>注册，获取奖励
+            <!--二级奖励-->
+            <?php } else if($val['coin_type'] == 2) { ?>
+            被邀请用户
+            <a href="people/<?php echo $val['first_user_info']['user_name']; ?>">
+                <?php _e($val['first_user_info']['user_name']); ?>
+            </a>邀请新用户
+            <a href="people/<?php echo $val['second_user_info']['user_name']; ?>">
+                <?php _e($val['second_user_info']['user_name']); ?>
+            </a>注册，获取奖励
+            <?php }else if($val['coin_type'] == 4) {?>
+            <?php echo $val['base_uid'] ;?>
+            <?php }?>
+        </p>
+        <p style="display: inline-block;width: 20%;">
+            <span><?php _e(date('Y-m-d',$val['time'])); ?></span>
+        </p>
+        <p style="display: inline-block;width: 25%;">
+            <?php echo $val['coin']; ?>
+        </p>
+    </div>
+</li>
+<?php } ?>

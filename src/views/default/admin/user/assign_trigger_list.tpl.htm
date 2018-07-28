@@ -1,0 +1,52 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li ><a href="admin/user/assign_task_list/"><?php _e('手动分配任务'); ?></a></li>
+					<li class="active"><a href="admin/user/assign_trigger_list/"><?php _e('自动分配任务日志'); ?></a></li>
+					<li><a href="admin/user/yoyow_coin_settings/"><?php _e('分配规则设置'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active">
+				<div class="table-responsive">
+					<form action="admin/user/assign_task_list" method="post" onsubmit="return false;">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>ID</th>
+								<th><?php _e('本次分配的币数'); ?></th>
+								<th><?php _e('未分配的币数');?></th>
+								<th><?php _e('任务执行时间'); ?></th>
+								<th><?php _e('执行耗时');?></th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($this->task_list AS $key => $val) { ?>
+							<tr>
+								<td><?php _e($val['id']); ?></td>
+								<td><?php _e($val['coin']); ?></td>
+								<td><?php _e($val['remain']); ?></td>
+								<td><?php _e(date('Y-m-d H:i:s',$val['exec_time'])); ?></td>
+								<td><?php _e($val['used_time'].'秒'); ?></td>
+							</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

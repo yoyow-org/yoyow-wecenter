@@ -1,0 +1,81 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<style>
+.form_control{display: block;height:100px;width:500px;font-size:14px;color:#555;background-color: #fff;border:1px solid #ccc;border-radius: 4px;margin-left:100px;margin-bottom: 10px;}
+</style>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/index_activity_list/"><?php _e('首页活动'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active">
+				<div class="table-responsive">
+					<form action="admin/index_activity_list" method="post" onsubmit="return false;">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th width="10%"><input type="checkbox" class="check-all"></th>
+								<th width="10%">ID</th>
+								<th width="10%">标题</th>
+								<th width="60%"><?php _e('链接'); ?></th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($this->index_activity_list AS $key => $val) { ?>
+							<tr>
+								<td width="10%"><input type="checkbox" name="id[]" value="<?php _e($val['id']); ?>"></td>
+								<td width="10%"><?php  echo $val['id']?></td>
+								<td width="10%"><?php echo $val['title'] ;?></td>
+                                <td width="60%"><?php echo $val['linkurl'] ?></td>
+								<td width="10%">
+										<a href="admin/index_activity_edit/id-<?php _e($val['id']); ?>" class="icon icon-edit md-tip" title="" data-original-title="编辑"></a>
+										<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/index_activity_del/' , 'id=<?php _e($val['id']); ?>');"
+										   class="icon icon-forbid md-tip" title="" data-original-title="删除"></a>
+
+								</td>
+							</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+						<div class="mod-table-foot">
+							<a href="admin/index_activity_edit/" class="btn btn-primary add"><?php _e('新增'); ?></a>
+							<a class="btn btn-danger" id="deleteBtnId"><?php _e('删除'); ?></a>
+						</div>
+					</form>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
+	$(function(){
+		$('#deleteBtnId').click(function(){
+            var  ischeck=false;
+            var ck = $(':input[type=checkbox]');
+            ck.each(function(){
+                if($(this).is(':checked')){
+                    ischeck=true;
+                }
+            });
+            if(ischeck==true) {
+			    AWS.dialog('confirm',{'message': '<?php _e('确定删除所选数据？'); ?>'},function(){
+				    AWS.ajax_request(G_BASE_URL + '/admin/index_activity_del/' , $('form').serialize())
+			    });
+            }else{
+                AWS.alert('请选择要删除的数据');
+			}
+		})
+	})
+</script>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

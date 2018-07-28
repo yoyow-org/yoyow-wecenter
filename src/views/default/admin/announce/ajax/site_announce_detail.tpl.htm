@@ -1,0 +1,13 @@
+<?php if ($this->site_detail) { ?>
+<style>
+    .aw-item em{font-style: italic}
+    .aw-item li {
+        margin-left:50px;
+    }
+</style>
+<div class="aw-item">
+    <p style="font-size: 16px;margin: 0 0 5px 0;" align="center"><b><?php echo $this->site_detail['title']?></b></p>
+    <p align="center" style="font-size: 16px;margin: 20px 0 50px 0;"><?php echo date('Y-m-d H:i:s',$this->site_detail['time']);?></p>
+    <p  style="font-size: 16px;margin: 10px 0 5px 0;text-indent: 2em;line-height: 30px;"><?php echo htmlspecialchars_decode($this->site_detail['content']);?></p>
+</div>
+<?php } ?>

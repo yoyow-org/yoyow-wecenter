@@ -1,0 +1,159 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/user/assign_task_list/"><?php _e('手动分配任务'); ?></a></li>
+					<!--<li><a href="admin/user/assign_trigger_list/"><?php _e('自动分配任务'); ?></a></li>-->
+					<li><a href="admin/user/reward_task_list/"><?php _e('奖励分配任务'); ?></a></li>
+					<li><a href="admin/user/yoyow_coin_settings/"><?php _e('YOYOW币设置'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active">
+				<div class="table-responsive">
+					<form action="admin/user/assign_task_list" method="post" onsubmit="return false;">
+						<table class="table table-striped table-list">
+							<thead>
+							<tr>
+								<th><input type="checkbox" class="check-all"></th>
+								<th>ID</th>
+								<th><?php _e('获得积分时间'); ?></th>
+								<th><?php _e('本次分配的币数'); ?></th>
+								<th><?php _e('未分配的币数');?></th>
+								<th><?php _e('任务执行时间'); ?></th>
+								<th><?php _e('任务状态');?></th>
+								<th><?php _e('执行耗时');?></th>
+								<th><?php _e('操作');?></th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($this->task_list AS $key => $val) { ?>
+							<tr>
+								<td><input type="checkbox" name="id[]" id="ischeck"  value="<?php _e($val['id']); ?>"></td>
+								<td><?php _e($val['id']); ?></td>
+								<td><?php _e(date('Y-m-d H:i:s',$val['act_start_time'])); ?> - <?php _e(date('Y-m-d H:i:s',$val['act_end_time'])); ?></td>
+								<td><?php _e($val['coin']); ?></td>
+								<td><?php _e($val['remain']); ?></td>
+								<td><?php _e(date('Y-m-d H:i:s',$val['exec_time'])); ?></td>
+								<td>
+									<?php if($val['status']=='0'){
+										_e('待执行');
+									}else if($val['status']=='1'){
+										_e('正在执行');
+									}else if($val['status']=='2'){
+										_e('执行完成');
+									}else if($val['status']=='3'){
+										_e('执行失败');
+									} ?>
+								</td>
+								<td><?php _e($val['used_time'].'秒'); ?></td>
+								<td>
+									<?php if($val['status']=='0'){ ?>
+										<a href="admin/user/assign_task_edit/id-<?php _e($val['id']); ?>" class="icon icon-edit md-tip" title="" data-original-title="编辑"></a>
+										<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/assign_task_del/' , 'id=<?php _e($val['id']); ?>');"
+										   class="icon icon-forbid md-tip" title="" data-original-title="删除"></a>
+									<?php } else { ?>
+										<a href="admin/user/assign_record_list/id-<?php _e($val['id']); ?>" class="icon icon-signup md-tip" title="<?php _e('查看分配记录'); ?>"></a>
+									<?php }?>
+
+								</td>
+							</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+						<div class="mod-table-foot">
+							<a href="javascript:void(0);" class="btn btn-info"><?php _e('执行'); ?></a>
+							<a href="admin/user/assign_task_edit/" class="btn btn-primary add"><?php _e('新增'); ?></a>
+							<a class="btn btn-danger" id="deleteBtnId"><?php _e('删除'); ?></a>
+						</div>
+					</form>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
+    $(function(){
+
+        $('#deleteBtnId').click(function(){
+            var  ischeck=false;
+            var ck = $(':input[type=checkbox]');
+            ck.each(function(){
+                if($(this).is(':checked')){
+                    ischeck=true;
+                }
+            });
+            if(ischeck==true) {
+                AWS.dialog('confirm',{'message': '<?php _e('确定删除所选数据？'); ?>'},function(){
+                    AWS.ajax_request(G_BASE_URL + '/admin/ajax/assign_task_delm/' , $('form').serialize())
+                });
+            }else{
+                AWS.alert('请选择要删除的任务');
+            }
+        })
+
+		$(".mod-table-foot .btn-info").click(function(){
+            $yoyow_assign_task_switch = '<?php echo get_setting('yoyow_assign_task_switch',false)?>';
+
+            var mydate = new Date();
+            var now = mydate.getTime();
+            var _ids = "";
+            var flag = true;
+            $(".table-responsive .table-list .icheckbox_square-blue").each(function(){
+                if($(this).hasClass("checked")){
+                    if(typeof($(this).find("input").attr("value"))!="undefined"){
+                        var time = $(this).parent("td").siblings("td").eq(4).html();
+                        if(DateToUnix(time) > now){
+                            $(this).removeClass("checked");
+                            flag = false;
+                        }
+                        _ids += $(this).find("input").val() + "_";
+                    }
+                }
+            });
+
+           if($yoyow_assign_task_switch == 'N'){
+               AWS.alert('当前分配规则设置为否，无法执行任务');
+			}else if(_ids.length == 0){
+               AWS.alert('请勾选需要执行的任务');
+			}else if(!flag){
+               AWS.alert('当前时间小于任务执行时间，无法执行，已被取消勾选，请重新勾选提交');
+			}else{
+               _ids = _ids.substring(0, _ids.length - 1);
+				location.href = G_BASE_URL + '/admin/user/user_assign_task_execute/?ids='+_ids;
+			}
+		});
+
+    })
+    function DateToUnix($date){
+        /**
+         * 日期 转换为 Unix时间戳
+         * @param <string> 2014-01-01 20:20:20  日期格式
+         * @return <int>        unix时间戳(毫秒)
+         */
+        var f = $date.split(' ', 2);
+        var d = (f[0] ? f[0] : '').split('-', 3);
+        var t = (f[1] ? f[1] : '').split(':', 3);
+        return (new Date(
+            parseInt(d[0], 10) || null,
+            (parseInt(d[1], 10) || 1) - 1,
+            parseInt(d[2], 10) || null,
+            parseInt(t[0], 10) || null,
+            parseInt(t[1], 10) || null,
+            parseInt(t[2], 10) || null
+        )).getTime();
+
+
+    }
+
+</script>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

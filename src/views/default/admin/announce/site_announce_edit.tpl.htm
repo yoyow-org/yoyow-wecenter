@@ -1,0 +1,73 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+<script type="text/javascript">
+    var G_ADVANCED_EDITOR_ENABLE = "<?php echo get_setting('advanced_editor_enable'); ?>";
+</script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/ueditor.config.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/ueditor.all.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/lang/zh-cn/zh-cn.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/publishs.js"></script>
+
+<style>
+	.form_control{display: block;height:200px;width:500px;font-size:14px;color:#555;background-color: #fff;border:1px solid #ccc;border-radius: 4px;position:relative;right:-30%;margin-bottom: 10px;}
+	.aw-editor-box{margin-left:22%;}
+</style>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/site_announce_list/"><?php _e('网站公告'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+
+		<div class="tab-content mod-content">
+
+			<form id="site_announce_form" action="admin/ajax/save_site_announce/" method="post">
+				<?php if(!empty($this->announce) && !empty($this->announce["id"])){ ?>
+				<input type="hidden" name="id" value="<?php echo $this->announce['id']; ?>" />
+				<?php } ?>
+				<table class="table table-striped">
+                <div class="col-sm- col-xs-9">
+                    <?php if(!empty($this->announce)){ ?>
+                        标题：<textarea class="form_control " name="title"><?php echo $this->announce['title'];?></textarea>
+						网站公告：<td width="60%">
+					<div class="aw-mod aw-editor-box" style="">
+						<div class="mod-head">
+							<div class="wmd-panel">
+								<script class="wmd-input fuwenben" style="display: block" id="container" rows="15" name="site_announce"><?php echo htmlspecialchars_decode($this->announce['content']); ?></script></p>
+							</div>
+						</div>
+					</div>
+				</td>
+
+
+                    <?php }else{ ?>
+					    标题：<textarea class="form_control " name="title"></textarea>
+					    网站公告：<td width="60%">
+					<div class="aw-mod aw-editor-box">
+						<div class="mod-head">
+							<div class="wmd-panel">
+								<script class="wmd-input fuwenben" style="display: block" id="container" rows="15" name="site_announce"></script></p>
+							</div>
+						</div>
+					</div>
+				</td>
+
+
+                    <?php } ?>
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#site_announce_form'));" />
+						</td>
+					</tr>
+
+                </div>
+				</table>
+			</form>
+
+		</div>
+	</div>
+</div>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

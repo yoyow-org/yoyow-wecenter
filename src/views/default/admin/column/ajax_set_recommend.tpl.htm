@@ -1,0 +1,18 @@
+<?php foreach ($this->columns_list AS $key => $val) { ?>
+<tr>
+    <!--<td width="10%"><input type="checkbox" name="id[]" value="<?php _e($val['id']); ?>"></td>-->
+    <td width="10%"><?php  echo $val['id']?></td>
+    <td width="40%"><a href="people/<?php if ($val['user_info']['url_token']) echo $val['user_info']['url_token']; else echo urlencode($val['user_info']['user_name']); ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a> <?php if ($val['user_info']['forbidden']) { ?><span class="text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } ?></td>
+    <td width="40%" class="column_recommend">
+        <?php if( $val['is_recommend'] == 0 || $val['is_recommend'] == NULL){?>
+        <a class="icon icon-plus md-tip red-button recommend-btn" data-id="<?php echo $val['id']?>" data-value="1" href="javascript:void(0)" data-original-title="推荐"></a>
+        <?php }else{ ?>
+        <a class="icon icon-forbid md-tip green-button recommend-btn" data-id="<?php echo $val['id']?>" data-value="0"  href="javascript:void(0)" data-original-title="取消推荐"></a>
+        <?php }?>
+    </td>
+</tr>
+<?php } ?>
+<input id="recommend-num" type="hidden" data-recommend-num="<?php echo $this->recommend_num?>">
+<input id="column-type" type="hidden" data-value="<?php echo $this->type?>">
+
+

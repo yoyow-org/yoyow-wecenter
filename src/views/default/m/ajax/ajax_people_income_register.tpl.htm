@@ -1,0 +1,15 @@
+<?php foreach ($this->register_list AS $key => $val) { ?>
+<li>
+    <div class="mod-body list-content" style="padding:5px 0;">
+        <p style="display: inline-block;width: 40%;margin: 0;padding: 10px 0 10px 20px;">
+            <span><?php echo $val['remark']; ?></span>
+        </p>
+        <p style="display: inline-block;width: 20%;">
+            <span><?php _e(date('Y-m-d',$val['time'])); ?></span>
+        </p>
+        <p style="display: inline-block;width: 25%;">
+            <?php echo $val['coin']; ?>
+        </p>
+    </div>
+</li>
+<?php } ?>

@@ -1,0 +1,48 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+<style>
+	.form_control{display: block;height:30px;width:400px;font-size:14px;color:#555;background-color: #fff;border:1px solid #ccc;border-radius: 4px;margin-left:500px;margin-top:-20px;margin-bottom: 10px;}
+</style>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/site_link_list/"><?php _e('网站底部链接'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="tab-content mod-content">
+
+			<form id="site_link_form" action="admin/ajax/save_site_link/" method="post">
+				<?php if(!empty($this->linkurl) && !empty($this->linkurl["id"])){ ?>
+				<input type="hidden" name="id" value="<?php echo $this->linkurl['id']; ?>" />
+				<?php } ?>
+				<table class="table table-striped">
+                <div class="col-sm- col-xs-9">
+                    <?php if(!empty($this->linkurl)){ ?>
+
+						标题：<input class="form_control " name="title" value="<?php echo $this->linkurl['title'] ?>"/>
+						序号：<input class="form_control " name="sort" value="<?php echo $this->linkurl['sort'] ?>"/>
+                        链接地址：<input class="form_control " name="linkurl" value="<?php echo $this->linkurl['linkurl'] ?>"/>
+                        <span style="color:#999;margin-left: 500px;">链接地址请填写完整的url，例如:  https://www.yoyow.org/</span>
+                    <?php }else{ ?>
+                        标题：<input class="form_control " name="title"/>
+						序号：<input class="form_control " name="sort"/>
+					    链接地址：<input class="form_control " name="linkurl"/>
+                        <span style="color:#999;margin-left: 500px;">链接地址请填写完整的url，例如:  https://www.yoyow.org/</span>
+                    <?php } ?>
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#site_link_form'));" />
+						</td>
+					</tr>
+
+                </div>
+				</table>
+			</form>
+
+		</div>
+	</div>
+</div>
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

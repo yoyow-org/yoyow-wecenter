@@ -1,0 +1,54 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<style>
+    .aw-item em{font-style: italic}
+    .aw-item li {
+        margin-left:50px;
+    }
+</style>
+<div class="aw-container-wrap">
+    <?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+
+                    <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+
+
+                        <h2 class="hidden-xs"> <b><?php _e('公告详情'); ?></b></h2>
+                    </ul>
+                    <!-- end tab切换 -->
+
+
+                    <div class="aw-mod aw-explore-list">
+                        <div class="mod-body">
+                            <div class="aw-common-list">
+                                <?php if ($this->site_detail) { ?>
+                                <div class="aw-item">
+                                    <p style="font-size: 16px;margin: 0 0 5px 0;" align="center"><b><?php echo $this->site_detail['title']?></b></p>
+                                    <p align="center" style="font-size: 16px;margin: 20px 0 50px 0;"><?php echo date('Y-m-d H:i:s',$this->site_detail['time']);?></p>
+                                    <p  style="font-size: 16px;margin: 10px 0 5px 0;text-indent: 2em;line-height: 30px;"><?php echo htmlspecialchars_decode($this->site_detail['content']);?></p>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div class="mod-footer">
+                            <?php echo $this->pagination; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_announces.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+                    <?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+                </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
+</div>
+<?php TPL::output('global/footer1.tpl.htm'); ?>

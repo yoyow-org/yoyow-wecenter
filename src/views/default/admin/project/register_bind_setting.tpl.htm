@@ -1,0 +1,82 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li><a href="admin/project/register_bind_list/"><?php _e('注册绑定活动管理'); ?></a></li>
+                    <li><a href="admin/project/reputation_reward_list/"><?php _e('威望奖励发放'); ?></a></li>
+                    <li class="active"><a href="admin/project/register_bind_setting/"><?php _e('注册绑定参数设置'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-content">
+            <div class="table-responsive">
+            <form action="admin/ajax/save_settings/" id="settings_form" method="post" onsubmit="return false">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-2 col-xs-3 control-label"><?php _e('本次活动总奖励'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <input name="register_bind_total" type="text" class="form-control" value="<?php echo get_setting('register_bind_total'); ?>"/>
+
+                                <span class="help-block"><?php _e('单位:YOYOW'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-2 col-xs-3 control-label"><?php _e('注册、绑定操作奖励'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <input name="register_bind_reward" type="text" class="form-control" value="<?php echo get_setting('register_bind_reward'); ?>"/>
+
+                                <span class="help-block"><?php _e('单位:YOYOW'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-2 col-xs-3 control-label"><?php _e('活动开始时间'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <input type="text" class="form-control mod-data" value="<?php echo get_setting('register_bind_start'); ?>" name="register_bind_start" />
+                                <i class="icon icon-date"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-2 col-xs-3 control-label"><?php _e('活动结束时间'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <input type="text" class="form-control mod-data" value="<?php echo get_setting('register_bind_end'); ?>" name="register_bind_end" />
+                                <i class="icon icon-date"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tfoot>
+                <tr>
+                    <td>
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </form>
+        </div>
+        </div>
+
+</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

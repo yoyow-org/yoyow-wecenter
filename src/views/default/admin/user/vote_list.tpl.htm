@@ -1,0 +1,168 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap" id="user_list">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li <?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="#list"  data-toggle="tab" ><?php _e('用户回复赞踩记录列表'); ?></a></li>
+                    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+                <?php if ($_GET['action'] == 'search') { ?>
+                <div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->total_rows)); ?></div>
+                <?php } ?>
+
+                <div class="table-responsive">
+                <?php if ($this->list) { ?>
+                    <form method="post" action="admin/ajax/remove_users/" id="users_form">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-all"></th>
+                                <th>ID</th>
+                                <th><?php _e('回复用户'); ?></th>
+                                <th><?php _e('回复'); ?></th>
+                                <th><?php _e('问题'); ?></th>
+                                <th><?php _e('赞踩用户'); ?></th>
+                                <th><?php _e('类型'); ?></th>
+                                <th><?php _e('时间'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->list AS $key => $val) { ?>
+                            <tr>
+                                <td><input type="checkbox" name="id[]" id="ischeck"  value="<?php _e($val['voter_id']); ?>"></td>
+                                <td><?php echo $val['voter_id']; ?></td>
+                                <td><?php echo $val['answer_user_name']; ?></td>
+                                <td>
+                                    <?php $m1=array();$strbefore = htmlspecialchars_decode($val['answer_title']);
+                                     $strafter='';
+                                     preg_match_all('/<[a-z]*?>/i',$strbefore,$m1);
+                                    foreach($m1[0] as $k=>$value){
+                                    $strbefore = strip_tags(str_replace($value,'',$strbefore));
+                                    }
+                                    $strafter = cjk_substr($strbefore,0,20,'UTF-8','...');
+                                    echo $strafter;?>
+                                </td>
+                                <td><?php echo cjk_substr($val['question_title'],0,15,'UTF-8','...'); ?></td>
+                                <td><?php echo $val['vote_user_name']; ?></td>
+                                <td><?php if($val['vote_value']==1){echo "赞";}else{ echo "踩";} ;?></td>
+                                <td><?php echo date('Y-m-d H:i:s',$val['add_time']); ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                        <div class="mod-table-foot">
+                            <a class="btn btn-danger" id="deleteBtnId"><?php _e('删除'); ?></a>
+                            <a class="btn btn-danger" id="deleteBtnId_bynear"><?php _e('删除最近恶意踩的数据'); ?></a>
+                        </div>
+                    </form>
+                <?php } ?>
+                </div>
+
+                <div class="mod-table-foot">
+                    <div class="col-xs-12 col-sm-8">
+                        <?php echo $this->pagination; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="search">
+                <form method="post" action="admin/user/vote_list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+
+                    <input name="action" type="hidden" value="search" />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('被赞踩用户名'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo rawurldecode($_GET['voted_name']); ?>" name="voted_name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('赞踩用户名'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo rawurldecode($_GET['user_name']); ?>" name="user_name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('类型'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <select name="type" class="form-control">
+                                <option value="">全部</option>
+                                <option value="1">赞</option>
+                                <option value="-1">踩</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('赞踩时间'); ?>:</label>
+
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
+                                    <i class="icon icon-date"></i>
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
+                                    <i class="icon icon-date"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#deleteBtnId').click(function(){
+        var  ischeck=false;
+        var ck = $(':input[type=checkbox]');
+        ck.each(function(){
+            if($(this).is(':checked')){
+                ischeck=true;
+            }
+        });
+        if(ischeck==true) {
+            AWS.dialog('confirm',{'message': '<?php _e('确定删除所选数据？'); ?>'},function(){
+                AWS.ajax_request(G_BASE_URL + '/admin/ajax/vote_del/' , $('form').serialize())
+            });
+        }else{
+            AWS.alert('请选择要删除的数据');
+        }
+    })
+});
+$(document).ready(function () {
+    $('#deleteBtnId_bynear').click(function(){
+        AWS.loading('show');
+        AWS.dialog('confirm',{'message': '<?php _e('确定删除最近恶意踩数据？'); ?>'},function(){
+            AWS.ajax_request(G_BASE_URL + '/admin/ajax/vote_lately_del/' , $('form').serialize())
+        });
+    })
+});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

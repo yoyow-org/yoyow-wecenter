@@ -1,0 +1,164 @@
+.clearfix:after {
+    content:"";
+    display: block;
+    clear:both;
+}
+body{
+    background: #F8F8F8;
+}
+/*文章内容部分*/
+.left-content{
+    width:73%;
+    background-color: #FFF;
+    padding: 15px 15px 20px;
+}
+
+.left-content .article-info{
+    height:165px;
+    border-bottom: 1px solid #F3F3F3;
+    margin-bottom: 15px;
+}
+.left-content .article-info .article-img{
+    width:30%;
+    height:150px;
+    margin-right:7%;
+}
+.left-content .article-info .article-content {
+    width:63%;
+    height:150px;
+}
+.left-content .article-info .article-content .title{
+    color: #000;
+    height:50px;
+    line-height:50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.left-content .article-info .article-content p{
+    line-height:24px;
+    font-size:13px;
+    color: #666;
+    height:70px; overflow: hidden;
+}
+.left-content .article-info .article-content div{
+    position: relative;
+    bottom:0px;
+    font-size:13px;
+    color:#666;
+}
+.left-content .article-info .article-content span{
+    font-size:12px;
+    margin-right:25px;
+}
+
+
+.right-content{
+    width:25%;
+    float: right;
+    padding:auto 8px;
+}
+.right-content .user-info{
+    background-color: #FFF;
+    margin-bottom: 15px;
+}
+.right-content .info-box1 .user-img{
+    width:30%;
+    height:30%;
+    border-radius: 50%;
+}
+.right-content .info-box1 .user-content{
+    width:70%;
+    margin-bottom: 15px;
+}
+.right-content .info-box1 .user-content .title{
+     font-size:14px;
+}
+.right-content .info-box1 .user-content .digest{
+     font-size:12px;
+}
+.right-content .info-box1 .user-content .follow{
+    color: #FFF;
+    background-color: #499EF3;
+    font-size:11px;
+    border-radius: 3px;
+    width:50px;
+    height:20px;
+    line-height:20px;
+    text-align: center;
+    display: inline-block;
+    margin-right:15px;
+    text-decoration: none;
+}
+.right-content .info-box1 .user-content .active{
+    background-color: #eee;
+    color: #999;
+    box-shadow: none;
+}
+.right-content .info-box1 .user-content .msg{
+     font-size:12px;
+    border-radius: 3px;
+    border:1px solid #EFEFEF;
+    width:50px;
+    height:20px;
+    line-height:20px;
+    text-align: center;
+    display: inline-block;
+    margin-right:15px;
+}
+.right-content .info-box2 {
+    border-top:1px solid #EFEFEF;
+    font-size: 13px;
+    padding: 10px 10px;
+}
+
+.right-content .hot-article{
+    background-color: #FFF;
+    padding: 10px;
+}
+.right-content .hot-article .first span{
+    font-family:'Microsoft YaHei';
+    font-size:18px;
+}
+
+.right-content .hot-article .hot-item .hot-title,
+.right-content .hot-article .hot-item .hot-cover{
+     display: inline-block;
+}
+.right-content .hot-article .hot-item .hot-title{
+     position: relative;
+     top: 16px;
+}
+.right-content .hot-article .hot-item .hot-title{
+    font-size: 14px;
+    marign-left: 15px;
+    width: 150px;
+    height: 50px;
+    overflow: hidden;
+}
+.right-content .hot-article .hot-item .hot-title a{
+    height: 50px;
+    color: #000;
+}
+.right-content .hot-article .hot-item .hot-cover{
+    position: relative;
+    top: 0px;
+}
+.right-content .hot-article .hot-item .hot-cover img{
+     width: 77px;
+}
+
+
+
+
+/*20180411新加*/
+.right-content .info-box1 .user-content .title a{ font-size:20px; color:#000;}
+.right-content .info-box2 p span.fl{ color:#666; font-size:14px;}
+.right-content .info-box2 p span.fr{ font-size:14px;}
+.article-pic{ width:30%; margin-right:7%; background:#333; height:153px;}
+.article-pic img{ width:100%; height:153px;}
+
+
+
+
+
+

@@ -1,0 +1,164 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <form id="settings_form" action="admin/ajax/save_yoyow_coin_settings/" method="post" onsubmit="return false;">
+        <div class="mod">
+            <div class="mod-head">
+                <h3>
+                    <ul class="nav nav-tabs">
+                        <li><a href="admin/user/assign_task_list/"><?php _e('手动分配任务'); ?></a></li>
+                        <!--<li><a href="admin/user/assign_trigger_list/"><?php _e('自动分配任务日志'); ?></a></li>-->
+                        <li><a href="admin/user/reward_task_list/"><?php _e('奖励分配任务'); ?></a></li>
+                        <li class="active"><a href="admin/user/yoyow_coin_settings/"><?php _e('分配规则设置'); ?></a></li>
+                        <span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save">快速保存</a></span>
+                    </ul>
+                </h3>
+            </div>
+            <div class="tab-content mod-content">
+                <div class="tab-pane active">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <span class="col-sm-3 col-xs-3 control-label"><?php _e('是否手动分YOYOW币：'); ?></span>
+                                        <div class="col-sm-6 col-xs-8">
+                                            <div class="btn-group mod-btn">
+                                                <label type="button" class="btn mod-btn-color">
+                                                    <input type="radio" name="yoyow_assign_task_switch" value="Y"<?php if ($this->setting['yoyow_assign_task_switch'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                                </label>
+
+                                                <label type="button" class="btn mod-btn-color">
+                                                    <input type="radio" name="yoyow_assign_task_switch" value="N"<?php if ($this->setting['yoyow_assign_task_switch']!= 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <span class="col-sm-3 col-xs-3 control-label"><?php _e('默认发YOYOW币：'); ?></span>
+                                        <div class="col-sm-6 col-xs-8">
+                                            <div class="col-xs-2 col-sm-2">
+                                            <input name="default_distribute_yoyow_coin" type="text"  style="width: auto;margin-left:-15px;" class="form-control" value="<?php echo ($this->setting['default_distribute_yoyow_coin']); ?>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <!--<tr>
+                                <td>
+                                    <div class="form-group">
+                                        <span class="col-sm-3 col-xs-3 control-label"><?php _e('是否自动分YOYOW币：'); ?>
+                                            :</span>
+                                        <div class="col-sm-6 col-xs-8">
+                                            <div class="btn-group mod-btn">
+                                                <label type="button" class="btn mod-btn-color">
+                                                    <input type="radio" name="yoyow_trigger_task_switch" value="Y"<?php if ($this->setting['yoyow_trigger_task_switch'] == 'Y') { ?>checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                                </label>
+
+                                                <label type="button" class="btn mod-btn-color">
+                                                    <input type="radio" name="yoyow_trigger_task_switch" value="N"<?php if ($this->setting['yoyow_trigger_task_switch'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>-->
+
+                                                      <!--<tr>-->
+                            <!--<td>-->
+                            <!--<div class="form-group">-->
+                            <!--<span class="col-sm-3 col-xs-3 control-label"><?php _e('YOYOW平台账户币数：'); ?></span>-->
+                            <!--<div class="col-sm-6 col-xs-8">-->
+                            <!--<div class="col-xs-2 col-sm-2">-->
+                            <!--<input id="yoyow_coin" type="text" class="form-control" value="0" disabled/>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-2 col-sm-2">-->
+                            <!--<input type="button" value="查询" class="btn btn-primary" onclick="query_yoyow_pt();">-->
+                            <!--</div>-->
+                            <!--<div class="help-block">-->
+                            <!--<span class="col-sm-6 col-xs-8 control-label"><?php _e('预分配YOYOW：'); ?><span>0</span></span>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</td>-->
+                            <!--</tr>-->
+
+                            <!--<tr>-->
+                                <!--<td>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<span class="col-sm-3 col-xs-3 control-label"><?php _e('自动分YOYOW币比例：'); ?></span>-->
+                                        <!--<div class="col-sm-6 col-xs-8">-->
+                                            <!--<div class="col-xs-2 col-sm-2">-->
+                                                <!--<input name="yoyow_trigger_task_scale" type="text" class="form-control" value="<?php echo ($this->setting['yoyow_trigger_task_scale']); ?>"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-xs-2 col-sm-2">-->
+                                                <!--<span class="col-sm-2 col-xs-2 control-label"><?php _e('%'); ?></span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+
+                            <!--<tr>-->
+                                <!--<td>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<span class="col-sm-3 col-xs-3 control-label"><?php _e('自动分币时间：'); ?></span>-->
+                                        <!--<div class="col-sm-6 col-xs-9">-->
+                                            <!--<div class="col-xs-11  col-sm-2 mod-double">-->
+                                                <!--<input type="text" class="form-control" name="yoyow_trigger_task_time_hour" value="<?php echo ($this->setting['yoyow_trigger_task_time'][0]); ?>"/>-->
+                                            <!--</div>-->
+                                            <!--<span class="col-xs-1 col-sm-1"><?php _e('：'); ?></span>-->
+                                            <!--<div class="col-xs-11 col-sm-2">-->
+                                                <!--<input type="text" class="form-control" name="yoyow_trigger_task_time_minute" value="<?php echo ($this->setting['yoyow_trigger_task_time'][1]); ?>"/>-->
+                                            <!--</div>-->
+                                            <!--<div class="help-block"><span class="col-sm-10 col-xs-10 control-label"><?php _e('当YOYOW给平台币后自动分发时间'); ?></span></div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content mod-content mod-one-btn">
+                <div class="center-block">
+                    <input type="button" value="保存设置" class="btn btn-primary" onclick="save_yoyow_setting();">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+
+<script>
+    function query_yoyow_pt() {
+        AWS.alert('YOYOW账户对接建设中');
+        //查询返回的YOYOW币*比例=显示到预分配YOYOW中
+    }
+
+    function save_yoyow_setting(){
+        if($('input[name="default_distribute_yoyow_coin"]').val()==''){
+            AWS.alert("请输入默认发yoyow币数");
+            return false;
+        }
+        if(isNaN($('input[name="default_distribute_yoyow_coin"]').val())){
+            AWS.alert("默认发币数请输入数字");
+            return false;
+        }
+        AWS.ajax_post($('#settings_form'));
+    }
+</script>

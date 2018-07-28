@@ -1,0 +1,100 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+<script type="text/javascript">
+    var G_ADVANCED_EDITOR_ENABLE = "<?php echo get_setting('advanced_editor_enable'); ?>";
+</script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/ueditor.config.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/ueditor.all.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ueditor/lang/zh-cn/zh-cn.js?20170821"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/publishs.js"></script>
+<div class="aw-content-wrap">
+	<form id="settings_form" action="admin/ajax/save_share_settings/" method="post" onsubmit="return false;">
+		<div class="mod">
+			<div class="mod-head">
+				<h3>
+					<ul class="nav nav-tabs">
+						<li><a href="admin/user/share_setting/"><?php _e('分享配置'); ?></a></li>
+					</ul>
+				</h3>
+			</div>
+			<div class="tab-content mod-content">
+				<div class="tab-pane active">
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tbody>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="col-sm-4 col-xs-3 control-label"><?php _e('邀请活动时间段：'); ?></span>
+										<div class="col-sm-5 col-xs-8">
+											<input name="invite_start_time" type="text"  class="form-control" value="<?php echo ($this->setting['invite_start_time']); ?>"/>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="col-sm-4 col-xs-3 control-label"><?php _e('分享内容：'); ?></span>
+										<div class="col-sm-5 col-xs-8">
+											<input name="share_content" type="text"  class="form-control" value="<?php echo ($this->setting['share_content']); ?>"/>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="col-sm-4 col-xs-3 control-label"><?php _e('分享摘要：'); ?></span>
+										<div class="col-sm-5 col-xs-8">
+											<input name="share_title" type="text"  class="form-control" value="<?php echo ($this->setting['share_title']); ?>"/>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="col-sm-4 col-xs-3 control-label"><?php _e('邀请好友规则配置：'); ?></span>
+										<div class="aw-mod aw-editor-box" style="margin:0 auto;width: 800px; ">
+											<div class="mod-head">
+												<div class="wmd-panel">
+													<script class="wmd-input fuwenben" style="display: block" id="container" rows="15" name="invitation_code_remark"><?php echo htmlspecialchars_decode($this->setting['invitation_code_remark']); ?></script></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-content mod-content mod-one-btn">
+				<div class="center-block">
+					<input type="button" value="保存设置" class="btn btn-primary" onclick="save_share_setting();">
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+
+<script>
+    function save_share_setting(){
+        if($('input[name="share_content"]').val()==''){
+            AWS.alert("请输入分享内容");
+            return false;
+        }
+        if($('input[name="share_title"]').val()==''){
+            AWS.alert("请输入分享摘要");
+            return false;
+        }
+        AWS.ajax_post($('#settings_form'));
+    }
+</script>

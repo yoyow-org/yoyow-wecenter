@@ -1,0 +1,40 @@
+    <?php if(count($this->article_lists) > 0){?>
+    <?php
+                                     foreach($this->article_lists as $key => $article){
+    switch(($key + 1) % 3){
+    case 1:
+    $str = "first";
+    break;
+    case 2:
+    $str = "second";
+    break;
+    case 0:
+    $str = "three";
+    break;
+    }
+    ?>
+    <li class="article-info aw-item <?php echo $str;?>">
+        <?php if(get_article_cover_url($article['id'])){ ?>
+        <a class="article-img" style="display:inline-block" href="article/<?php echo $article['id']?>">
+            <!--<img src="/static/common/article-cover-min.png">-->
+            <img src="<?php echo get_article_cover_url($article['id']); ?>?rand=<?php echo rand(1, 999); ?>">
+        </a>
+        <?php }?>
+        <div class="content">
+            <p class="article-title"><a href="article/<?php echo $article['id']?>"><?php echo $article['title']?></a></p>
+            <p class="article-author"><?php echo $article['user_name']?></p>
+            <div class="clearfix">
+                <?php $votes = isset($article['votes']) ? $article['votes'] : 0?>
+                <?php if($votes >= 10000){?>
+                <span class="fl votes"><i class="icon icon-agree"></i> <?php echo sprintf("%.1f",$votes / 10000) ?>万+</span>
+                <?php }else{ ?>
+                <span class="fl"><i class="icon icon-agree"></i> <?php echo $votes?></span>
+                <?php }?>
+                <span class="fr text-color-999"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/time.png"> <?php echo date_friendly($article['add_time']); ?></span>
+            </div>
+        </div>
+    </li>
+    <?php }?>
+    <?php }?>
+    <input id="article-page" type="hidden" data-page="<?php echo $this->next_page?>">
+    <input id="article-sort" type="hidden" data-article-sort="<?php echo $this->article_sort?>">

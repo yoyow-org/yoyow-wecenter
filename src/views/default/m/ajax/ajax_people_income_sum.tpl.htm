@@ -1,0 +1,72 @@
+<?php
+if($this->income_sum_list){
+foreach ($this->income_sum_list AS $key => $val) {?>
+<li>
+    <div class="mod-body list-cotnent"  style="padding:10px 0;display:flex;display: -webkit-flex;align-items:center;">
+        <p style="display: inline-block;width: 50%;">
+            <?php if($val['type'] == 0){ ?>
+                <!--积分奖励-->
+                <span style="text-align:left; width: 85%;">
+                    从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>
+                    到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>
+                    ，获取<?php echo $val['coin'] . 'yoyow'; ?>
+                </span><br/><br/>
+                <span style="width: 15%;">
+                    <span style="border-radius: 10px;background-color: #cc6633; color: #ffffff;padding: 5px 10px;">日常奖励</span>
+                </span>
+                <!--积分奖励 end-->
+            <?php } else if($val['type'] == 1) { ?>
+                <!--提成奖励-->
+                <span style="text-align:left; width: 85%;">
+                     从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>
+                    到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>
+                    ，获得提成<?php echo $val['coin'] . 'yoyow'; ?>
+                </span><br/><br/>
+                <span style="width: 15%;">
+                    <span style="border-radius: 10px;background-color: #a47e3c; color: #ffffff;padding: 5px 10px;">提成奖励</span>
+                </span>
+                <!--提成奖励 end-->
+             <?php } else if($val['type'] == 2) { ?>
+             <!--邀请奖励-->
+                 <span style="text-align:left; width: 85%;">
+                     <?php if($val['distribute_result'] == 0) {?>
+                        <!--直接奖励-->
+                        <?php _e('注册奖励'.$val['coin'].'yoyow'); ?>
+                     <?php } else if($val['distribute_result'] == 1) { ?>
+                     <!--一级奖励-->
+                      被邀请用户<a href="people/<?php echo $val['first_user_info']['user_name']; ?>"><?php _e($val['first_user_info']['user_name']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+                     <?php } else if($val['distribute_result'] == 2) { ?>
+                     <!--二级奖励-->
+                    被邀请用户<a href="people/<?php echo $val['first_user_info']['user_name']; ?>"><?php _e($val['first_user_info']['user_name']); ?></a>邀请新用户
+                            <a href="people/<?php echo $val['second_user_info']['user_name']; ?>"><?php _e($val['second_user_info']['user_name']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+                     <?php } ?>
+                 </span><br/><br/>
+                 <span style="width: 15%;">
+                     <?php  if($val['distribute_result'] == 0){?>
+                        <span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;">注册奖励</span>
+                     <?php }else{?>
+                        <span style="border-radius: 10px;background-color: #3c763d; color: #ffffff;padding: 5px 10px;">邀请奖励</span>
+                     <?php }?>
+                 </span>
+            <!--邀请奖励 end-->
+            <?php } else if($val['type'] == 4){?>
+            <!--注册奖励-->
+            <span style="text-align:left; width: 85%;">
+                                                <?php echo $val['remark'].",获取".$val['coin']."yoyow";?>
+                                            </span><br/><br/>
+            <span style="width: 15%;">
+                                                    <?php if(strpos($val['remark'],'用户威望奖励')!==false){?>
+                <span style="border-radius: 10px;background-color: #499ef3; color: #ffffff;padding: 5px 10px;"><?php echo '额外奖励';?></span>
+                <?php }else{?>
+                <span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;"><?php echo '注册奖励';?></span>
+                <?php }?>
+                                            </span>
+            <!--注册奖励 end-->
+            <?php }?>
+        </p>
+        <p style="display: inline-block;width: 30%;padding-left: 10px;">
+            <?php echo $val['coin']; ?>
+        </p>
+    </div>
+</li>
+<?php } }?>

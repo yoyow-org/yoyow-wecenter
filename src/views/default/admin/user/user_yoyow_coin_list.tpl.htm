@@ -1,0 +1,160 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li <?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="#list"  data-toggle="tab" ><?php _e('用户YOYOW币记录列表'); ?></a></li>
+					<li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+
+		<div class="mod-body tab-content">
+			<div class="tab-pane active" id="list">
+
+				<?php if ($_POST['action'] == 'search') { ?>
+				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->total_rows)); ?></div>
+				<?php } ?>
+
+				<?php if ($this->coin_list) { ?>
+				<div class="table-responsive">
+					<form action="admin/user/assign_task_list" method="post" onsubmit="return false;">
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>ID</th>
+								<th><?php _e('结果'); ?></th>
+								<th><?php _e('用户名'); ?></th>
+								<th><?php _e('币数');?></th>
+								<th><?php _e('来源'); ?></th>
+								<th><?php _e('时间');?></th>
+								<th><?php _e('活动时间');?></th>
+								<th><?php _e('备注');?></th>
+								<th><?php _e('操作');?></th>
+							</tr>
+							</thead>
+							<tbody>
+							<?php foreach ($this->coin_list AS $key => $val) { ?>
+							<tr>
+								<td><?php _e($val['id']); ?></td>
+								<td style="width: 70px;">
+                                    <?php
+									if(1 == $val['distribute_result']){
+										_e('成功');
+									}else if(0 == $val['distribute_result']){
+										_e('失败');
+									}else if (2 == $val['distribute_result']) {
+										_e('未提现');
+									}
+									 ?>
+								</td>
+								<td><?php _e($val['user']['user_name']); ?></td>
+								<td><?php if($val['coin']>=0){
+										_e('+'.$val['coin']);
+									}else{
+										_e('-'.$val['coin']);
+									} ?></td>
+								<td>
+									<?php if('ASSIGN'==$val['origin']){
+										_e('手动分配任务');
+									}else if('TRIGGER'==$val['origin']){
+										_e('自动分配任务');
+									} ?>
+								</td>
+								<td><?php _e(date('Y-m-d H:i:s',$val['add_time'])); ?></td>
+								<td><?php _e(date('Y-m-d',$val['act_strat_time'])); ?> - <?php _e(date('Y-m-d',$val['act_end_time'])); ?></td>
+								<td><?php _e($val['remark']); ?></td>
+								<td>
+									<a href="admin/user/assign_integral_yoyow_record_list/coin_id-<?php _e($val['id']); ?>" class="icon icon-signup md-tip" title="<?php _e('查看积分分配记录'); ?>"></a>
+								</td>
+							</tr>
+							<?php } ?>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-left mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+				<?php } ?>
+			</div>
+
+			<div class="tab-pane" id="search">
+				<form method="post" action="admin/user/user_yoyow_coin_list/" class="form-horizontal" role="form">
+
+					<input name="action" type="hidden" value="search" />
+
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('用户名'); ?>:</label>
+
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo rawurldecode($_POST['user_name']); ?>" name="user_name" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('币数'); ?>:</label>
+
+						<div class="col-sm-6 col-xs-9">
+							<div class="row">
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control" name="coin_min" value="<?php echo $_POST['coin_min']; ?>" />
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+                                -
+                                </span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control" name="coin_max" value="<?php echo $_POST['coin_max']; ?>" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('来源'); ?>:</label>
+
+						<div class="col-sm-5 col-xs-8">
+							<select name="origin" class="form-control">
+								<option value="">全部</option>
+								<option value="ASSIGN" <?php if($_POST['origin']=='ASSIGN'){_e('selected');} ?> >手动分配任务</option>
+								<!--<option value="TRIGGER" <?php if($_POST['origin']=='TRIGGER'){_e('selected');} ?> >自动分配任务</option>-->
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('时间'); ?>:</label>
+
+						<div class="col-sm-6 col-xs-9">
+							<div class="row">
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control mod-data" value="<?php echo $_POST['start_date']; ?>" name="start_date" />
+									<i class="icon icon-date"></i>
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control mod-data" value="<?php echo $_POST['end_date']; ?>" name="end_date" />
+									<i class="icon icon-date"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5 col-xs-8">
+							<input type="submit" class="btn btn-primary" value="<?php _e('搜索'); ?>">
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

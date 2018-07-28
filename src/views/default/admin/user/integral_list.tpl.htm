@@ -1,0 +1,152 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap" id="user_list">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li <?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="#list"  data-toggle="tab" ><?php _e('用户积分记录列表'); ?></a></li>
+                    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+                <?php if ($_GET['action'] == 'search') { ?>
+                <div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->total_rows)); ?></div>
+                <?php } ?>
+
+                <div class="table-responsive">
+                <?php if ($this->list) { ?>
+                    <form method="post" action="admin/ajax/remove_users/" id="users_form">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th><?php _e('用户名'); ?></th>
+                                <th><?php _e('时间'); ?></th>
+                                <th><?php _e('数额'); ?></th>
+                                <th><?php _e('余额'); ?></th>
+                                <th><?php _e('描述'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->list AS $key => $val) { ?>
+                            <tr>
+                                <td><?php echo $val['id']; ?></td>
+                                <td><?php echo $val['user_name']; ?></td>
+                                <td><?php echo date_friendly($val['time']); ?></td>
+                                <td><span style="color:<?php if ($val['integral'] > 0){ ?> #F5A900 <?php } ?>"> <?php echo $val['integral']; ?></span></td>
+                                <td><?php echo $val['balance']; ?></td>
+                                <td><?php echo $val['note'] ;?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                    </form>
+                <?php } ?>
+                </div>
+
+                <div class="mod-table-foot">
+                    <div class="col-xs-12 col-sm-8">
+                        <?php echo $this->pagination; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="search">
+                <form method="post" action="admin/user/integral_list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+
+                    <input name="action" type="hidden" value="search" />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('用户名'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo rawurldecode($_GET['user_name']); ?>" name="user_name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('类型'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <select name="integral_type" class="form-control">
+                                <option value="">全部</option>
+                                <option value="AWARD">修改用户积分</option>
+                                <option value="INVITE">邀请注册</option>
+                                <option value="UPLOAD_AVATAR">上传头像</option>
+                                <option value="UPDATE_EDU">完善教育经历</option>
+                                <option value="UPDATE_WORK">完善工作经历</option>
+                                <option value="UPDATE_SIGNATURE">完善一句话介绍</option>
+                                <option value="UPDATE_CONTACT">完善联系资料</option>
+                                <option value="BIND_OPENID">绑定微信id</option>
+                                <option value="ANSWER_QUESTION">回答问题</option>
+                                <option value="QUESTION_ANSWER">问题被回答</option>
+                                <option value="NEW_QUESTION">发起问题</option>
+                                <!--<option value="ANSWER_THANKS">感谢回复</option>-->
+                                <!--<option value="THNKS_ANSWER">回复被感谢</option>-->
+                                <option value="ANSWER_FOLD">回复折叠</option>
+                                <option value="BEST_ANSWER">最佳回复</option>
+                                <option value="INVITE_ANSWER">邀请回答成功</option>
+                                <option value="ANSWER_INVITE">回复邀请回答</option>
+                                <!--<option value="QUESTION_THANKS">感谢回复</option>
+                                <option value="THANKS_QUESTION">问题被感谢</option>-->
+                                <option value="REGISTER">注册</option>
+                                <option value="LOGIN">连续登陆</option>
+                                <option value="AUTH">认证、获取积分</option>
+                                <option value="RECOMMEND">推荐</option>
+                                <option value="NEW_ARCTICLE">发文章</option>
+                                <option value="DELETE_QUESTION">删除问题</option>
+                                <option value="DELETE_ARCTICLE">删除文章</option>
+                                <option value="NEW_ACTIVITY">发起活动</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('获取时间'); ?>:</label>
+
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
+                                    <i class="icon icon-date"></i>
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
+                                    <i class="icon icon-date"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $_GET['province']; ?>", "<?php echo $_GET['city']; ?>"]);
+        },
+        dataUrl: G_BASE_URL.replace('/?', '') + '/static/js/areas.js'
+    });
+});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

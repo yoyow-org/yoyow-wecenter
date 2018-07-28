@@ -1,0 +1,106 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<!-- 内容 -->
+<div class="container padding-0">
+    <!-- 个人信息 -->
+    <div class="aw-people-income-regist">
+        <div class="mod-head clearfix">
+            <!--<img src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" alt="" class="img" width="50" />-->
+            <div class="title clearfix">
+                <h1 class="pull-left">
+                    <span>提成奖励</span>
+                </h1>
+            </div>
+        </div>
+        <div class="mod-body clearfix">
+            <ul>
+                <li style="width: 20%;">
+                    <?php _e('说明')?>
+                </li>
+                <li style="width: 50%;text-align: center">
+                    <?php _e('时间')?>
+                </li>
+                <li style="width: 29%;text-align: center">
+                    <?php _e('提成币数(yoyow)')?>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end 个人信息 -->
+    <div class="aw-income-regist-box">
+        <div class="tab-content">
+            <!-- 参与列表 -->
+            <div class="tab-pane active" id="income-sum">
+                <div class="aw-income-list active">
+                    <div class="mod-body">
+                        <ul id="income-sum-listview">
+                            <?php foreach ($this->commission AS $key => $val) { ?>
+                            <li>
+                                <div class="mod-body list-content">
+                                    <p style="display: inline-block;width: 20%;margin: 0;padding: 10px 0 10px 20px;">
+                                        <span><?php echo $val['remark']; ?></span>
+                                    </p>
+                                    <p style="display: inline-block;width: 40%;">
+                                        <span><?php echo date("Y-m-d",$val['act_strat_time']); ?>~<?php echo date("Y-m-d",$val['act_end_time']); ?></span>
+                                    </p>
+                                    <p style="display: inline-block;width: 25%;">
+                                        <?php echo $val['coin']; ?>
+                                    </p>
+                                </div>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+
+                    <div class="mod-footer">
+                        <a class="aw-load-more" id="load_join" data-page="2" auto-load="false"><i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- end 参与列表 -->
+        </div>
+    </div>
+</div>
+<!-- end 内容 -->
+
+<script type="text/javascript">
+    $(function(){
+        $("#load_join").click(function(){
+            var _this = this;
+            $(this).addClass('loading');
+            var page = $(this).attr("data-page");
+            var next_page = parseInt(page) + 1;
+            $.ajax({
+                type:'POST',
+                url: G_BASE_URL + '/m/ajax/ajax_people_income_commission/',
+                data:{page:page},
+                success:function(res){
+                    if(res){
+                        $("#income-sum-listview").append(res);
+                        $("#load_join").attr("data-page",next_page);
+
+                    }else{
+                        alert("已经展示全部内容");
+                    }
+                    $(_this).removeClass('loading');
+                }
+            })
+        });
+    });
+
+
+    var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
+
+    var ACTIVITY_ACTIONS = '<?php echo implode(',', array(
+    ACTION_LOG::ADD_QUESTION,
+        ACTION_LOG::ANSWER_QUESTION,
+        ACTION_LOG::ADD_REQUESTION_FOCUS,
+        ACTION_LOG::ADD_AGREE,
+        ACTION_LOG::ADD_TOPIC,
+        ACTION_LOG::ADD_TOPIC_FOCUS,
+        ACTION_LOG::ADD_ARTICLE,
+        ACTION_LOG::ADD_AGREE_ARTICLE,
+        ACTION_LOG::ADD_COMMENT_ARTICLE
+    )); ?>';
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

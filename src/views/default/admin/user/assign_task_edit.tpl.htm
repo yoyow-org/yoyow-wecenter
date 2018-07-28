@@ -1,0 +1,247 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+<link href="<?php echo G_STATIC_URL; ?>/css/default/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/bootstrap-datetimepicker.min.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/My97DatePicker/WdatePicker.js?v=<?php echo G_VERSION_BUILD; ?>"></script>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="admin/user/assign_task_list/"><?php _e('手动分配任务'); ?></a></li>
+					<!--<li><a href="admin/user/assign_trigger_list/"><?php _e('自动分配任务'); ?></a></li>-->
+					<li><a href="admin/user/reward_task_list/"><?php _e('奖励分配任务'); ?></a></li>
+					<li><a href="admin/user/yoyow_coin_settings/"><?php _e('YOYOW币设置'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="tab-content mod-content">
+			<div class="tab-pane active table-responsive">
+			<form id="assign_task_form" action="admin/ajax/save_assign_task/" method="post">
+				<?php if(!empty($this->task) && !empty($this->task["id"])){ ?>
+				<input type="hidden" name="id" value="<?php echo $this->task['id']; ?>" />
+				<?php } ?>
+
+				<table class="table table-striped">
+					<tr>
+						<td>
+							<div class="form-group">
+								<span class="col-sm-4 col-xs-3 control-label"><?php _e('获得积分时间'); ?>:</span>
+
+								<div class="col-sm-6 col-xs-9">
+									<?php if(!empty($this->task)){ ?>
+
+									<div class="row">
+										<div class="col-xs-11  col-sm-5 mod-double">
+											<!--<input type="text" class="form-control mod-data" value="<?php echo date('Y-m-d',$this->task['act_start_time']); ?>" name="act_start_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+											<dd class="start_time">
+												<input type="hidden" name="act_start_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate"  value="<?php echo date('Y-m-d H:i:s',$this->task['act_start_time']); ?>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+										<span class="mod-symbol col-xs-1 col-sm-1" style="position: absolute;left:35%;"> - </span>
+										<div class="col-xs-11 col-sm-5">
+											<!--<input type="text" class="form-control mod-data" value="<?php echo date('Y-m-d',$this->task['act_end_time']); ?>" name="act_end_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+											<dd class="end_time">
+												<input type="hidden" name="act_end_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate" value="<?php echo date('Y-m-d H:i:s',$this->task['act_end_time']); ?>"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+									</div>
+
+									<?php }else{ ?>
+
+									<div class="row">
+										<div class="col-xs-11  col-sm-5 mod-double">
+											<!--<input type="text" class="form-control mod-data" name="act_start_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+											<dd class="start_time">
+												<input type="hidden" name="act_start_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly  style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+										<span class="mod-symbol col-xs-1 col-sm-1" style="position: absolute;left:35%;">- </span>
+										<div class="col-xs-11 col-sm-5">
+											<!--<input type="text" class="form-control mod-data" name="act_end_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+											<dd class="end_time">
+												<input type="hidden" name="act_end_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+									</div>
+
+									<?php } ?>
+								</div>
+
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="form-group">
+								<span class="col-sm-4 col-xs-3 control-label"><?php _e('平台账号余额'); ?>:</span>
+								<div class="col-sm-5 col-xs-8">
+									<input class="form-control" name="accountcoin" type="text" value="<?php echo $this->account_prepaid; ?>" />
+								</div>
+							</div>
+						</td>
+					</tr>
+
+
+					<tr>
+						<td>
+							<div class="form-group">
+								<span class="col-sm-4 col-xs-3 control-label"><?php _e('本次分配币数'); ?>:</span>
+								<div class="col-sm-5 col-xs-8">
+									<?php if(!empty($this->task)){ ?>
+									<input class="form-control" name="coin" type="text" value="<?php echo $this->task['coin']; ?>" />
+									<?php }else{ ?>
+									<input class="form-control" name="coin" type="text" />
+									<?php } ?>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="form-group">
+								<span class="col-sm-4 col-xs-3 control-label"><?php _e('任务执行时间'); ?>:</span>
+
+								<div class="col-sm-6 col-xs-9">
+									<?php if(!empty($this->task)){ ?>
+
+									<div class="row">
+										<div class="col-xs-11  col-sm-5 mod-double">
+											<!--<input type="text" class="form-control mod-data" value="<?php echo date('Y-m-d',$this->task['exec_time']); ?>" name="exec_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+											<dd class="exec_time">
+												<input type="hidden" name="exec_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate" value="<?php echo date('Y-m-d H:i:s',$this->task['exec_time']); ?>"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+									</div>
+
+									<?php }else{ ?>
+
+									<div class="row">
+										<div class="col-xs-11  col-sm-5 mod-double">
+											<!--<input type="text" class="form-control mod-data" name="exec_time" />-->
+											<!--<i class="icon icon-date"></i>-->
+
+											<dd class="exec_time">
+												<input type="hidden" name="exec_time" value="">
+												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
+												<input  type="text" readonly  style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+											</dd>
+										</div>
+									</div>
+
+									<?php } ?>
+								</div>
+
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="save();" />
+						</td>
+					</tr>
+
+				</table>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        autoclose:true,
+        pickerPosition: "bottom-left"
+    });
+
+
+    function toUnixStart(start_time){
+        var tmp_datetime = start_time.replace(/:/g,'-');
+        tmp_datetime = tmp_datetime.replace(/ /g,'-');
+        var arr = tmp_datetime.split("-");
+        var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4]));
+
+        return parseInt(now.getTime()/1000);
+    }
+
+    function save(){
+        var start_time = $('.start_time .Wdate').val();
+        var end_time = $('.end_time .Wdate').val();
+        var exec_time = $('.exec_time .Wdate').val();
+        var accountcoin=$('input[name="accountcoin"]').val();
+        var coin=$('input[name="coin"]').val();
+        /*var time=Date.parse(new Date())/1000;
+        var unix = toUnixStart(start_time);
+        var exectime=toUnixStart(exec_time);*/
+        if(start_time==''){
+            AWS.alert('请选开始时间');
+            return false;
+		}
+        if(end_time==''){
+            AWS.alert('请选择结束时间');
+            return false;
+        }
+        if(coin==''){
+            AWS.alert('请输入本次分配币数');
+            return false;
+		}
+        if(parseFloat(accountcoin)<parseFloat(coin)){
+            AWS.alert('本次分配币数不能大于平台账号余额');
+            return false;
+		}
+		if(exec_time==''){
+            AWS.alert('请选择执行时间');
+            return false;
+		}
+        if($('input[name="id"]').val()!=undefined){
+            var id=$('input[name="id"]').val();
+		}else{
+            var id="";
+		}
+
+		$.post(G_BASE_URL + '/admin/ajax/check_yoyow_assgin/',
+            {
+                start_time: start_time,
+				id:id
+            }, function (result)
+            {
+                if (result.errno == -1)
+                {
+                    $('.start_time input[type="hidden"]').val(start_time);
+                    $('.end_time input[type="hidden"]').val(end_time);
+                    $('.exec_time input[type="hidden"]').val(exec_time);
+                    AWS.ajax_post($('#assign_task_form'));
+                    return true;
+                }else{
+                    AWS.alert("同一时间不能同时有多个分币任务");
+                    return false;
+                }
+            }, 'json');
+		/*if(exectime<(time+600)){
+            AWS.alert('执行时间不可小于当前时间的十分钟之后！');
+            return false;
+		}*/
+
+    }
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

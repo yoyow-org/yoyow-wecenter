@@ -1,0 +1,143 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+
+<div class="aw-register-box">
+	<div class="mod-head">
+		<a href=""><img src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_logo.png" alt="" /></a>
+		<h1><?php _e('找回密码'); ?></h1>
+	</div>
+	<div class="mod-body">
+		<form class="aw-register-form" id="fpw_form" method="post">
+			<ul>
+				<li class="alert alert-danger collapse error_message">
+					<i class="icon icon-delete"></i><em></em>
+				</li>
+				<li>
+					<input class="aw-register-email form-control" type="text" placeholder="<?php _e('手机号'); ?>" name="mobile" />
+				</li>
+				<li class="aw-register-verify">
+					<img  class="auth-img pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="">
+					<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>"/>
+				</li>
+				<li>
+					<input class="aw-register-validate form-control" id="smscode" style="width:57%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" tips="<?php _e('请输入短信验证码'); ?>" errortips="<?php _e('短信验证码不正确'); ?>" />
+					<button style="width: 30%;pointer-events:initial; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 2px 9px;" id="Smsbtn" type="button"  class="btn btn-large btn-blue btn-block">获取短信验证码</button>
+				</li>
+				<li class="clearfix">
+					<button class="btn btn-large btn-blue btn-block" id="nextfindpassword"><?php _e('下一步'); ?></button>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        /*仿刷新：检测是否存在cookie*/
+        if($.cookie("captcha")){
+            var count = $.cookie("captcha");
+            var btn = $('#Smsbtn');
+            btn.text(count+'秒后可重新获取')
+            var resend = setInterval(function(){
+                count--;
+                if (count > 0){
+                    btn.text(count+'秒后可重新获取')
+                    $.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                }else {
+                    clearInterval(resend);
+                    btn.text("获取短信验证码")
+                }
+            }, 1000);
+        }
+
+        var photoflag=0;
+
+        $('#Smsbtn').on('click', function () {
+            var phonereg = /^1[34578]\d{9}$/;
+            var mobile = $('input[name="mobile"]').val();
+            var seccode_verify=$('input[name="seccode_verify"]').val();
+            var register_verify_code = '<?php echo get_setting('register_seccode'); ?>';
+
+            if(mobile=='' ){
+                AWS.alert("请输入手机号");
+                return false;
+            }
+            if(!phonereg.test(mobile)){
+                AWS.alert("手机号格式不正确");
+                return false;
+            }
+            if($('#Smsbtn').text()!="获取短信验证码"){
+                return false;
+            }
+
+            $.post(G_BASE_URL + '/account/ajax/check_mobile/',
+                {
+                    mobile:mobile
+                }, function (result)
+                {
+                    if (result.errno == 1)
+                    {
+                        AWS.alert("手机号不存在！");
+                        return false;
+                    }else{
+                        $.post(G_BASE_URL + '/account/ajax/seccode_verify/',
+                            {
+                                seccode_verify:seccode_verify
+                            }, function (result)
+                            {
+                                if (result.errno == -1) {
+                                    if (photoflag == 0) {
+                                        AWS.alert("请输入正确的验证码！");
+                                        return false;
+                                    } else {
+                                        $('#captcha').click();
+                                        AWS.alert("请输入正确的验证码！");
+                                        return false;
+                                    }
+
+                                }else{
+                                    var count = 60;
+                                    var inl = setInterval(function () {
+                                        count -= 1;
+                                        var text = count + ' 秒后可重新获取';
+                                        $.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                                        $('#Smsbtn').text(text);
+                                        if (count <= 0) {
+                                            clearInterval(inl);
+                                            $('#Smsbtn').text('获取短信验证码');
+                                        }
+                                    }, 1000);
+
+                                    $.post(G_BASE_URL + '/account/ajax/send_mobile/',
+                                        {
+                                            mobile:mobile
+                                        }, function (result)
+                                        {
+                                            if (result.errno == -1)
+                                            {
+                                                photoflag=1;
+                                                AWS.alert("短信发送成功，请注意查收");
+                                                return false;
+                                            }else{
+                                                AWS.alert("短信发送失败");
+                                                return false;
+                                            }
+                                        }, 'json');
+
+								}
+                            }, 'json');
+                    }
+                }, 'json');
+
+        })
+
+
+        $('#nextfindpassword').click(function(){
+            $('#fpw_form').attr('action',G_BASE_URL+'/account/ajax/first_find_password/');
+            AWS.ajax_post($('#fpw_form'), AWS.ajax_processer, 'error_message'); return false;
+        })
+
+    });
+</script>
+
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

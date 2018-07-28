@@ -1,0 +1,9 @@
+<?php if ($this->register_list) { ?>
+<?php foreach ($this->register_list AS $key => $val) { ?>
+<tr>
+    <td style="text-align:center"><span><?php echo $val['remark'] ;?></span></td>
+    <td style="text-align:center"><?php _e(date('Y-m-d',$val['time'])); ?></td>
+	<td style="text-align:center"><span><?php echo $val['coin'] . 'yoyow'; ?></span></td>
+</tr>
+<?php } ?>
+<?php } ?>

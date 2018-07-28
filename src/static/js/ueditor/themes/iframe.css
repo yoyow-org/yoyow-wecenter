@@ -1,0 +1,6 @@
+/*可以在这里添加你自己的css*/
+img {
+    max-width: 640px; /*图片自适应宽度*/
+}
+.edui-container *{-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}
+.edui-container *:before,.edui-container *:after {-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}

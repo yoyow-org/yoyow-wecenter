@@ -1,0 +1,119 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<style>
+	.xuanfu{
+		left: 0;
+		position: fixed;
+		bottom: 50px;
+	    width: 100%;
+		z-index: 100;
+	}
+    .bdshare-button-style0-16 a{
+        padding-bottom: 5px;
+        float:none;
+        margin:0 20px;
+    }
+	.bd_weixin_popup .bd_weixin_popup_main {
+		padding: 10px 10px;
+	}
+	body {
+		font-size: 12px;
+	}
+</style>
+<div class="aw-container-wrap">
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-mod-invite-friend">
+						<div class="mod-body">
+							<div style="display:inline-block; margin:40px 30px 30px 30px;">
+								<p style="font-weight: bold;font-size: 16px;">邀请好友注册加入，即可获得yoyow币奖励!</p>
+								<p style="font-size:13px;">活动时间：<?php echo get_setting('invite_start_time');?></p>
+							</div>
+							<div style=""><img style="width:100%;" src="/<?php echo $this->poster_url; ?>" alt="<?php _e('邀友'); ?>" title="<?php _e('邀友'); ?>" /></div>
+							<div class="aw-mod aw-invite-list">
+								<div class="mod-head common-head">
+									<h2 style="display: inline-block"><?php _e('已邀请好友:'); ?><?php echo $this->invitation_num;?>位</h2>
+									<h2 style="display: inline-block;float:right;">预期总收益：<span style="color:red;font-size:12px;"><?php echo $this->invitation_sum_yoyow;?></span>YOYOW</h2>
+								</div>
+								<div class="mod-body">
+									<table class="table table-striped table-list">
+										<thead>
+										<tr>
+											<th>用户名</th>
+											<th>时间</th>
+											<th>奖励</th>
+											<th>备注</th>
+										</tr>
+										</thead>
+										<tbody id="invitation_list2">
+
+										</tbody>
+
+									</table>
+
+								</div>
+								<div class="mod-footer">
+									<!-- 加载更多内容 -->
+									<a class="aw-load-more" id="invitation_more">
+										<i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span>
+									</a>
+									<!-- end 加载更多内容 -->
+								</div>
+							</div>
+							<div style="margin: 39px 30px 30px 30px; font-size: 14px; " class="mod-head common-head">
+								<?php echo htmlspecialchars_decode(get_setting('invitation_code_remark')); ?>
+							</div>
+							<input type="hidden" id="invcode" value="/account/register/invitation_code-<?php echo $this->invitation_code?>"/>
+							<div class="xuanfu" style="background-color: rgba(255,255,255,0.9);margin-bottom: -3px;height:50px;">
+								<span style="margin:0 30px;">分享</span>
+								<span class="bdsharebuttonbox" style="line-height: 50px;margin: 0 10px;">
+									<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+									<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+									<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+								</span>
+
+							</div>
+						</div>
+						</div>
+					</div>
+					<!--<div class="aw-mod aw-invite-list">
+						<div class="mod-head common-head">
+							<h2><?php _e('已邀请好友'); ?></h2>
+						</div>
+						<div class="mod-body">
+							<ul id="invitation_list2"></ul>
+						</div>
+						<div class="mod-footer">
+							&lt;!&ndash; 加载更多内容 &ndash;&gt;
+							<a class="aw-load-more" id="invitation_more">
+								<i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span>
+							</a>
+							&lt;!&ndash; end 加载更多内容 &ndash;&gt;
+						</div>
+					</div>-->
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        AWS.load_list_view(G_BASE_URL + '/invitation/ajax/invitation_list2/', $('#invitation_more'),  $('#invitation_list2'));
+    });
+
+    window._bd_share_config={
+        "common":{
+            bdText : '<?php echo get_setting("share_content");?>',
+            bdDesc : '<?php echo get_setting("share_title");?>',
+            bdUrl : G_BASE_URL + $("#invcode").val(),
+            bdPic : '<?php echo get_js_url($this->pic_url); ?>'
+        },
+        "share":{}
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src=document.location.protocol + '//'+ window.location.host +'/bdimgshare/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

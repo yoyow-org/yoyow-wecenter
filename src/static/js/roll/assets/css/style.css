@@ -1,0 +1,29 @@
+.slider {
+	margin: 0 auto;
+	width: 210px
+}
+.slider-container {
+	height: 230px;
+	margin: 0 auto 20px;
+	overflow: hidden;
+	position: relative;
+	width: 210px;
+}
+.slider-container .slider-wrapper {
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	width: 5000em; /*Fix for prevent display errors*/
+	-webkit-transition: all 800ms ease;
+	-moz-transition: all 800ms ease;
+	-o-transition: all 800ms ease;
+	transition: all 800ms ease;
+}
+.slider-container .slide {
+	float: left;
+	height: 230px;
+	overflow: hidden;
+	position: relative;
+	width: 210px;
+}

@@ -1,0 +1,48 @@
+<?php if ($this->income_sum_list) { ?>
+<?php foreach ($this->income_sum_list AS $key => $val) { ?>
+<tr style="float: left; width: 100%">
+    <?php if($val['type'] == 0){ ?>
+    <!--积分奖励-->
+        <td style="width: 15%;"><span style="border-radius: 10px;background-color: #cc6633; color: #ffffff;padding: 5px 10px;">日常奖励</span></td>
+        <td style="text-align:left; width: 85%;">从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>，获取<?php echo $val['coin'] . 'yoyow'; ?></td>
+    <?php } else if($val['type'] == 1) { ?>
+    <!--提成奖励-->
+        <td style="width: 15%;"><span style="border-radius: 10px;background-color: #a47e3c; color: #ffffff;padding: 5px 10px;">提成奖励</span></td>
+        <td style="text-align:left; width: 85%;">从<?php echo date('Y-m-d H:i:s',$val['act_strat_time']); ?>到<?php echo date('Y-m-d H:i:s',$val['act_end_time']); ?>，获得提成<?php echo $val['coin'] . 'yoyow'; ?></td>
+
+    <?php } else if($val['type'] == 2 && $val['distribute_result'] != 0) { ?>
+
+    <!--注册奖励奖励-->
+    <td style="width: 15%;"><span style="border-radius: 10px;background-color: #3c763d; color: #ffffff;padding: 5px 10px;">邀请奖励</span></td>
+    <td style="text-align:left; width: 85%;">
+        <?php if($val['distribute_result'] == 0) {?>
+        <!--直接奖励--><?php _e('自己邀请注册奖励'.$val['coin'].'yoyow'); ?>
+        <?php } else if($val['distribute_result'] == 1) { ?>
+        <!--一级奖励-->
+        邀请用户<a href="people/<?php echo $val['remark']; ?>"><?php _e($val['remark']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+        <?php } else if($val['distribute_result'] == 2) { ?>
+        <!--二级奖励-->
+        <a href="people/<?php echo $val['remark']; ?>"><?php _e($val['remark']); ?>
+        </a>邀请用户<a href="people/<?php echo $val['origin']; ?>"><?php _e($val['origin']); ?></a>注册，获取奖励<?php echo $val['coin'] . 'yoyow'; ?>
+        <?php } ?>
+    </td>
+    <?php } else if($val['type'] == 4){?>
+    <td style="width: 15%;">
+        <?php if(strpos($val['remark'],'用户威望奖励')!==false){?>
+            <span style="border-radius: 10px;background-color: #499ef3; color: #ffffff;padding: 5px 10px;"><?php echo '额外奖励';?></span>
+         <?php }else{?>
+            <span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;"><?php echo '注册奖励';?></span>
+         <?php }?>
+    </td>
+    <td style="text-align:left; width: 85%;">
+        <?php echo $val['remark'].",获取".$val['coin']."yoyow";?>
+    </td>
+    <?php }else if($val['type'] == 2 && $val['distribute_result'] == 0){?>
+    <td style="width: 15%;"><span style="border-radius: 10px;background-color: #f0ad4e; color: #ffffff;padding: 5px 10px;"><?php echo '注册奖励';?></span>
+    <td style="text-align:left; width: 85%;">
+        <?php _e('注册奖励'.$val['coin'].'yoyow'); ?>
+    </td>
+    <?php }?>
+</tr>
+<?php } ?>
+<?php } ?>

@@ -1,0 +1,194 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/default/column_detail.css?20180403">
+
+<div class="aw-container-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="left-content col-sm-12">
+                <div class="article-list">
+                    <?php if(count($this->article_lists) > 0){?>
+                        <?php foreach($this->article_lists as $key => $val){?>
+                            <div class="article-info aw-item">
+                                <?php if(get_article_cover_url($val['id'])){ ?>
+                                    <div class="article-img fl">
+                                        <a href="article/<?php echo $val['id']?>">
+                                            <img src="<?php echo get_article_cover_url($val['id']); ?>?rand=<?php echo rand(1, 999); ?>">
+                                        </a>
+                                    </div>
+                                <?php }?>
+                                <div class="article-content fl">
+                                    <a class="title" href="article/<?php echo $val['id']?>"><?php echo cjk_substr( $val['title'],0,20,'UTF-8','...')?></a>
+                                    <div class="hide-content markitup-box">
+                                        <?php
+                                            $m1=array();
+                                            $strbefore = htmlspecialchars_decode($val['message']);
+
+                                            $strafter='';
+                                            preg_match_all('/<[a-z]*?>/i',$strbefore,$m1);
+                                            foreach($m1[0] as $k=>$value){
+                                                $strbefore = strip_tags(str_replace($value,'',$strbefore));
+                                            }
+                                            $strafter = cjk_substr($strbefore,0,100,'UTF-8','...');
+                                            echo $strafter;
+                                        ?>
+                                    </div>
+
+                                    <div>
+                                        <span class="text-color-999"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/time.png"> <?php echo date_friendly($val['add_time']); ?></span>
+                                        <span class="text-color-999"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/views.png"> 浏览量 <?php echo $val['views']?></span>
+                                        <span class="text-color-999">
+                                            <a class="text-color-999" href="article/<?php echo $val['id']?>"><i class="icon icon-comment"></i> 评论</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }?>
+
+                        <!--分页-->
+                        <?php echo $this->pagination; ?>
+                    <?php } else {?>
+                        <div>用户未发表文章</div>
+                    <?php } ?>
+                </div>
+            </div>
+
+
+            <div class="right-content">
+                <!--用户信息-->
+                <div class="user-info">
+                    <div class="info-box1 clearfix">
+                        <div class="user-img fl">
+                            <a href="people/<?php echo $this->user['url_token']; ?>">
+                                <img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>">
+                            </a>
+                        </div>
+                        <div class="user-content fl">
+                            <p class="title">
+                                <a href="people/<?php echo $this->user['user_name']?>"><?php echo $this->user['user_name']?>  <?php if ($this->user['verified']) { ?><i class="icon-v <?php if ($this->user['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
+                            </p>
+                            <p class="digest">
+                                <!--暂时没有数据-->
+                            </p>
+                            <?php if($this->user_id){?>
+                                <?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
+                                <div>
+                                    <a class="follow follow-btn <?php if ($this->user_follow_check){?>active<?php } ?>" href="javascript:void(0)">
+                                        <span><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('+ 关注'); ?><?php } ?></span>
+                                    </a>
+                                    <a class="msg" href="javascript:void(0)" onclick="AWS.dialog('inbox', '<?php echo $this->user["user_name"]?>');">私信</a>
+                                </div>
+                                <?php }?>
+                            <?php } else {?>
+                                <a class="follow" href="<?php echo base_url()?>/?/account/login/">
+                                    <span><?php _e('+ 关注'); ?></span>
+                                </a>
+                                <a class="msg" href="<?php echo base_url()?>/?/account/login/">私信</a>
+                            <?php }?>
+                        </div>
+                    </div>
+                    <div class="info-box2">
+                        <p class="clearfix"><span class="fl"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/views.png"> 文章总浏览量</span> <span class="fr"><?php echo $this->user_views['all_views'] ? $this->user_views['all_views'] : 0 ?></span></p>
+                        <p class="clearfix"><span class="fl"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/page_count.png"> 发表文章总数</span> <span class="fr"><?php echo $this->user['article_count'] ?></span></p>
+                        <p class="clearfix"><span class="fl"><img src="<?php echo G_STATIC_URL; ?>/css/default/column_img/fans.png"> 被关注数</span> <span class="fr"><?php echo $this->user['fans_count']?></span></p>
+                    </div>
+                </div>
+                <!--用户信息 end-->
+
+                <!--热门文章-->
+                <div class="hot-article">
+                    <?php if($this->hot_articles_list){?>
+                        <h3>TA的热门文章</h3>
+                        <div class="hot-box">
+                            <?php foreach($this->hot_articles_list as $key=>$val){?>
+                                <?php if($key == 0 && get_article_cover_url($val['id'])){?>
+                                    <div class="first hot-item">
+                                        <span style="font-family:'Microsoft YaHei';font-size:18px;">
+                                            <div style="position: relative; width: 230px; height: 150px;">
+                                                <a href="article/<?php echo $val['id']?>">
+                                                    <img src="<?php echo get_article_cover_url($val['id']); ?>?rand=<?php echo rand(1, 999); ?>" width="230" height="150">
+                                                    <div style="display:inline-block;position: absolute; bottom: 5px; left: 20px;color: #FFF;"><?php echo cjk_substr( $val['title'],0,12,'UTF-8','...')?></div>
+                                                </a>
+                                            </div>
+                                        </span>
+                                    </div>
+                                <?php }else{?>
+                                    <div class="hot-item clearfix">
+                                        <?php if(get_article_cover_url($val['id'])){ ?>
+                                            <div class="hot-cover">
+                                                <a href="article/<?php echo $val['id']?>">
+                                                    <img src="<?php echo get_article_cover_url($val['id']); ?>?rand=<?php echo rand(1, 999); ?>">
+                                                </a>
+                                            </div>
+                                        <?php }?>
+                                        <div class="hot-title"><a href="article/<?php echo $val['id']?>"><?php echo cjk_substr( $val['title'],0,18,'UTF-8','...')?></a></div>
+                                    </div>
+                                <?php }?>
+                            <?php }?>
+                        </div>
+                    <?php }?>
+                </div>
+                <!--热门文章 end-->
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".follow-btn").click(function () {
+        var _this = $(this);
+        if (_this.html())
+        {
+            if (_this.hasClass('active'))
+            {
+                _this.find('span').html(_t('+ 关注'));
+            }
+            else
+            {
+                _this.find('span').html(_t('取消关注'));
+            }
+        }
+        else
+        {
+            if (_this.hasClass('active'))
+            {
+                _this.attr('data-original-title', _t('+ 关注'));
+            }
+            else
+            {
+                _this.attr('data-original-title', _t('取消关注'));
+            }
+        }
+        var url = '/follow/ajax/follow_people/';
+        var data = {
+            'uid': "<?php echo $this->user['uid']; ?>)"
+        };
+        $.post(G_BASE_URL + url, data, function (result)
+        {
+            if (result.errno == 1)
+            {
+                if (result.rsm.type == 'add')
+                {
+                    _this.addClass('active');
+                }
+                else
+                {
+                    _this.removeClass('active');
+                }
+            }
+            else
+            {
+                if (result.err)
+                {
+                    AWS.alert(result.err);
+                }
+
+                if (result.rsm.url)
+                {
+                    window.location = decodeURIComponent(result.rsm.url);
+                }
+            }
+        }, 'json');
+    });
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
