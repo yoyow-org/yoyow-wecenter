@@ -38,9 +38,9 @@ class openid_yoyow extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('yoyow_login_enabled') != 'Y' OR !get_setting('api_url') OR !get_setting('platform_id')) {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 YOYOW 登录'), '/');
-        }
+//        if (get_setting('yoyow_login_enabled') != 'Y' OR !get_setting('api_url') OR !get_setting('platform_id')) {
+//            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 YOYOW 登录'), '/');
+//        }
     }
 
     public function bind_action()
