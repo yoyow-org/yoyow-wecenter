@@ -12,7 +12,7 @@ CREATE TABLE `[#DB_PREFIX#]active_data` (
   KEY `active_code` (`active_code`),
   KEY `active_type_code` (`active_type_code`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]answer` (
   `answer_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '回答id',
@@ -41,7 +41,7 @@ CREATE TABLE `[#DB_PREFIX#]answer` (
   KEY `force_fold` (`force_fold`),
   KEY `anonymous` (`anonymous`),
   KEY `publich_source` (`publish_source`)
-) ENGINE=MyISAM AUTO_INCREMENT=333 DEFAULT CHARSET=utf8 COMMENT='回答';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='回答';
 
 CREATE TABLE `[#DB_PREFIX#]answer_comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -52,7 +52,7 @@ CREATE TABLE `[#DB_PREFIX#]answer_comments` (
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]answer_thanks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -62,7 +62,7 @@ CREATE TABLE `[#DB_PREFIX#]answer_thanks` (
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]answer_uninterested` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -72,7 +72,7 @@ CREATE TABLE `[#DB_PREFIX#]answer_uninterested` (
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]answer_vote` (
   `voter_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -85,7 +85,7 @@ CREATE TABLE `[#DB_PREFIX#]answer_vote` (
   PRIMARY KEY (`voter_id`),
   KEY `answer_id` (`answer_id`),
   KEY `vote_value` (`vote_value`)
-) ENGINE=MyISAM AUTO_INCREMENT=425 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]approval` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -97,7 +97,7 @@ CREATE TABLE `[#DB_PREFIX#]approval` (
   KEY `type` (`type`),
   KEY `uid` (`uid`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]article` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -131,7 +131,7 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `chapter_id` (`chapter_id`),
   KEY `sort` (`sort`),
   FULLTEXT KEY `title_fulltext` (`title_fulltext`)
-) ENGINE=MyISAM AUTO_INCREMENT=466 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]article_comments` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -146,7 +146,7 @@ CREATE TABLE `[#DB_PREFIX#]article_comments` (
   KEY `article_id` (`article_id`),
   KEY `add_time` (`add_time`),
   KEY `votes` (`votes`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]article_vote` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -163,7 +163,7 @@ CREATE TABLE `[#DB_PREFIX#]article_vote` (
   KEY `item_id` (`item_id`),
   KEY `time` (`time`),
   KEY `item_uid` (`item_uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]attach` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -180,7 +180,7 @@ CREATE TABLE `[#DB_PREFIX#]attach` (
   KEY `is_image` (`is_image`),
   KEY `fetch` (`item_id`,`item_type`),
   KEY `wait_approval` (`wait_approval`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -194,14 +194,14 @@ CREATE TABLE `[#DB_PREFIX#]category` (
   KEY `parent_id` (`parent_id`),
   KEY `url_token` (`url_token`),
   KEY `title` (`title`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]column` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT NULL,
   `is_recommend` int(11) DEFAULT NULL COMMENT '是否推荐',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `[#DB_PREFIX#]draft` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -214,7 +214,7 @@ CREATE TABLE `[#DB_PREFIX#]draft` (
   KEY `uid` (`uid`),
   KEY `item_id` (`item_id`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]edm_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -284,7 +284,7 @@ CREATE TABLE `[#DB_PREFIX#]favorite` (
   KEY `time` (`time`),
   KEY `item_id` (`item_id`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]favorite_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -297,7 +297,7 @@ CREATE TABLE `[#DB_PREFIX#]favorite_tag` (
   KEY `title` (`title`),
   KEY `type` (`type`),
   KEY `item_id` (`item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -313,7 +313,7 @@ CREATE TABLE `[#DB_PREFIX#]feature` (
   KEY `url_token` (`url_token`),
   KEY `title` (`title`),
   KEY `enabled` (`enabled`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature_topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -348,7 +348,7 @@ CREATE TABLE `[#DB_PREFIX#]help_chapter` (
   KEY `title` (`title`),
   KEY `url_token` (`url_token`),
   KEY `sort` (`sort`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='帮助中心';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='帮助中心';
 
 CREATE TABLE `[#DB_PREFIX#]inbox` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -366,7 +366,7 @@ CREATE TABLE `[#DB_PREFIX#]inbox` (
   KEY `sender_remove` (`sender_remove`),
   KEY `recipient_remove` (`recipient_remove`),
   KEY `sender_receipt` (`receipt`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]inbox_dialog` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '对话ID',
@@ -383,7 +383,7 @@ CREATE TABLE `[#DB_PREFIX#]inbox_dialog` (
   KEY `sender_uid` (`sender_uid`),
   KEY `update_time` (`update_time`),
   KEY `add_time` (`add_time`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]index_activity` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -391,7 +391,7 @@ CREATE TABLE `[#DB_PREFIX#]index_activity` (
   `linkurl` varchar(500) NOT NULL COMMENT '图片地址',
   `time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]integral_action` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -399,7 +399,7 @@ CREATE TABLE `[#DB_PREFIX#]integral_action` (
   `desc` varchar(30) DEFAULT NULL COMMENT '描述',
   `flag` char(1) DEFAULT NULL COMMENT '是否启用0：否 1：是',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='积分操作类型表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='积分操作类型表';
 
 CREATE TABLE `[#DB_PREFIX#]integral_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -416,7 +416,7 @@ CREATE TABLE `[#DB_PREFIX#]integral_log` (
   KEY `action` (`action`),
   KEY `time` (`time`),
   KEY `integral` (`integral`)
-) ENGINE=MyISAM AUTO_INCREMENT=2086 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]integral_yoyow_coin` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -429,7 +429,7 @@ CREATE TABLE `[#DB_PREFIX#]integral_yoyow_coin` (
   `integral_time` int(10) DEFAULT NULL COMMENT '时间',
   PRIMARY KEY (`id`),
   KEY `integral_id` (`integral_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5981 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]invitation` (
   `invitation_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '激活ID',
@@ -451,7 +451,7 @@ CREATE TABLE `[#DB_PREFIX#]invitation` (
   KEY `active_time` (`active_time`),
   KEY `active_ip` (`active_ip`),
   KEY `active_status` (`active_status`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]invitation_yoyow` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -468,13 +468,13 @@ CREATE TABLE `[#DB_PREFIX#]invitation_yoyow` (
   `withdrawal_time` int(10) DEFAULT NULL COMMENT '提现时间',
   `order_id` int(10) DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1023 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_name` varchar(64) DEFAULT NULL COMMENT '职位名',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]lock_position` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -498,7 +498,7 @@ CREATE TABLE `[#DB_PREFIX#]lock_position` (
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '审核状态 0未审核 -1审核未通过 1进行中 2本金返还中  99已过期  ',
   `storehouse` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否申请解仓 1申请中 2申请成功 -1申请失败',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]lock_position_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -506,7 +506,7 @@ CREATE TABLE `[#DB_PREFIX#]lock_position_config` (
   `unit` varchar(20) NOT NULL COMMENT '单位 年 月 日',
   `money_rate` float(10,2) NOT NULL COMMENT '利率',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]lock_position_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -517,7 +517,7 @@ CREATE TABLE `[#DB_PREFIX#]lock_position_log` (
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1为分红日志 2为本金返还日志',
   PRIMARY KEY (`id`),
   KEY `lid` (`lid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]mail_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -529,7 +529,7 @@ CREATE TABLE `[#DB_PREFIX#]mail_queue` (
   PRIMARY KEY (`id`),
   KEY `is_error` (`is_error`),
   KEY `send_to` (`send_to`)
-) ENGINE=MyISAM AUTO_INCREMENT=339 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]nav_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -542,7 +542,7 @@ CREATE TABLE `[#DB_PREFIX#]nav_menu` (
   `sort` smallint(6) DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`link`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]newrule_invitation` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -570,7 +570,7 @@ CREATE TABLE `[#DB_PREFIX#]newrule_invitation_reward_log` (
   `statistical_date` int(11) DEFAULT NULL COMMENT '用于记录统计奖励发放到哪一天',
   `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]notification` (
   `notification_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -588,7 +588,7 @@ CREATE TABLE `[#DB_PREFIX#]notification` (
   KEY `source_id` (`source_id`),
   KEY `action_type` (`action_type`),
   KEY `add_time` (`add_time`)
-) ENGINE=MyISAM AUTO_INCREMENT=2386 DEFAULT CHARSET=utf8 COMMENT='系统通知';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='系统通知';
 
 CREATE TABLE `[#DB_PREFIX#]notification_data` (
   `notification_id` int(11) unsigned NOT NULL,
@@ -643,7 +643,7 @@ CREATE TABLE `[#DB_PREFIX#]posts_index` (
   KEY `agree_count` (`agree_count`),
   KEY `answer_count` (`answer_count`),
   KEY `view_count` (`view_count`)
-) ENGINE=MyISAM AUTO_INCREMENT=637 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]question` (
   `question_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -709,7 +709,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `chapter_id` (`chapter_id`),
   KEY `sort` (`sort`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
-) ENGINE=MyISAM AUTO_INCREMENT=176 DEFAULT CHARSET=utf8 COMMENT='问题列表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
 CREATE TABLE `[#DB_PREFIX#]question_comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -720,7 +720,7 @@ CREATE TABLE `[#DB_PREFIX#]question_comments` (
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]question_focus` (
   `focus_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -730,7 +730,7 @@ CREATE TABLE `[#DB_PREFIX#]question_focus` (
   PRIMARY KEY (`focus_id`),
   KEY `question_id` (`question_id`),
   KEY `question_uid` (`question_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=493 DEFAULT CHARSET=utf8 COMMENT='问题关注表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='问题关注表';
 
 CREATE TABLE `[#DB_PREFIX#]question_handpick_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -738,7 +738,7 @@ CREATE TABLE `[#DB_PREFIX#]question_handpick_log` (
   `handpick` varchar(128) DEFAULT NULL COMMENT '精选关键字',
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='精选问题访问记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='精选问题访问记录表';
 
 CREATE TABLE `[#DB_PREFIX#]question_invite` (
   `question_invite_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -753,7 +753,7 @@ CREATE TABLE `[#DB_PREFIX#]question_invite` (
   KEY `sender_uid` (`sender_uid`),
   KEY `recipients_uid` (`recipients_uid`),
   KEY `add_time` (`add_time`)
-) ENGINE=MyISAM AUTO_INCREMENT=164 DEFAULT CHARSET=utf8 COMMENT='邀请问答';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='邀请问答';
 
 CREATE TABLE `[#DB_PREFIX#]question_thanks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -763,7 +763,7 @@ CREATE TABLE `[#DB_PREFIX#]question_thanks` (
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]question_uninterested` (
   `interested_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -772,7 +772,7 @@ CREATE TABLE `[#DB_PREFIX#]question_uninterested` (
   `add_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`interested_id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='问题不感兴趣表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='问题不感兴趣表';
 
 CREATE TABLE `[#DB_PREFIX#]question_vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -783,7 +783,7 @@ CREATE TABLE `[#DB_PREFIX#]question_vote` (
   `vote_value` tinyint(4) NOT NULL COMMENT '-1反对 1 支持',
   `reputation_factor` int(10) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=99810 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]ranking_list` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -799,7 +799,7 @@ CREATE TABLE `[#DB_PREFIX#]ranking_list` (
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `ranking` (`ranking`),
   UNIQUE KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]received_email` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -845,7 +845,7 @@ CREATE TABLE `[#DB_PREFIX#]redirect` (
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]register_problem` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -856,7 +856,7 @@ CREATE TABLE `[#DB_PREFIX#]register_problem` (
   `add_time` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]register_reward_record` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -868,7 +868,7 @@ CREATE TABLE `[#DB_PREFIX#]register_reward_record` (
   `status` int(1) DEFAULT NULL COMMENT '0,发放成功  1，发放失败  2，未提现',
   `order_id` int(10) DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]register_yoyow_record` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -879,7 +879,7 @@ CREATE TABLE `[#DB_PREFIX#]register_yoyow_record` (
   `status` char(1) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '状态(0:未发放，1:已发放)',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COMMENT='用户注册绑定yoyow操作记录表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户注册绑定yoyow操作记录表';
 
 CREATE TABLE `[#DB_PREFIX#]related_links` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -902,7 +902,7 @@ CREATE TABLE `[#DB_PREFIX#]related_topic` (
   PRIMARY KEY (`id`),
   KEY `topic_id` (`topic_id`),
   KEY `related_id` (`related_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]report` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -916,7 +916,7 @@ CREATE TABLE `[#DB_PREFIX#]report` (
   PRIMARY KEY (`id`),
   KEY `add_time` (`add_time`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]reputation_category` (
   `auto_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -929,7 +929,7 @@ CREATE TABLE `[#DB_PREFIX#]reputation_category` (
   `question_count` int(10) DEFAULT '0',
   PRIMARY KEY (`auto_id`),
   UNIQUE KEY `uid_category_id` (`uid`,`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]reputation_topic` (
   `auto_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -945,7 +945,7 @@ CREATE TABLE `[#DB_PREFIX#]reputation_topic` (
   KEY `uid` (`uid`),
   KEY `topic_id` (`topic_id`),
   KEY `reputation` (`reputation`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]reputation_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -953,7 +953,7 @@ CREATE TABLE `[#DB_PREFIX#]reputation_users` (
   `reputation` int(10) DEFAULT NULL COMMENT '用户威望',
   `status` char(1) CHARACTER SET utf8mb4 DEFAULT '0' COMMENT '状态: 0:未发放 1:已发放',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `[#DB_PREFIX#]school` (
   `school_id` int(11) NOT NULL COMMENT '自增ID',
@@ -972,7 +972,7 @@ CREATE TABLE `[#DB_PREFIX#]search_cache` (
   PRIMARY KEY (`id`),
   KEY `hash` (`hash`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=1487 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]sessions` (
   `id` varchar(32) NOT NULL,
@@ -992,7 +992,7 @@ CREATE TABLE `[#DB_PREFIX#]share_frist_record` (
   `uid` int(10) DEFAULT '0',
   `ip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]share_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1009,7 +1009,7 @@ CREATE TABLE `[#DB_PREFIX#]share_log` (
   `withdrawal_time` int(10) NOT NULL DEFAULT '0' COMMENT '提现时间',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]site_announce` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1018,7 +1018,7 @@ CREATE TABLE `[#DB_PREFIX#]site_announce` (
   `time` int(10) DEFAULT NULL,
   `title` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]site_announce_read_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1026,7 +1026,7 @@ CREATE TABLE `[#DB_PREFIX#]site_announce_read_log` (
   `site_announce_id` int(11) DEFAULT NULL COMMENT '公告id',
   `add_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='公告浏览记录表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='公告浏览记录表';
 
 CREATE TABLE `[#DB_PREFIX#]site_link` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1035,7 +1035,7 @@ CREATE TABLE `[#DB_PREFIX#]site_link` (
   `time` int(10) DEFAULT NULL,
   `sort` int(10) DEFAULT '0' COMMENT '序号',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]system_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -1043,7 +1043,7 @@ CREATE TABLE `[#DB_PREFIX#]system_setting` (
   `value` text COMMENT '变量值',
   PRIMARY KEY (`id`),
   UNIQUE KEY `varname` (`varname`)
-) ENGINE=MyISAM AUTO_INCREMENT=230 DEFAULT CHARSET=utf8 COMMENT='系统设置';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='系统设置';
 
 CREATE TABLE `[#DB_PREFIX#]task_statistics` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1054,7 +1054,7 @@ CREATE TABLE `[#DB_PREFIX#]task_statistics` (
   `no_integral` int(11) DEFAULT NULL COMMENT '没有积分账户数量',
   PRIMARY KEY (`id`),
   KEY `task_id` (`task_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]topic` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '话题id',
@@ -1090,7 +1090,7 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   KEY `discuss_count_last_week` (`discuss_count_last_week`),
   KEY `discuss_count_last_month` (`discuss_count_last_month`),
   KEY `discuss_count_update` (`discuss_count_update`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='话题';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='话题';
 
 CREATE TABLE `[#DB_PREFIX#]topic_focus` (
   `focus_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1101,7 +1101,7 @@ CREATE TABLE `[#DB_PREFIX#]topic_focus` (
   KEY `uid` (`uid`),
   KEY `topic_id` (`topic_id`),
   KEY `topic_uid` (`topic_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COMMENT='话题关注表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='话题关注表';
 
 CREATE TABLE `[#DB_PREFIX#]topic_merge` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1127,7 +1127,7 @@ CREATE TABLE `[#DB_PREFIX#]topic_relation` (
   KEY `uid` (`uid`),
   KEY `type` (`type`),
   KEY `item_id` (`item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]user_action_history` (
   `history_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1149,7 +1149,7 @@ CREATE TABLE `[#DB_PREFIX#]user_action_history` (
   KEY `associate_attached` (`associate_attached`),
   KEY `associate_with_id` (`associate_id`,`associate_type`,`associate_action`),
   KEY `associate_with_uid` (`uid`,`associate_type`,`associate_action`)
-) ENGINE=MyISAM AUTO_INCREMENT=2670 DEFAULT CHARSET=utf8 COMMENT='用户操作记录';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户操作记录';
 
 CREATE TABLE `[#DB_PREFIX#]user_action_history_data` (
   `history_id` int(11) unsigned NOT NULL,
@@ -1176,7 +1176,7 @@ CREATE TABLE `[#DB_PREFIX#]user_action_history_fresh` (
   KEY `associate_with_id` (`id`,`associate_type`,`associate_action`),
   KEY `associate_with_uid` (`uid`,`associate_type`,`associate_action`),
   KEY `anonymous` (`anonymous`)
-) ENGINE=MyISAM AUTO_INCREMENT=2670 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]user_follow` (
   `follow_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -1187,7 +1187,7 @@ CREATE TABLE `[#DB_PREFIX#]user_follow` (
   KEY `fans_uid` (`fans_uid`),
   KEY `friend_uid` (`friend_uid`),
   KEY `user_follow` (`fans_uid`,`friend_uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=412 DEFAULT CHARSET=utf8 COMMENT='用户关注表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户关注表';
 
 CREATE TABLE `[#DB_PREFIX#]user_yoyow_coin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1204,7 +1204,7 @@ CREATE TABLE `[#DB_PREFIX#]user_yoyow_coin` (
   `type` int(1) DEFAULT '0' COMMENT '分币类型：0普通分币，1提成分币',
   `order_id` int(10) DEFAULT NULL COMMENT '订单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2003 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户的 UID',
@@ -1284,7 +1284,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   KEY `url_token` (`url_token`),
   KEY `verified` (`verified`),
   KEY `answer_count` (`answer_count`)
-) ENGINE=MyISAM AUTO_INCREMENT=1909 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_attrib` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -1295,7 +1295,7 @@ CREATE TABLE `[#DB_PREFIX#]users_attrib` (
   `homepage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COMMENT='用户附加属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户附加属性表';
 
 CREATE TABLE `[#DB_PREFIX#]users_facebook` (
   `id` bigint(20) unsigned NOT NULL,
@@ -1346,14 +1346,14 @@ CREATE TABLE `[#DB_PREFIX#]users_group` (
   PRIMARY KEY (`group_id`),
   KEY `type` (`type`),
   KEY `custom` (`custom`)
-) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='用户组';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户组';
 
 CREATE TABLE `[#DB_PREFIX#]users_invitation_code` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) DEFAULT NULL COMMENT '用户id',
   `invitation_code` varchar(20) NOT NULL COMMENT '邀请码',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_notification_setting` (
   `notice_setting_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -1361,7 +1361,7 @@ CREATE TABLE `[#DB_PREFIX#]users_notification_setting` (
   `data` text COMMENT '设置数据',
   PRIMARY KEY (`notice_setting_id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COMMENT='通知设定';
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='通知设定';
 
 CREATE TABLE `[#DB_PREFIX#]users_online` (
   `uid` int(11) NOT NULL COMMENT '用户 ID',
@@ -1389,7 +1389,7 @@ CREATE TABLE `[#DB_PREFIX#]users_qq` (
   KEY `add_time` (`add_time`),
   KEY `access_token` (`access_token`),
   KEY `openid` (`openid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `id` bigint(11) NOT NULL COMMENT '新浪用户 ID',
@@ -1436,7 +1436,7 @@ CREATE TABLE `[#DB_PREFIX#]users_ucenter` (
   KEY `uid` (`uid`),
   KEY `uc_uid` (`uc_uid`),
   KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_weixin` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1476,7 +1476,7 @@ CREATE TABLE `[#DB_PREFIX#]users_yoyow` (
   `yoyow` varchar(50) DEFAULT NULL,
   `bindtime` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1493,7 +1493,7 @@ CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   KEY `time` (`time`),
   KEY `name` (`name`,`status`),
   KEY `type` (`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `id` bigint(20) NOT NULL,
@@ -1540,7 +1540,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_login` (
   KEY `session_id` (`session_id`),
   KEY `token` (`token`),
   KEY `expire` (`expire`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]weixin_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1632,7 +1632,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_assign_task` (
   `used_time` int(10) DEFAULT NULL COMMENT '任务执行总耗时(保持跟exec_time同样的单位)',
   `remain` decimal(16,4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_login` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1644,7 +1644,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_login` (
   KEY `session_id` (`session_id`),
   KEY `token` (`token`),
   KEY `expire` (`expire`)
-) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_ranking` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -1655,7 +1655,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_ranking` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   UNIQUE KEY `ranking` (`ranking`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_tranfer_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -1672,7 +1672,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_tranfer_order` (
   `status` varchar(10) DEFAULT NULL COMMENT '状态 0: 待发放 10000: 转账成功 20000: 转账失败 30000:待提现',
   `type` varchar(1) DEFAULT NULL COMMENT '1: 日常发币 2: 提成奖励 3: 注册奖励  4: 邀请奖励  5: 传播奖',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='转账订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='转账订单表';
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -1689,7 +1689,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_log` (
   `coin` decimal(16,4) DEFAULT NULL COMMENT '金额',
   `task_id` int(11) DEFAULT NULL COMMENT '任务id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -1707,7 +1707,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_order` (
   `type` varchar(1) DEFAULT NULL COMMENT '1: 日常发币 2: 提成奖励 3: 注册奖励  4: 邀请奖励  5: 传播奖',
   `result` varchar(1000) DEFAULT NULL COMMENT '转账结果',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='转账订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='转账订单表';
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_trigger_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

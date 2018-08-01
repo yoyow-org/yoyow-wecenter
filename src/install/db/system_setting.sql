@@ -19,7 +19,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('ui_style', 's:4:\"lime\";'),
 ('uninterested_fold', 's:1:\"5\";'),
 ('sina_akey', NULL),
-('sina_skey', NULL),
 ('sina_weibo_enabled', 's:1:\"Y\";'),
 ('answer_unique', 's:1:\"N\";'),
 ('notifications_per_page', 's:2:\"10\";'),
