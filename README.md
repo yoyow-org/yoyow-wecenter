@@ -1,10 +1,11 @@
 # yoyow-wecenter介绍
-  yoyow-wecenter在wecenter社区功能基础上，**主要新增功能：**
+  yoyow-wecenter在[wecenter社区](http://www.wecenter.com)基础上，**主要新增功能：**
   * 平台不能直接注册，必须通过绑定yoyow账号登录。
   * 用户邀请奖励，用户可以通过邀请获得一级、二级奖励
   * 引入了平台奖励机制。 在一定周期内，根据用户在平台的活跃度会获得一定的yoyow币奖励
      活跃度包括用户提问、回答、点赞、点踩等操作
-    
+  
+  详细功能介绍及使用可参照：[yoyow-wecenter功能说明.docx]
     
 # 运行环境
   * Nginx 1.8+
