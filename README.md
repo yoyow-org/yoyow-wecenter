@@ -1,4 +1,3 @@
 # yoyow-wecenter
-yoyow-wecenter 安装手册：  http://wenda.wecenter.com/article/1424
 
-yoyow中间件部署手册： https://github.com/yoyow-org/yoyow-node-sdk/tree/master/middleware
+yoyow-wecenter是在wecenter社区功能基础上，引入了平台奖励机制。 在一定周期内根据用户在平台的活跃度会获得一定的yoyow币奖励
