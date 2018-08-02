@@ -18,6 +18,20 @@
   
   
 # 项目安装
-  假定读者已经安装好了运行环境，并将src目录下的代码放至服务器上，以及运行了yoyow中间件。这时候即可安装yoyow-wecenter,打开网站 http://服务器ip地址/ 会看到如下图：
-  ![install](https://github.com/yoyow-org/yoyow-wecenter/blob/master/public/images/install.jpg)
+  假定读者已经安装好了运行环境，并将src目录下的代码放至服务器上，以及运行了yoyow中间件。这时候即可安装yoyow-wecenter.
+
+#### 1.打开网站 http://服务器ip地址/
+  ![install_1](https://github.com/yoyow-org/yoyow-wecenter/blob/master/public/images/install_1.png)
+  
+#### 2.配置数据源
+    配置数据源之前，要先在目标数据库上创建要使用的库
+  ![install_2](https://github.com/yoyow-org/yoyow-wecenter/blob/master/public/images/install_2.png)
+  
+#### 3.设置管理员账号
+    设置的管理员账号一定要记住，这是系统的第一个账号
+  ![install_3](https://github.com/yoyow-org/yoyow-wecenter/blob/master/public/images/install_3.png)
+  
+#### 4.完成安装
+  ![install_4](https://github.com/yoyow-org/yoyow-wecenter/blob/master/public/images/install_4.png)
+  
   
