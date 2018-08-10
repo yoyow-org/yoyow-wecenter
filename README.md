@@ -1,4 +1,7 @@
 # yoyow-wecenter介绍
+  yoyow-wecenter 做为wecenter特别定制版，如商业用途，必须获得授权（免费）才能使用
+  
+# 功能说明
   yoyow-wecenter在[wecenter社区](http://www.wecenter.com)基础上，**主要新增功能：**
   * 平台不能直接注册，必须通过绑定yoyow账号登录。
   * 用户邀请奖励，用户可以通过邀请获得一级、二级奖励
