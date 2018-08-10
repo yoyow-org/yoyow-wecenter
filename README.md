@@ -1,5 +1,5 @@
 # yoyow-wecenter介绍
-  yoyow-wecenter 做为wecenter特别定制版，如商业用途，必须获得授权（免费）才能使用
+  yoyow-wecenter 作为wecenter特别定制版，如商业使用，必须先获得授权（免费）
   
 # 功能说明
   yoyow-wecenter在[wecenter社区](http://www.wecenter.com)基础上，**主要新增功能：**
