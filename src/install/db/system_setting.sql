@@ -50,7 +50,7 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('upload_size_limit', 's:3:"512";'),
 ('upload_avatar_size_limit', 's:3:"512";'),
 ('topic_title_limit', 's:2:"12";'),
-('url_rewrite_enable', 's:1:"Y";'),
+('url_rewrite_enable', 's:1:"N";'),
 ('best_agree_min_count', 's:1:"3";'),
 ('site_close', 's:1:"N";'),
 ('close_notice', 's:39:"站点已关闭，管理员请登录。";'),
