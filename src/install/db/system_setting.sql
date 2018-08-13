@@ -38,7 +38,7 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('upload_enable', 's:1:"Y";'),
 ('answer_length_lower', 's:1:"3";'),
 ('quick_publish', 's:1:"Y";'),
-('register_type', 's:5:"close";'),
+('register_type', 's:4:"open";'),
 ('question_title_limit', 's:3:"100";'),
 ('register_seccode', 's:1:"N";'),
 ('admin_login_seccode', 's:1:"N";'),
