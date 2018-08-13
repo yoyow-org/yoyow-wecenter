@@ -125,7 +125,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('integral_system_config_answer_change_source', 's:1:"Y";'),
 ('enable_help_center', 's:1:"N";'),
 ('ucenter_path', 's:0:"";'),
-('register_agreement', 's:0:"";'),
 ('integral_system_config_new_question_limit', 's:0:"";'),
 ('integral_system_config_new_article', 's:2:"10";'),
 ('integral_system_config_login_coefficient', 's:3:"0.5";'),
