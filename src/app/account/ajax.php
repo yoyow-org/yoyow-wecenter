@@ -90,8 +90,7 @@ class ajax extends AWS_CONTROLLER
     }
 
     public function send_mobile_action(){
-        //$GtSdk = new GeetestLib(get_setting('geetest_id'), get_setting('geetest_key'));
-        $GtSdk = new GeetestLib("f998f1f5d065e1ff0546eb292d6785f4","1d8b3b9473d580348d4b7245e6158fd3");
+        $GtSdk = new GeetestLib(get_setting('geetest_id'), get_setting('geetest_key'));
         $data = array(
             "user_id" => $_SESSION['user_id'], # 网站用户id
             "client_type" => $_POST['client_type'], #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
