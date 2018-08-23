@@ -238,14 +238,17 @@ class main extends AWS_CONTROLLER
 
 		//根据是否是yoyow强制绑定判断显示的注册页面
         $this->crumb(AWS_APP::lang()->_t('注册'), '/account/register/');
-        if(!$_GET['yoyow'])
-        {
-            $this->yoyow_login_action();
-        }else{
-            TPL::assign('job_list', $this->model('work')->get_jobs_list());
-            TPL::import_css('css/register.css');
-            TPL::output('account/register');
-        }
+//        if(!$_GET['yoyow'])
+//        {
+//            $this->yoyow_login_action();
+//        }else{
+//            TPL::assign('job_list', $this->model('work')->get_jobs_list());
+//            TPL::import_css('css/register.css');
+//            TPL::output('account/register');
+//        }
+        TPL::assign('job_list', $this->model('work')->get_jobs_list());
+        TPL::import_css('css/register.css');
+        TPL::output('account/register');
 	}
 
 	public function sync_login_action()

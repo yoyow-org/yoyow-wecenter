@@ -2164,6 +2164,26 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">短信 App 签名</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="sms_app_sign_name" type="text" class="form-control" value="<?php echo $this->setting['sms_app_sign_name']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">短信 App 模板Code</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="sms_app_template_code" type="text" class="form-control" value="<?php echo $this->setting['sms_app_template_code']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
 
                 <?php if (check_extension_package('payment')) { ?>
                 <tr>

@@ -25,17 +25,17 @@ class sms_sendSms_class
         // *** 需用户填写部分 ***
 
         // fixme 必填: 请参阅 https://ak-console.aliyun.com/ 取得您的AK信息
-        $accessKeyId = ""; // 新服务器
-        $accessKeySecret = "";// 新服务器
+        $accessKeyId = get_setting('sms_app_id'); // 新服务器
+        $accessKeySecret = get_setting('sms_app_key');// 新服务器
 
         // fixme 必填: 短信接收号码
         $params["PhoneNumbers"] = $mobile;
 
         // fixme 必填: 短信签名，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $params["SignName"] = "";
+        $params["SignName"] = get_setting('sms_app_sign_name');
 
         // fixme 必填: 短信模板Code，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $params["TemplateCode"] = ""; // 新服务器短信模版ID
+        $params["TemplateCode"] = get_setting('sms_app_template_code'); // 新服务器短信模版ID
 
         // fixme 可选: 设置模板参数, 假如模板中存在变量需要替换则为必填项
         $params['TemplateParam'] = Array(
