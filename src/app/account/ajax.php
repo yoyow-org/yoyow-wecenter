@@ -96,6 +96,7 @@ class ajax extends AWS_CONTROLLER
             "client_type" => $_POST['client_type'], #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式
             "ip_address" => fetch_ip() # 请在此处传输用户请求验证时所携带的IP
         );
+
         if ($_SESSION['gtserver'] == 1) {   //服务器正常
             $result = $GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $data);
             if (!$result) {
@@ -107,9 +108,7 @@ class ajax extends AWS_CONTROLLER
             }
         }
 
-
         $return = $this->model('sms_sendSms')->sendSms($_POST['mobile']);
-
         if($return->Code=="OK"){
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('短信发送成功，请注意查收')));
         }else{
@@ -206,25 +205,11 @@ class ajax extends AWS_CONTROLLER
             $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], "123@qq.com",$_POST['mobile']);
         }
 
-        //插入yoyow绑定信息
-        $this->model('yoyow')->bind_account($_POST['yoyow'],$uid);
-
-        /**************** 20180426-20180430活动 绑定yoyow账号送10个yoyow币 jiangchengkai  2018-04-19 start *************************/
-        if($this->model('account')->is_send_yoyow()){
-            $this->model('account')->register_send_yoyow($uid, 1, get_setting('register_bind_reward'));
-        }
-        /**************** 20180426-20180430活动 绑定yoyow账号送10个yoyow币 jiangchengkai  2018-04-19 end *************************/
-
-
-        /**************** 注册赠送yoyow币 jiangchengkai  2018-05-22 start *************************/
-        //$this->model('account')->register_send_yoyow($uid, 1, get_setting('register_reward_amount'));
-        /**************** 注册赠送yoyow币 jiangchengkai  2018-05-22 end *************************/
-
         $this->model('account')->insert_column($uid);
 
         if ($_POST['email'] == $invitation['invitation_email']) {
             $this->model('active')->set_user_email_valid_by_uid($uid);
-
+//
             $this->model('active')->active_user_by_uid($uid);
         }
 
@@ -266,6 +251,8 @@ class ajax extends AWS_CONTROLLER
         if ($_POST['icode']) {
             $this->model('invitation')->invitation_code_active($_POST['icode'], time(), fetch_ip(), $uid);
         }
+
+
         if (strlen($_POST['inviteCode'])>0) {
             $resiter_user_name = $this->model('account')->fetch_one('users','user_name','uid = '.$uid);
             $this->model('invitation')->add_invitation_code_active($_POST['inviteCode'], time(), fetch_ip(), $uid,$invite['uid']);
@@ -320,15 +307,15 @@ class ajax extends AWS_CONTROLLER
             $this->model('account')->setcookie_login($user_info['uid'], $user_info['mobile'], $_POST['password'], $user_info['salt']);
 
             if (!$_POST['_is_mobile']) {
-                /*H::ajax_json_output(AWS_APP::RSM(array(
-                    'url' => get_js_url('/home/first_login-TRUE')
-                ), 1, null));*/
-
-                setcookie('message_' . $uid, "你已成功注册币问，你将获得". get_setting('register_reward_amount')."yoyow奖励，恭喜!", time() + 3600 * 24, "/");
-                // 跳转至邀请好友页面
                 H::ajax_json_output(AWS_APP::RSM(array(
-                    'url' => get_js_url('/invitation/')
+                    'url' => get_js_url('/home/first_login-TRUE')
                 ), 1, null));
+
+//                setcookie('message_' . $uid, "你已成功注册币问，你将获得". get_setting('register_reward_amount')."yoyow奖励，恭喜!", time() + 3600 * 24, "/");
+//                // 跳转至邀请好友页面
+//                H::ajax_json_output(AWS_APP::RSM(array(
+//                    'url' => get_js_url('/invitation/')
+//                ), 1, null));
             }
         } else {
             AWS_APP::session()->valid_email = $user_info['email'];

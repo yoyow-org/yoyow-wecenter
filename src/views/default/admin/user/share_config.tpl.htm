@@ -36,6 +36,30 @@
 									</div>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<div class="form-group">
+										<span class="col-sm-4 col-xs-3 control-label"><?php _e('邀请海报背景图'); ?>:</span>
+										<div class="col-sm-2"  style="display:inline-block">
+											<p>
+												<img src="/uploads/poster/bg/poster_bg.jpg" alt="" width="180" height="320" class="img-polaroid" />
+											</p>
+											<span class="mod-file">
+												<input type="button" class="btn btn-primary" value="点击更换海报">
+												<input type="file" name="poster_bg_img" exts="png|jpg|jpeg" class="mod-input-file">
+											</span>
+											<br>
+											<span class="help-block"><?php _e('图片尺寸宽高为：1080 * 1920 PX；图片类型：png、jpg、jpeg'); ?></span>
+										</div>
+										<div class="col-sm-2" style="display:inline-block">
+											<span>
+												<img src="<?php echo G_STATIC_URL ?>/common/poster.jpg" alt="" width="180" height="320" class="img-polaroid" />
+											</span>
+											<span class="help-block"><?php _e('示例图片：图中二维码和用户名为动态生成，所占空白位置在背景图中需要固定在这个位置'); ?></span>
+										</div>
+									</div>
+								</td>
+							</tr>
 							</tbody>
 						</table>
 

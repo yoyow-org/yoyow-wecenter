@@ -2633,6 +2633,50 @@ class ajax extends AWS_ADMIN_CONTROLLER
         $invitation_code_remark=$_POST['invitation_code_remark'];
         $invite_start_time=$_POST['invite_start_time'];
 
+        if ($_FILES['poster_bg_img']['name'])
+        {
+            $file_name = 'poster_bg.jpg';
+            $max_size = 5 * 1024; //5M
+            AWS_APP::upload()->initialize(array(
+                'allowed_types' => 'jpg,jpeg,png',
+                'upload_path' => get_setting('upload_dir') . '/poster/bg/',
+                'is_image' => TRUE,
+                'max_size' => $max_size,
+                'width' => 1080,
+                'height' => 1920,
+                'file_name' => $file_name,
+                'encrypt_name' => FALSE
+            ))->do_upload('poster_bg_img');
+
+            if (AWS_APP::upload()->get_error())
+            {
+                switch (AWS_APP::upload()->get_error())
+                {
+                    default:
+                        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+                        break;
+
+                    case 'upload_invalid_filetype':
+                        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('文件类型无效')));
+                        break;
+
+                    case 'upload_invalid_filesize':
+                        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('文件尺寸过大, 最大允许尺寸为 5M')));
+                        break;
+                }
+            }
+
+            if (! $upload_data = AWS_APP::upload()->data())
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+            }
+
+            $save_data=array(
+                'poster_bg_img'=>$file_name
+            );
+            $this->model('setting')->set_vars($save_data);
+        }
+
 
         $save_data=array(
             'share_content'=>$share_content,

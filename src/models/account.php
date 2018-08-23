@@ -1817,7 +1817,7 @@ class account_class extends AWS_MODEL
 //                    'opacity' => 100
 //                ),
             ),
-            'background' => G_STATIC_URL . '/common/bg.png'       //背景图
+            'background' => get_poster_bg()       //背景图
         );
         $poster_url = $this->model('weixin')->createPoster($config,$file_full_path);
         if(file_exists($poster_url)){

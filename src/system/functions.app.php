@@ -24,6 +24,22 @@
 
 
 /**
+ * 获取邀请海报背景图
+ * @return string
+ */
+function get_poster_bg()
+{
+    if (file_exists(get_setting('upload_dir') . '/poster/bg/poster_bg.jpg'))
+    {
+        return get_setting('upload_dir') . '/poster/bg/poster_bg.jpg';
+    }
+    else
+    {
+        return G_STATIC_URL . '/common/bg.png';
+    }
+}
+
+/**
  * 获取头像地址
  *
  * 举个例子：$uid=12345，那么头像路径很可能(根据您部署的上传文件夹而定)会被存储为/uploads/000/01/23/45_avatar_min.jpg
