@@ -208,39 +208,6 @@ $config[] = array(
     )
 );
 
-if (check_extension_package('project'))
-{
-    $config[] = array(
-        'title' => '活动管理',
-        'cname' => 'reply',
-        'children' => array(
-            array(
-                'id' => 310,
-                'title' => '活动管理',
-                'url' => 'admin/project/project_list/'
-            ),
-
-            array(
-                'id' => 311,
-                'title' => '活动审核',
-                'url' => 'admin/project/approval_list/'
-            ),
-
-            array(
-                'id' => 312,
-                'title' => '订单管理',
-                'url' => 'admin/project/order_list/'
-            )
-
-            /*array(
-                'id' => 316,
-                'title' => '注册绑定活动管理',
-                'url' => 'admin/project/register_bind_list/'
-            )*/
-        )
-    );
-}
-
 $config[] = array(
     'title' => AWS_APP::lang()->_t('内容设置'),
     'cname' => 'signup',
