@@ -28,12 +28,12 @@
 									<span><i class="icon icon-agree"></i><?php _e('赞同'); ?> <b><?php echo $val['agree_count']; ?></b></span>
 									<!--<span><i class="icon icon-thank"></i><?php _e('感谢'); ?> <b><?php echo $val['thanks_count']; ?></b></span>-->
 								</div>
-								
+
 								<?php if ($val['uid'] != $this->user_id AND $this->user_id) { ?>
 								<div class="operate">
 									<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['uid'];?>);" class="follow btn btn-normal btn-success<?php if ($val['focus']) { ?> active<?php } ?>"><span><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $val['fans_count']; ?></b></a>
 									<a onclick="AWS.dialog('publish', {category_enable:<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>, ask_user_id:<?php echo $val['uid']; ?>, ask_user_name:'<?php echo $val['user_name']; ?>'});" class="text-color-999"><?php _e('问Ta'); ?></a>
-									<em class="text-color-999">•</em>	 
+									<em class="text-color-999">•</em>
 									<a onclick="AWS.dialog('inbox', '<?php echo $val['user_name']; ?>');" class="text-color-999"><?php _e('私信'); ?></a>
 								</div>
 								<?php } ?>
@@ -62,7 +62,7 @@
 							</div>
 							<?php } ?>
 							<?php } ?>
-				
+
 							<?php echo $this->pagination; ?>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 						</div>
 					</div>
 					<!-- 侧边栏 -->
-				
+
 				<!-- end 侧边栏 -->
 					<div class="aw-mod side-nav">
 						<div class="mod-body">
@@ -96,19 +96,19 @@
 							</ul>
 						</div>
 					</div>
-				
+
 					<!-- <div class="aw-mod people-sort">
 						<div class="mod-body">
 							<input type="text" name="" placeholder="按擅长话题搜索..." class="form-control" />
 							<i class="icon icon-down"></i>
 						</div>
 					</div> -->
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-		
+
 <?php TPL::output('global/footer.tpl.htm'); ?>
