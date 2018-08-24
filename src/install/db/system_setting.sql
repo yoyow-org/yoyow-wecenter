@@ -1,6 +1,6 @@
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('site_name', 's:14:"yoyow-wecenter";'),
-('description', 's:32:"WeCenter 社交化知识社区33";'),
+('description', 's:32:"WeCenter 社交化知识社区";'),
 ('keywords', 's:47:"WeCenter,知识社区,社交社区,问答社区";'),
 ('sensitive_words', 's:0:"";'),
 ('def_focus_uids', 's:1:"1";'),
@@ -15,7 +15,7 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('img_url', 's:0:"";'),
 ('upload_url', '[#UPLOAD_URL#]'),
 ('upload_dir', '[#UPLOAD_DIR#]'),
-('ui_style', 's:4:"lime";'),
+('ui_style', 's:7:"default";'),
 ('uninterested_fold', 's:1:"5";'),
 ('sina_akey', NULL),
 ('sina_skey', NULL),

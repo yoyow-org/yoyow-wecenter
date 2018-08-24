@@ -101,13 +101,6 @@ class main extends AWS_CONTROLLER
         }
 
         $this->model('email')->send_mail_queue(120);
-
-        $ids="auto";
-        //执行手动分币任务
-        $this->model('assigntask')->conin_task($ids);
-        //执行分配失败的重新分配
-//        $this->model('assigntask')->execute_failed_distribute();
-        var_dump("执行完成");
     }
 
 	// 每五分钟执行

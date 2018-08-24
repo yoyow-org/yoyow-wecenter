@@ -8,6 +8,6 @@ $config['master'] = array (
   'host' => '10.110.1.251',
   'username' => 'root',
   'password' => 'qwaszxer',
-  'dbname' => 'yoyow_wecenter_xy',
+  'dbname' => 'yoyow_wecenter_master',
 );
 $config['slave'] = false;
