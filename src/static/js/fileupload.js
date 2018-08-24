@@ -4,7 +4,8 @@
  * Date: 2014-06-02
  */
 function FileUpload (type, element, container, url, options, callback)
-{
+{   
+
 	var _this = this;
 	this.type = type;
 	this.element = element;
@@ -22,7 +23,7 @@ function FileUpload (type, element, container, url, options, callback)
 							'<p class="size"></p>'+
 							'<p class="meta"></p>'+
 						'</div>'+
-		    		'</li>',
+		    		'</li>',	
 		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
 		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
 	};
@@ -55,6 +56,7 @@ FileUpload.prototype =
 	init : function (element, container)
 	{
 		
+
 		var form = this.createForm(),
 			input = this.createInput();
 
@@ -71,8 +73,10 @@ FileUpload.prototype =
 				$('#upload-form .file-input').click();
 			});
 		}
+        
 
 		$(container).append('<ul class="upload-list"></ul>');
+
 		
 	},
 
@@ -134,12 +138,15 @@ FileUpload.prototype =
 
 	// 添加文件列表
 	addFileList : function (input)
-	{
+	{   
+
 		var files = $(input)[0].files;
+
+
 		if (files && this.type == 'file')
-		{
+		{   
 			for (i = 0; i < files.length; i++)
-			{
+			{   
 				this.li = this.toElement(this.options.template);
 				this.file = files[i];
 				$(this.container).find('.upload-list').append(this.li);
@@ -187,10 +194,10 @@ FileUpload.prototype =
 	upload : function (file, li)
 	{
 		var _this = this;
-
+        
 		if (file)
 		{
-
+          
 			var is_allowed = this.allowed_upload_types(file.name);
 			
 			if(!is_allowed)
@@ -226,7 +233,7 @@ FileUpload.prototype =
 	        };
 
 	        var url = this.url + '&aws_upload_file=' + file.name + '&timestamp=' + new Date().getTime();
-
+            
 	        xhr.open("POST", url);
 
 	        xhr.send(file);
@@ -356,7 +363,8 @@ FileUpload.prototype =
 
 	// 渲染缩略列表
 	render : function (element, json, filesize)
-	{
+	{    
+
 		if (json)
 		{
 			if (!json.error)

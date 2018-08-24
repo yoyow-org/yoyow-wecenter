@@ -450,6 +450,7 @@ class Zend_Session extends Zend_Session_Abstract
         }
 
         $filename = $linenum = null;
+        
         if (!self::$_unitTestEnabled && headers_sent($filename, $linenum)) {
             /** @see Zend_Session_Exception */
             //require_once 'Zend/Session/Exception.php';

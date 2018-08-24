@@ -46,7 +46,7 @@ class ajax extends AWS_CONTROLLER
     }
 
     public function attach_upload_action()
-    {
+    {   
         if (get_setting('upload_enable') != 'Y' OR !$_GET['id'])
         {
             die;
