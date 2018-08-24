@@ -15,6 +15,7 @@
   * PHP 5.6+ 7.0-
   * Mysql 5.6+
   
+  如果使用的PHP5.6版本，需要开启always_populate_raw_post_data
   
 # yoyow中间件
   yoyow-wecenter是基于yoyow链的内容平台，奖励的机制也是yoyow币。这就免不了与yoyow链进行交互，目前yoyow-wecenter通过调用yoyow中间件提供的接口方法进行平台与用户之间操作，主要包括yoyow授权登录、转账、查询用户信息
