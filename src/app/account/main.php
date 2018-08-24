@@ -49,8 +49,7 @@ class main extends AWS_CONTROLLER
 
     public function slide_captcha_action()
     {
-        //$GtSdk = new GeetestLib(get_setting('geetest_id'), get_setting('geetest_key'));
-        $GtSdk = new GeetestLib("f998f1f5d065e1ff0546eb292d6785f4","1d8b3b9473d580348d4b7245e6158fd3");
+        $GtSdk = new GeetestLib(get_setting('geetest_id'), get_setting('geetest_key'));
         $data = array(
             "user_id" => substr(md5(microtime(true)), 0, 6), # 随机生成6位数
             "client_type" => $_GET['client_type'], #web:电脑上的浏览器；h5:手机上的浏览器，包括移动应用内完全内置的web_view；native：通过原生SDK植入APP应用的方式

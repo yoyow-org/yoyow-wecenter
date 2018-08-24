@@ -32,8 +32,8 @@ class main extends AWS_CONTROLLER
 	}
 
 	public function run_action()
-	{   
-        
+	{
+
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');             // Date in the past
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
 		header('Cache-Control: no-cache, must-revalidate');           // HTTP/1.1
@@ -67,13 +67,13 @@ class main extends AWS_CONTROLLER
 
 // 	// 每半分钟执行
 //     public function half_minute_action()
-//     {   
+//     {
 //         $this->model('edm')->run_task();
 //     }
 
 // 	 // 每分钟执行
 //     public function minute_action()
-//     {   
+//     {
 //         @unlink(TEMP_PATH . 'plugins_table.php');
 //         @unlink(TEMP_PATH . 'plugins_model.php');
 

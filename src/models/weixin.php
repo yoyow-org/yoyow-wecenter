@@ -2028,7 +2028,11 @@ class weixin_class extends AWS_MODEL
         $dir = $_SERVER['DOCUMENT_ROOT']."/uploads/poster/qrcode";  //本地测试路径 & live路径
 
         if(!is_dir($dir)){
-            mkdir($dir,0777,true);
+
+            if(!mkdir($dir,0777,true)){
+                var_dump("创建目录失败".$dir);die;
+            }
+
         }
         $url = $dir.DIRECTORY_SEPARATOR.$uid.'_qrcode.png'; //图片保存路径
         try{
@@ -2103,6 +2107,7 @@ class weixin_class extends AWS_MODEL
 
         //重采样拷贝部分图像并调整大小
         imagecopyresampled($imageRes,$background,0,0,0,0,imagesx($background),imagesy($background),imagesx($background),imagesy($background));
+
         //处理图片
         if(!empty($config['image'])){
             foreach ($config['image'] as $key => $val) {
@@ -2114,8 +2119,11 @@ class weixin_class extends AWS_MODEL
                     $function = 'imagecreatefromstring';
                 }
                 $res = $function($val['url']);
+
                 $resWidth = $info[0];
                 $resHeight = $info[1];
+
+
                 //建立画板 ，缩放图片至指定尺寸
                 $canvas = imagecreatetruecolor($val['width'], $val['height']);
                 imagefill($canvas, 0, 0, $color);
@@ -2126,7 +2134,9 @@ class weixin_class extends AWS_MODEL
                 //放置图像   imagecopymerge : 拷贝并合并图像的一部分
                 imagecopymerge($imageRes,$canvas, $val['left'],$val['top'],$val['right'],$val['bottom'],$val['width'],$val['height'],$val['opacity']);//左，上，右，下，宽度，高度，透明度
             }
+
         }
+
         //处理文字
         if(!empty($config['text'])){
             foreach ($config['text'] as $key => $val) {

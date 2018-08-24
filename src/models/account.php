@@ -1761,7 +1761,6 @@ class account_class extends AWS_MODEL
         //       $dir = get_setting('upload_dir')."/uploads/poster/poster_img";
 //        $dir = $_SERVER['DOCUMENT_ROOT']."/../uploads/poster/poster_img"; // 47环境路径
        $dir = $_SERVER['DOCUMENT_ROOT']."/uploads/poster/poster_img";  //本地测试路径 & live路径
-
         $file_full_path = $dir.'/'.$poster_pic_name;
 
         if(!is_dir($dir))
@@ -1820,6 +1819,7 @@ class account_class extends AWS_MODEL
             'background' => get_poster_bg()       //背景图
         );
         $poster_url = $this->model('weixin')->createPoster($config,$file_full_path);
+
         if(file_exists($poster_url)){
             $file_url = "uploads/poster/poster_img/".$poster_pic_name;
         }else{

@@ -67,10 +67,12 @@
                                 </span>
                                 <?php } ?>
                             </p>
-                            <?php if($this->bind_yoyow==1){?>
-                            <p class="aw-user-flag">yoyow账号：<?php echo $this->bind_yoyow_account;?><a href="account/openid/yoyow/bind/type-edit" style="margin-left: 513px;margin-top: -50px;" class="btn btn-mini btn-success"><?php _e('修改'); ?></a></p>
-                            <?php }else{?>
-                            <p class="aw-user-flag" style="margin-left:513px;"><a href="account/openid/yoyow/bind/" class="btn btn-mini btn-success"><?php _e('绑定'); ?></a></p>
+                            <?php if($this->user['uid'] == $this->user_id AND $this->user_id){?>
+                                <?php if($this->bind_yoyow==1){?>
+                                    <p class="aw-user-flag">yoyow账号：<?php echo $this->bind_yoyow_account;?><a href="account/openid/yoyow/bind/type-edit" style="margin-left: 513px;margin-top: -50px;" class="btn btn-mini btn-success"><?php _e('修改'); ?></a></p>
+                                <?php }else{?>
+                                    <p class="aw-user-flag" style="margin-left:513px;"><a href="account/openid/yoyow/bind/" class="btn btn-mini btn-success"><?php _e('绑定'); ?></a></p>
+                                <?php }?>
                             <?php }?>
                         </div>
                         <div class="mod-body">
