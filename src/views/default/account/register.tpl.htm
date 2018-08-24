@@ -25,7 +25,6 @@
                 <li>
                     <input class="aw-register-smsflag form-control" type="text"  name="smsflag"  value=""  style="display:none" />
                 </li>
-                <?php if (get_setting('register_seccode') == 'Y') { ?>
                <!-- <li class="aw-register-verify">
                     <img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="">
                     <input type="text" class="form-control" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
@@ -35,7 +34,6 @@
                     <p id="wait" class="show">正在加载验证码......</p>
                     <p id="notice" class="hide">请先完成验证</p>
                 </li>
-                <?php } ?>
                 <li>
                     <input class="aw-register-validate form-control" id="smscode" style="width:67%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" tips="<?php _e('请输入短信验证码'); ?>" errortips="<?php _e('短信验证码不正确'); ?>" />
                     <button style="width: 30%;pointer-events:initial; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 2px 15px;height: 50px;" id="Smsbtn" type="button"  class="btn btn-large btn-blue btn-block">获取短信验证码</button>

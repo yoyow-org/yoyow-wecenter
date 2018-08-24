@@ -31,17 +31,15 @@
 						<input class="form-control" type="text" placeholder="<?php _e('手机'); ?>" name="mobile" value="<?php echo htmlspecialchars($_GET['mobile']); ?>" />
 					</li>
 
-					<?php if (get_setting('register_seccode') == 'Y') { ?>
 					<!--<li class="captcha">
 						<input type="text" class="form-control" name="seccode_verify" placeholder="<?php /*_e('验证码'); */?>" />
 						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" width="96" />
 					</li>-->
-                        <li class="aw-register-verify">
-                            <div id="embed-captcha"></div>
-                            <p id="wait" class="show">正在加载验证码......</p>
-                            <p id="notice" class="hide">请先完成验证</p>
-                        </li>
-					<?php } ?>
+					<li class="aw-register-verify">
+						<div id="embed-captcha"></div>
+						<p id="wait" class="show">正在加载验证码......</p>
+						<p id="notice" class="hide">请先完成验证</p>
+					</li>
 					<li>
 						<input class=" form-control" id="smscode" style="width:65%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" />
 						<button style="width: 30%;pointer-events:initial;float:right; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 15px 9px;" id="Smsbtn" type="button"  class="btn btn-primary btn-block">获取验证码</button>
