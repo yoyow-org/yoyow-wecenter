@@ -2622,12 +2622,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if(empty($_POST['share_content'])) {
             H::ajax_json_output(AWS_APP::RSM(NULL, -1, AWS_APP::lang()->_t('请输入分享内容')));
         }
-        if(empty($_POST['share_title'])) {
-            H::ajax_json_output(AWS_APP::RSM(NULL, -1, AWS_APP::lang()->_t('请输入分享摘要')));
-        }
-       /* if(empty($_POST['share_pic'])) {
-            H::ajax_json_output(AWS_APP::RSM(NULL, -1, AWS_APP::lang()->_t('请输入分享图片地址')));
-        }*/
         $share_content=$_POST['share_content'];
         $share_title=$_POST['share_title'];
         $invitation_code_remark=$_POST['invitation_code_remark'];
