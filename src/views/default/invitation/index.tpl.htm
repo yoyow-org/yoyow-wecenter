@@ -137,7 +137,7 @@
 									<span id="copyimg" onclick="ButtonClick()" data-clipboard-target="#inviteimg">点击复制个人邀请海报</span>
 								</div>
 								<div style="padding:40px 18px 0 18px;">
-									<textarea id="registerurl" rows="2" readonly="readonly"><?php _e($this->invitation_code?base_url().'/?/account/register/invitation_code-'.$this->invitation_code:base_url().'/?/account/register/'); ?></textarea>
+									<textarea id="registerurl" rows="2" readonly="readonly"><?php _e($this->invitation_code ? base_url().'/?/account/register/invitation_code-'.$this->invitation_code : base_url().'/?/account/register/'); ?></textarea>
 									<span id="registerurlbutton" onclick="$('#registerurl').select();document.execCommand('copy',false,null); AWS.alert('复制成功～');">复制</span>
 								</div>
 								<div style="margin:25px 12px 0 12px;width:700px;" >
@@ -184,10 +184,11 @@
 									<input type="hidden" id="total_page" value="<?php echo $this->total_page;?>"/>
 								</div>
 								<div style="padding:23px 18px 81px 18px;">
-									<img src="static/admin/img/Group2.png"/>
+									<div style="background-color: #FFF;border-radius: 5px;padding:23px 18px 81px 18px;">
+										<?php echo get_setting('invitation_code_remark')?>
+									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
