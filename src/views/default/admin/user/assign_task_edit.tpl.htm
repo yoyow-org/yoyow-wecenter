@@ -111,48 +111,7 @@
 						</td>
 					</tr>
 
-					<tr>
-						<td>
-							<div class="form-group">
-								<span class="col-sm-4 col-xs-3 control-label"><?php _e('任务执行时间'); ?>:</span>
-
-								<div class="col-sm-6 col-xs-9">
-									<?php if(!empty($this->task)){ ?>
-
-									<div class="row">
-										<div class="col-xs-11  col-sm-5 mod-double">
-											<!--<input type="text" class="form-control mod-data" value="<?php echo date('Y-m-d',$this->task['exec_time']); ?>" name="exec_time" />-->
-											<!--<i class="icon icon-date"></i>-->
-											<dd class="exec_time">
-												<input type="hidden" name="exec_time" value="">
-												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
-												<input  type="text" readonly style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate" value="<?php echo date('Y-m-d H:i:s',$this->task['exec_time']); ?>"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
-											</dd>
-										</div>
-									</div>
-
-									<?php }else{ ?>
-
-									<div class="row">
-										<div class="col-xs-11  col-sm-5 mod-double">
-											<!--<input type="text" class="form-control mod-data" name="exec_time" />-->
-											<!--<i class="icon icon-date"></i>-->
-
-											<dd class="exec_time">
-												<input type="hidden" name="exec_time" value="">
-												<!--<input type="text" readonly class="form-control form-mini  pull-left date-picker form_datetime"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />-->
-												<input  type="text" readonly  style="height:30px;border-radius: 4px;" class=" form-mini  pull-left  Wdate"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
-											</dd>
-										</div>
-									</div>
-
-									<?php } ?>
-								</div>
-
-							</div>
-						</td>
-					</tr>
-
+					
 					<tr>
 						<td>
 							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="save();" />
