@@ -213,7 +213,7 @@ class people_class extends AWS_MODEL
 
     }
     
-    public function get_yoyow_by_id($uid, $type){
+    public function get_yoyow_by_id($uid, $type = null){
         if($type) {
              $coin_withdraw1  = $this->fetch_one("user_yoyow_coin", "sum(coin)", "`uid`= " . $uid." AND distribute_result != 1");
              $coin_withdraw2  = $this->fetch_one("register_reward_record", "sum(coin)", "`uid`= " . $uid." AND status != 0");
