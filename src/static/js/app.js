@@ -87,10 +87,6 @@ $(document).ready(function ()
     {
         $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
         $(this).parents('.aw-edit-topic-box').find('.add').click();
-        var topicclicked = $(this).text();
-        if (topicclicked.toUpperCase() === 'BTC' || topicclicked === '比特币' || topicclicked.toUpperCase() === 'BITCOIN' || topicclicked.toUpperCase() === 'YOYOW' || topicclicked.toUpperCase() === 'ETH' || topicclicked.toUpperCase() === 'EOS' || topicclicked === '区块链' || topicclicked === '以太坊' || topicclicked === '公信宝') {
-           document.getElementById("bgsound").play();
-	}
         $(this).parents('.aw-edit-topic-box').find('.aw-dropdown').hide();
     });
 
