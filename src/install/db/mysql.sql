@@ -476,48 +476,6 @@ CREATE TABLE `[#DB_PREFIX#]jobs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]lock_position` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(16) NOT NULL COMMENT '用户锁仓唯一编码',
-  `uid` int(10) unsigned NOT NULL COMMENT '申请用户id',
-  `sum_num` decimal(15,4) NOT NULL DEFAULT '0.0000' COMMENT '锁仓金额',
-  `sum_day` smallint(6) NOT NULL DEFAULT '0' COMMENT '锁仓天数',
-  `surplus_day` smallint(6) NOT NULL COMMENT '剩余天数',
-  `num` int(10) unsigned NOT NULL COMMENT '天数 月数 年数',
-  `unit` varchar(20) NOT NULL COMMENT '基础数值 年-月-日',
-  `money_rate` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '利率',
-  `receive_time` int(10) NOT NULL DEFAULT '0' COMMENT '最后领取时间',
-  `create_time` int(10) NOT NULL COMMENT '创建时间',
-  `is_ pull` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否领取当日分红',
-  `pull_num` decimal(15,4) NOT NULL DEFAULT '0.0000' COMMENT '分红金额',
-  `rotp` decimal(15,4) NOT NULL COMMENT '本金每日返还',
-  `rotp_sday` tinyint(3) NOT NULL COMMENT '本金返还剩余天数',
-  `rotp_time` int(10) NOT NULL DEFAULT '0' COMMENT '最后返还日期',
-  `end_time` int(10) NOT NULL DEFAULT '0' COMMENT '分红截至日期',
-  `type` tinyint(3) NOT NULL DEFAULT '1' COMMENT ' 1为限制 2为不限制期限',
-  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '审核状态 0未审核 -1审核未通过 1进行中 2本金返还中  99已过期  ',
-  `storehouse` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否申请解仓 1申请中 2申请成功 -1申请失败',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `[#DB_PREFIX#]lock_position_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `num` int(10) unsigned NOT NULL COMMENT '基础数值 100天 1年',
-  `unit` varchar(20) NOT NULL COMMENT '单位 年 月 日',
-  `money_rate` float(10,2) NOT NULL COMMENT '利率',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `[#DB_PREFIX#]lock_position_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `lid` int(10) unsigned NOT NULL COMMENT '锁仓记录id',
-  `uid` int(10) NOT NULL COMMENT '用户id',
-  `num` decimal(15,4) NOT NULL COMMENT '领取金额',
-  `create_time` int(10) NOT NULL COMMENT '领取时间',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1为分红日志 2为本金返还日志',
-  PRIMARY KEY (`id`),
-  KEY `lid` (`lid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `[#DB_PREFIX#]mail_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -799,7 +757,7 @@ CREATE TABLE `[#DB_PREFIX#]ranking_list` (
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `ranking` (`ranking`),
   UNIQUE KEY `uid` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]received_email` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -856,7 +814,7 @@ CREATE TABLE `[#DB_PREFIX#]register_problem` (
   `add_time` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]register_reward_record` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -992,7 +950,7 @@ CREATE TABLE `[#DB_PREFIX#]share_frist_record` (
   `uid` int(10) DEFAULT '0',
   `ip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]share_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1009,7 +967,7 @@ CREATE TABLE `[#DB_PREFIX#]share_log` (
   `withdrawal_time` int(10) NOT NULL DEFAULT '0' COMMENT '提现时间',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]site_announce` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1476,7 +1434,7 @@ CREATE TABLE `[#DB_PREFIX#]users_yoyow` (
   `yoyow` varchar(50) DEFAULT NULL,
   `bindtime` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -1655,7 +1613,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_ranking` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   UNIQUE KEY `ranking` (`ranking`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_tranfer_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
@@ -1689,7 +1647,7 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_log` (
   `coin` decimal(16,4) DEFAULT NULL COMMENT '金额',
   `task_id` int(11) DEFAULT NULL COMMENT '任务id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]yoyow_transfer_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
