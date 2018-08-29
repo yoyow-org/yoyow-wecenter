@@ -103,12 +103,6 @@ class main extends AWS_CONTROLLER
 			{
 				$comments[$key]['vote_info'] = $this->model('article')->get_article_vote_by_id('comment', $val['id'], 1, $this->user_id);
 				$comments[$key]['message'] = $this->model('question')->parse_at_user($val['message']);
-                $integral_id=$this->model('integral')->get_integral_id_by_type($val['id'],"DISCUSS_ARTICLE");
-                $yoyow_article_comment_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-                if($yoyow_article_comment_income=="无积分记录Id" || !$yoyow_article_comment_income){
-                    $yoyow_article_comment_income=0;
-                }
-                $comments[$key]['yoyow_article_comment_income'] = $yoyow_article_comment_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));
 			}
 		}
 
@@ -154,29 +148,6 @@ class main extends AWS_CONTROLLER
 
 			TPL::assign('recommend_posts', $recommend_posts);
 		}
-        //计算点赞的积分
-        $praise_oppose_list=$this->model('integral')->fetch_all('article_vote','item_id = '.$article_info['id'].' AND type="article"');
-        $praise_oppose_integrals = 0;
-        foreach ($praise_oppose_list AS $ke=>$vl){
-            if($int_id = $this->model('integral')->fetch_one('integral_log','id','action = "'.($vl['rating'] == 1 ? 'ARTICLE_PRAISE':'ARTICLE_OPPOSE').'" and uid ='.$vl['item_uid'].' and item_id ='.$vl['uid'].' and time ='.$vl['time'])){
-                $praise_oppose_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($int_id);
-                $praise_oppose_integrals += $praise_oppose_integral;
-            }
-        }
-        //计算文章下回复的奖励
-        $article_incomes = 0;
-        $article_answer_list = $this->model('article')->fetch_all('integral_log','action = "ARTICLE_DISCUSS" AND note = "文章被评论 #'.$article_info['id'].'"');
-        foreach($article_answer_list AS $ks=>$vs){
-            $article_income = $this->model('assigntask')->get_integral_yoyow_by_integral_id($vs['id']);
-            $article_incomes += $article_income;
-        }
-        $integral_id=$this->model('integral')->get_integral_id_by_type($article_info['id'],"NEW_ARTICLE");
-        $article_new_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-        if($article_new_income=="无积分记录Id" || !$article_new_income){
-            $article_new_income=0;
-        }
-        $yoyow_income = $article_incomes + $article_new_income + $praise_oppose_integrals;
-        TPL::assign('yoyow_article_income',$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate')));
 
 		TPL::output('article/index');
 	}
@@ -239,31 +210,6 @@ class main extends AWS_CONTROLLER
 				$article_list[$key]['user_info'] = $article_users_info[$val['uid']];
 				$article_list[$key]['cover_file'] = get_setting('upload_url') . '/article/cover/'.$val['cover_file'];
 
-                //计算点赞的积分
-                $praise_oppose_list=$this->model('integral')->fetch_all('article_vote','item_id = '.$val['id'].' AND type="article"');
-                $praise_oppose_integrals = 0;
-                foreach ($praise_oppose_list AS $ke=>$vl){
-                    if($int_id = $this->model('integral')->fetch_one('integral_log','id','action = "'.($vl['rating'] == 1 ? 'ARTICLE_PRAISE':'ARTICLE_OPPOSE').'" and uid ='.$vl['item_uid'].' and item_id ='.$vl['uid'].' and time ='.$vl['time'])){
-                        $praise_oppose_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($int_id);
-                        $praise_oppose_integrals += $praise_oppose_integral;
-                    }
-                }
-                //计算文章下回复的奖励
-                $article_incomes = 0;
-                $article_integral_list = $this->model('article')->fetch_all('integral_log','action = "ARTICLE_DISCUSS" AND note = "文章被评论 #'.$val['id'].'"');
-                if ($article_integral_list){
-                    foreach($article_integral_list AS $ks=>$vs){
-                        $article_income = $this->model('assigntask')->get_integral_yoyow_by_integral_id($vs['id']);
-                        $article_incomes += $article_income;
-                    }
-                }
-                $integral_id=$this->model('integral')->get_integral_id_by_type($val['id'],"NEW_ARTICLE");
-                $article_new_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-                if($article_new_income=="无积分记录Id" || !$article_new_income){
-                    $article_new_income=0;
-                }
-                $yoyow_article_income = $article_incomes + $article_new_income + $praise_oppose_integrals;
-                $article_list[$key]['yoyow_article_income'] = $yoyow_article_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));
 			}
 		}
 

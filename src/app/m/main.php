@@ -694,12 +694,6 @@ class main extends AWS_CONTROLLER
 
             TPL::assign('recommend_posts', $recommend_posts);
         }
-        $integral_id=$this->model('integral')->get_integral_id_by_type($question_info['question_id'],"NEW_QUESTION");
-        $yoyow_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-        if($yoyow_income=="无积分记录Id" || !$yoyow_income){
-            $yoyow_income=0;
-        }
-        TPL::assign('yoyow_question_income',$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate')));
         TPL::output('m/question_share');
     }
 

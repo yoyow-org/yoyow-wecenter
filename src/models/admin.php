@@ -217,13 +217,13 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD)
-        {
-            $notifications_texts[] = array(
-                                            'url' => 'http://www.wecenter.com/downloads/',
-                                            'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version']['version'])
-                                        );
-        }
+//        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD)
+//        {
+//            $notifications_texts[] = array(
+//                                            'url' => 'http://www.wecenter.com/downloads/',
+//                                            'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version']['version'])
+//                                        );
+//        }
 
         if (get_setting('weibo_msg_enabled') == 'Y' AND $notifications['sina_users'])
         {

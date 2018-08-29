@@ -1095,36 +1095,5 @@ class ajax extends AWS_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
-    public function get_answer_yoyow_action()
-    {
-        $answer = $this->model('integral')->fetch_row('answer','answer_id ='.$_POST['answer_id']);
-        //计算点赞的积分
-        $praise_oppose_list=$this->model('integral')->fetch_all('answer_vote','answer_id = '.$_POST['answer_id']);
-        $praise_oppose_integrals = 0;
-        $answer_question_integrals = 0;
-        foreach ($praise_oppose_list AS $key=>$val){
-            if($int_id = $this->model('integral')->fetch_one('integral_log','id','action = "'.($val['vote_value'] == 1 ? 'PRAISE':'OPPOSE').'" and uid ='.$val['answer_uid'].' and item_id ='.$val['vote_uid'].' and time ='.$val['add_time'])){
-                $praise_oppose_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($int_id);
-                $praise_oppose_integrals += $praise_oppose_integral;
-            }
-        }
-        //计算该回复获取的总积分
-        $answer_question_list = $this->model('integral')->fetch_all('integral_log','action = "QUESTION_ANSWER_DISCUSS" AND uid = '.$answer['uid'].' AND item_id = '.$answer['answer_id']);
-        foreach ($answer_question_list as $k=>$v){
-            $answer_question_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($v['id']);
-            $answer_question_integrals += $answer_question_integral;
-        }
 
-        //$integral_id=$this->model('integral')->get_integral_id_by_type($answer['question_id'],"ANSWER_QUESTION",$answer['uid']);
-        $integral_id = $this->model('integral')->fetch_one('integral_log','id','action = "ANSWER_QUESTION" and item_id = '.$answer['question_id'].' and uid = '.$answer['uid'].' and time ='.$answer['add_time']);
-        $answer_yoyow_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-        if($answer_yoyow_income=="无积分记录Id" || !$answer_yoyow_income){
-            $answer_yoyow_income=0;
-        }
-
-        //计算总积分
-        $yoyow_income =$answer_yoyow_income + $praise_oppose_integrals + $answer_question_integrals;
-        $yoyow_answer = $yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));
-        H::ajax_json_output(AWS_APP::RSM($yoyow_answer, 1, null));
-    }
 }

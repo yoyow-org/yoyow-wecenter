@@ -94,7 +94,7 @@
                                 <div class="aw-article-vote pull-left<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
                                     <a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="icon icon-agree"></i> <b><?php echo $this->article_info['votes']; ?></b></a>
                                     <?php if ($this->user_id AND $this->user_id != $this->article_info['uid']) { ?>
-                                    <a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"><i class="icon icon-disagree"></i><b style="font-size: 16px;font-weight: 500;margin-left: 5px;"><?php echo $this->article_info['against_count'] ;?></b></a>
+                                        <a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"><i class="icon icon-disagree"></i><b style="font-size: 16px;font-weight: 500;margin-left: 5px;"><?php echo $this->article_info['against_count'] ;?></b></a>
                                     <?php } ?>
                                 </div>
 
@@ -172,7 +172,6 @@
                                                 <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
                                                 <a class="text-color-999" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_comment/', 'comment_id=<?php echo $val['id']; ?>');});"><i class="icon icon-trash"></i> <?php _e('删除'); ?></a>
                                                 <?php } ?>
-                                                <?php if($val['yoyow_article_comment_income'] > 0){?> <span style="color:#999">奖励：¥<?php echo $val['yoyow_article_comment_income'];?></span><?php } ?>
                                             <?php } ?>
                                         </div>
                                     </div>
