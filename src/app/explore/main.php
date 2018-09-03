@@ -150,52 +150,6 @@ class main extends AWS_CONTROLLER
                 {
                     $posts_list[$key]['answer_users'] = $this->model('question')->get_answer_users_by_question_id($val['question_id'], 2, $val['published_uid']);
                 }
-                if($val['answer_count']>0){
-                   /* $answer = $this->model('integral')->fetch_row('answer','answer_id ='.$val['answer_info']['answer_id']);
-                    //计算点赞的积分
-                    $praise_oppose_list=$this->model('integral')->fetch_all('answer_vote','answer_id = '.$val['answer_info']['answer_id']);
-                    $praise_oppose_integrals = 0;
-                    $answer_question_integrals = 0;
-                    foreach ($praise_oppose_list AS $ke=>$vl){
-                        if($int_id = $this->model('integral')->fetch_one('integral_log','id','action = "'.($vl['vote_value'] == 1 ? 'PRAISE':'OPPOSE').'" and uid ='.$vl['answer_uid'].' and item_id ='.$vl['vote_uid'].' and time ='.$vl['add_time'])){
-                            $praise_oppose_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($int_id);
-                            $praise_oppose_integrals += $praise_oppose_integral;
-                        }
-                    }
-                    //计算该回复获取的总积分
-                    $answer_question_list = $this->model('integral')->fetch_all('integral_log','action = "QUESTION_ANSWER_DISCUSS" AND uid = '.$answer['uid'].' AND item_id = '.$answer['answer_id']);
-                    foreach ($answer_question_list as $k=>$v){
-                        $answer_question_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($v['id']);
-                        $answer_question_integrals += $answer_question_integral;
-                    }
-
-                    $integral_id=$this->model('integral')->get_integral_id_by_type($answer['question_id'],"ANSWER_QUESTION",$answer['uid']);
-                    $answer_yoyow_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-                    if($answer_yoyow_income=="无积分记录Id" || !$answer_yoyow_income){
-                        $answer_yoyow_income=0;
-                    }
-
-                    //计算总积分
-                    $yoyow_income =$answer_yoyow_income + $praise_oppose_integrals + $answer_question_integrals;
-                    $posts_list[$key]['yoyow_answer']=$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));*/
-                }
-                //计算问题下回复的奖励
-                $answer_incomes = 0;
-                $answer_list = $this->model('question')->fetch_all('integral_log','action = "QUESTION_ANSWER" AND item_id = '.$val['question_id']);
-                foreach($answer_list AS $ks=>$vs){
-                    $answer_income = $this->model('assigntask')->get_integral_yoyow_by_integral_id($vs['id']);
-                    $answer_incomes += $answer_income;
-                }
-
-                //发起问题的奖励
-                $integral_id=$this->model('integral')->get_integral_id_by_type($val['question_id'],"NEW_QUESTION");
-                $question_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-                if($question_income=="无积分记录Id" || !$question_income){
-                    $question_income=0;
-                }
-                $yoyow_question_income = $question_income + $answer_incomes;
-                $posts_list[$key]['yoyow_question']=$yoyow_question_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));
-
             }
         }
 

@@ -259,34 +259,6 @@ class main extends AWS_CONTROLLER
                 $answer['agree_users'] = $answer_agree_users[$answer['answer_id']];
                 $answer['agree_status'] = $answer_vote_status[$answer['answer_id']];
 
-                //计算点赞的积分
-                $praise_oppose_list=$this->model('integral')->fetch_all('answer_vote','answer_id = '.$answer['answer_id']);
-                $praise_oppose_integrals = 0;
-                $answer_question_integrals = 0;
-                foreach ($praise_oppose_list AS $key=>$val){
-                    if($int_id = $this->model('integral')->fetch_one('integral_log','id','action = "'.($val['vote_value'] == 1 ? 'PRAISE':'OPPOSE').'" and uid ='.$val['answer_uid'].' and item_id ='.$val['vote_uid'].' and time ='.$val['add_time'])){
-                        $praise_oppose_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($int_id);
-                        $praise_oppose_integrals += $praise_oppose_integral;
-                    }
-                }
-                //计算该回复获取的总积分
-                $answer_question_list = $this->model('integral')->fetch_all('integral_log','action = "QUESTION_ANSWER_DISCUSS" AND uid = '.$answer['uid'].' AND item_id = '.$answer['answer_id']);
-                foreach ($answer_question_list as $k=>$v){
-                    $answer_question_integral = $this->model('assigntask')->get_integral_yoyow_by_integral_id($v['id']);
-                    $answer_question_integrals += $answer_question_integral;
-                }
-
-                //$integral_id=$this->model('integral')->get_integral_id_by_type($answer['question_id'],"ANSWER_QUESTION",$answer['uid']);
-                $integral_id = $this->model('integral')->fetch_one('integral_log','id','action = "ANSWER_QUESTION" and item_id = '.$answer['question_id'].' and uid = '.$answer['uid'].' and time ='.$answer['add_time']);
-                $answer_yoyow_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-                if($answer_yoyow_income=="无积分记录Id" || !$answer_yoyow_income){
-                    $answer_yoyow_income=0;
-                }
-
-                //计算总积分
-                $yoyow_income =$answer_yoyow_income + $praise_oppose_integrals + $answer_question_integrals;
-                $answer['yoyow_answer_income']=$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate'));
-
                 if ($question_info['best_answer'] == $answer['answer_id'] AND intval($_GET['page']) < 2)
                 {
                     $answers[0] = $answer;
@@ -436,22 +408,6 @@ class main extends AWS_CONTROLLER
 
             TPL::assign('recommend_posts', $recommend_posts);
         }
-        //计算问题下回复的奖励
-        $answer_incomes = 0;
-        $answer_list = $this->model('question')->fetch_all('integral_log','action = "QUESTION_ANSWER" AND item_id = '.$question_info['question_id']);
-        foreach($answer_list AS $key=>$val){
-            $answer_income = $this->model('assigntask')->get_integral_yoyow_by_integral_id($val['id']);
-            $answer_incomes += $answer_income;
-        }
-
-        //发起问题的奖励
-        $integral_id=$this->model('integral')->get_integral_id_by_type($question_info['question_id'],"NEW_QUESTION");
-        $question_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-        if($question_income=="无积分记录Id" || !$question_income){
-            $question_income=0;
-        }
-        $yoyow_income = $question_income + $answer_incomes;
-        TPL::assign('yoyow_question_income',$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate')));
         TPL::output('question/index');
     }
 
@@ -818,12 +774,6 @@ class main extends AWS_CONTROLLER
 
             TPL::assign('recommend_posts', $recommend_posts);
         }
-        $integral_id=$this->model('integral')->get_integral_id_by_type($question_info['question_id'],"NEW_QUESTION");
-        $yoyow_income=$this->model('assigntask')->get_integral_yoyow_by_integral_id($integral_id);
-        if($yoyow_income=="无积分记录Id" || !$yoyow_income){
-            $yoyow_income=0;
-        }
-        TPL::assign('yoyow_question_income',$yoyow_income*((get_setting('yoyow_rmb_rate')=='') ? 0: get_setting('yoyow_rmb_rate')));
         TPL::output('question/question_share');
     }
 

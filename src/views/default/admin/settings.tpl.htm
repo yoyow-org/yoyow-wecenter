@@ -2031,17 +2031,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label textwrap">YOYOW人民币汇率:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="yoyow_rmb_rate" type="text" class="form-control" value="<?php echo $this->setting['yoyow_rmb_rate']; ?>"/>
-                                <span class="help-block"><?php _e('不填则为0'); ?></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>
                         <div class="form-group">
@@ -2204,6 +2194,17 @@
                             <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('geetest平台KEY'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="geetest_key" type="text" class="form-control" value="<?php echo $this->setting['geetest_key']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('充值资产ID'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="assets_id" type="text" class="form-control" value="<?php echo $this->setting['assets_id']; ?>"/>
                             </div>
                         </div>
                     </td>

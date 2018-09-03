@@ -86,7 +86,6 @@
 								<div class="mod-footer clearfix">
 									<span class="pull-right more-operate text-color-999">
 										<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
-										<?php if($val['yoyow_article_income']>0){?> <span style="color:#999;margin-left:10px;">奖励：¥<?php echo $val['yoyow_article_income'];?></span><?php } ?>
 										<a class="text-color-999" href="article/<?php echo $val['id']; ?>"><i class="icon icon-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a>
 										<a class="text-color-999 dropdown-toggle" data-toggle="dropdown" data-name="<?php echo $val['title'];?>" data-id="<?php echo base_url().'/?/article/'.$val['id'];?>" onclick="article_share(this)">
 											<i class="icon icon-share"></i> <?php _e('分享'); ?>

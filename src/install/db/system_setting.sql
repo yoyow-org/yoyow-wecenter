@@ -181,5 +181,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('integral_system_config_question_by_answer2', 's:1:"0";'),
 ('geetest_key', 's:0:"";'),
 ('invite_start_time', 's:16:"";'),
-('yoyow_rmb_rate', 's:0:"";'),
+('yoyow_rmb_rate', 's:1:"0";'),
 ('integral_system_config_vote_time_interval', 's:1:"0";');
+('assets_id', 's:1:"0";'),

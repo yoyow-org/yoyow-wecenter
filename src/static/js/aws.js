@@ -1601,20 +1601,7 @@ AWS.User =
 			if(result.errno == -1){
 				AWS.alert(result.err);
 			}else {
-                //显示奖励变化
-                $.post(G_BASE_URL + '/question/ajax/get_answer_yoyow/', 'answer_id=' + answer_id + '&user_name=' + user_name, function (result) {
-                    if (result.errno == 1) {
-                        if (result.rsm > 0) {
-                            if ($(selector).parents('#social_operate').find(".yoyow_answer_income").html() == undefined) {
-                                $(selector).parents('#social_operate').find(".operates").append('<span class="yoyow_answer_income" style="color:#999;margin-left: 15px;float:left">奖励：¥' + result.rsm + ';?></span>');
-                            }
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").show();
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").text('奖励：¥' + result.rsm);
-                        } else {
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").hide();
-                        }
-                    }
-                }, 'json');
+
 
                 // 判断是否投票过
                 if ($(selector).parents('.aw-item').find('.aw-agree-by').text().match(user_name))
@@ -1685,17 +1672,6 @@ AWS.User =
                 AWS.alert(result.err);
                 return false;
             }else {
-                //显示奖励变化
-                $.post(G_BASE_URL + '/question/ajax/get_answer_yoyow/', 'answer_id=' + answer_id + '&user_name=' + user_name, function (result) {
-                    if (result.errno == 1) {
-                        if (result.rsm > 0) {
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").show();
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").text('奖励：¥' + result.rsm);
-                        } else {
-                            $(selector).parents('#social_operate').find(".yoyow_answer_income").hide();
-                        }
-                    }
-                }, 'json');
 
                 if ($(selector).hasClass('active'))
                 {
@@ -1956,7 +1932,8 @@ AWS.User =
 				{
 					if (selector.parents('.aw-article-vote').find('.agree').hasClass('active'))
 					{
-						selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
+						selector.siblings('.agree').find('b').html(parseInt(selector.siblings('.agree').find('b').html()) - 1);
+						selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 						selector.parents('.aw-article-vote').find('a').removeClass('active');
 					}
 
@@ -1966,6 +1943,7 @@ AWS.User =
 				{
 					selector.parents('.aw-article-vote').find('a').removeClass('active');
 					selector.addClass('active').find('b').html(parseInt(selector.find('b').html()) + 1);
+					selector.siblings('.disagree').find('b').html(parseInt(selector.siblings('.disagree').find('b').html()) - 1);
 				}
 			}
 		}, 'json');
