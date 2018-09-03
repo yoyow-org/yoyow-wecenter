@@ -1676,6 +1676,48 @@ CREATE TABLE `[#DB_PREFIX#]yoyow_trigger_task` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]product_order` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `payment_order_id` bigint(16) NOT NULL DEFAULT '0',
+  `product_id` int(10) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  `project_title` varchar(255) DEFAULT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `description` text,
+  `shipping_address` varchar(255) DEFAULT NULL,
+  `shipping_name` varchar(64) DEFAULT NULL,
+  `shipping_province` varchar(64) DEFAULT NULL,
+  `shipping_city` varchar(64) DEFAULT NULL,
+  `shipping_mobile` varchar(16) DEFAULT NULL,
+  `shipping_zipcode` int(10) DEFAULT NULL,
+  `add_time` int(10) NOT NULL DEFAULT '0',
+  `refund_time` int(10) NOT NULL DEFAULT '0',
+  `shipping_time` int(10) NOT NULL DEFAULT '0',
+  `is_donate` tinyint(1) NOT NULL DEFAULT '0',
+  `track_no` varchar(32) NOT NULL DEFAULT '',
+  `track_branch` varchar(64) NOT NULL DEFAULT '',
+  `note` text,
+  `payment_time` int(10) NOT NULL DEFAULT '0',
+  `product_title` varchar(255) NOT NULL DEFAULT '',
+  `cancel_time` int(10) NOT NULL DEFAULT '0',
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
+  `address` varchar(255) DEFAULT NULL,
+  `project_type` varchar(16) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `product_id` (`product_id`),
+  KEY `project_id` (`project_id`),
+  KEY `payment_order_id` (`payment_order_id`),
+  KEY `track_no` (`track_no`),
+  KEY `is_donate` (`is_donate`),
+  KEY `refund_time` (`refund_time`),
+  KEY `add_time` (`add_time`),
+  KEY `payment_time` (`payment_time`),
+  KEY `cancel_time` (`cancel_time`),
+  KEY `project_type` (`project_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
 
