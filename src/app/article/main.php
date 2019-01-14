@@ -208,7 +208,6 @@ class main extends AWS_CONTROLLER
 			foreach ($article_list AS $key => $val)
 			{
 				$article_list[$key]['user_info'] = $article_users_info[$val['uid']];
-				$article_list[$key]['cover_file'] = get_setting('upload_url') . '/article/cover/'.$val['cover_file'];
 
 			}
 		}

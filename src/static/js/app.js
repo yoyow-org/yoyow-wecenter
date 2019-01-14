@@ -261,3 +261,13 @@ $(window).on('hashchange', function() {
         }
     }
 });
+
+function hideOldPwdTip(selector) {  
+    $("."+selector+"-label").css("display","none");  
+}  
+  
+function toggleOldPwdTip(selector,v) {  
+    if (!v) {  
+        $("."+selector+"-label").css("display","block");   
+    }  
+}

@@ -46,9 +46,9 @@
 										<!-- 评论内容 -->
 										<div class="content">
 											<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
-									      		<?php echo cjk_substr(strip_ubb($val['answer_info']['answer_content']), 0, 130, 'UTF-8', '...'); ?>
+									      		<?php echo cjk_substr(strip_ubb(htmlspecialchars_decode($val['answer_info']['answer_content']), 0, 130, 'UTF-8', '...')); ?>
 									      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
-									        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
+									        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"> <?php _e('显示全部'); ?> »</a>
 									        	<?php } ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
@@ -73,7 +73,7 @@
 											</div>
 
 											<div id="detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>" class="collapse">
-									      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
+									      		<?php echo  htmlspecialchars_decode(nl2br(strip_ubb($val['answer_info']['answer_content']))); ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
 													<div class="aw-upload-img-list active">

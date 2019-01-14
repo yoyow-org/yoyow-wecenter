@@ -645,19 +645,8 @@ class ajax extends AWS_CONTROLLER
         }
 
         //封面图
-        if (!$_FILES['article_cover_file'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请上传文章封面图')));
-        }
-
-        $max_size = 5 * 1024 * 1024; //5M
-        if($_FILES['article_cover_file']['size'] > $max_size){
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('图片不能超过5M，请重新上传')));
-        }
-
-        $allow_arr = array('image/jpg','image/jpeg','image/png','image/gif','image/bmp');
-        if(!in_array($_FILES['article_cover_file']['type'],$allow_arr)){
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('图片上传类型不符合要求')));
+        if (!$_POST['logo_img']) {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请上传文章封面')));
         }
 
         if (get_setting('category_enable') == 'N')
@@ -758,7 +747,8 @@ class ajax extends AWS_CONTROLLER
             $article_id = $this->model('publish')->publish_article($_POST['title'], $_POST['message'], $this->user_id, $_POST['topics'], $_POST['category_id'], $_POST['attach_access_key'], $this->user_info['permission']['create_topic']);
 
             //封面图上传
-            $this->article_cover_upload_action($article_id,'article_cover_file',$max_size);
+            $update_data['cover_file'] = $_POST['logo_img'];
+            $this->model('article')->update_article_fields($update_data, $article_id);
 
             if ($_POST['_is_mobile'])
             {
@@ -1005,5 +995,42 @@ class ajax extends AWS_CONTROLLER
         
         // 更新主表
         $this->model('article')->update_article_fields($update_data, $article_id);
+    }
+
+    public function logo_upload_action()
+    {
+        AWS_APP::upload()->initialize(array(
+            'allowed_types' => 'jpg,jpeg,png,gif',
+            'upload_path' => get_setting('upload_dir') . '/article/' . gmdate('Ymd'),
+            'is_image' => TRUE,
+            'max_size' => get_setting('upload_avatar_size_limit'),
+        ))->do_upload('aws_upload_file');
+
+        if (AWS_APP::upload()->get_error()) {
+            switch (AWS_APP::upload()->get_error()) {
+                default:
+                    die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
+                    break;
+
+                case 'upload_invalid_filetype':
+                    die("{'error':'文件类型无效'}");
+                    break;
+
+                case 'upload_invalid_filesize':
+                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_avatar_size_limit') . " KB'}");
+                    break;
+                case 'upload_file_exceeds_limit':
+                    die("{'error':'文件尺寸超出服务器限制'}");
+                    break;
+            }
+        }
+        if (!$upload_data = AWS_APP::upload()->data()) {
+            die("{'error':'上传失败, 请与管理员联系'}");
+        }
+
+        echo htmlspecialchars(json_encode(array(
+                'success' => true,
+                'thumb' => get_setting('upload_url') . '/article/' . gmdate('Ymd') . '/' . $upload_data['file_name'])
+        ), ENT_NOQUOTES);
     }
 }

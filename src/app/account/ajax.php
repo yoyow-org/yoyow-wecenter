@@ -97,17 +97,20 @@ class ajax extends AWS_CONTROLLER
             "ip_address" => fetch_ip() # 请在此处传输用户请求验证时所携带的IP
         );
 
-        if ($_SESSION['gtserver'] == 1) {   //服务器正常
-            $result = $GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $data);
-            if (!$result) {
-                H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t("验证码错误")));
-            }
-        }else{  //服务器宕机,走failback模式
-            if (!$GtSdk->fail_validate($_POST['geetest_challenge'],$_POST['geetest_validate'],$_POST['geetest_seccode'])) {
-                H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t("验证码错误")));
+        $genre = $_POST['genre'] ? $_POST['genre'] : 1;
+        if($genre == 1){
+            if ($_SESSION['gtserver'] == 1) {   //服务器正常
+                $result = $GtSdk->success_validate($_POST['geetest_challenge'], $_POST['geetest_validate'], $_POST['geetest_seccode'], $data);
+                if (!$result) {
+                    H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t("验证码错误")));
+                }
+            }else{  //服务器宕机,走failback模式
+                if (!$GtSdk->fail_validate($_POST['geetest_challenge'],$_POST['geetest_validate'],$_POST['geetest_seccode'])) {
+                    H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t("验证码错误")));
+                }
             }
         }
-
+        
         $return = $this->model('sms_sendSms')->sendSms($_POST['mobile']);
         if($return->Code=="OK"){
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('短信发送成功，请注意查收')));
@@ -188,7 +191,7 @@ class ajax extends AWS_CONTROLLER
         $return = $this->model('sms_querySendDetails')->querySendDetails($_POST['mobile']);
 
 
-        if(substr($return->SmsSendDetailDTOs->SmsSendDetailDTO[0]->Content,66,6) != $_POST["smscode"]){
+        if(substr($return->SmsSendDetailDTOs->SmsSendDetailDTO[0]->Content,-64,6) != $_POST["smscode"]){
 
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('短信验证码不正确或者失效')));
         }
@@ -599,7 +602,7 @@ class ajax extends AWS_CONTROLLER
         if (!$this->user_id AND !$_POST['type'] AND !$_POST) {
             die;
         }
-
+        $this->model('draft')->save_draft(0, $_POST['type'], $this->user_id, $_POST['message']);
         if(HTTP::set_cookie('yoyow_add_draft_'.$_POST['type'].'_'.$this->user_id,$_POST['message'],time()+3600*24, "/"))
         {
             H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('H:i:s', time()))));
@@ -614,6 +617,7 @@ class ajax extends AWS_CONTROLLER
             die;
         }
 
+        $this->model('draft')->delete_draft(0, $_POST['type'], $this->user_id);
         if(HTTP::set_cookie('yoyow_add_draft_'.$_POST['type'].'_'.$this->user_id,'',0))
         {
             H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -1416,7 +1420,7 @@ class ajax extends AWS_CONTROLLER
         }
         $return = $this->model('sms_querySendDetails')->querySendDetails($_POST['mobile']);
 
-        if($_POST['smscode']!='888888' && substr($return->SmsSendDetailDTOs->SmsSendDetailDTO[0]->Content,24,6) != $_POST["smscode"]){
+        if($_POST['smscode']!='888888' && substr($return->SmsSendDetailDTOs->SmsSendDetailDTO[0]->Content,-64,6) != $_POST["smscode"]){
 
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('短信验证码不正确或者失效')));
         }

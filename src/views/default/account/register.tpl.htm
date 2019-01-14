@@ -20,7 +20,7 @@
                      <input class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>" name="email" tips="<?php _e('请输入你常用的电子邮箱作为你的账号'); ?>" value="<?php echo htmlspecialchars($_GET['email']); ?>"  errortips="<?php _e('邮箱格式不正确'); ?>" />
                  </li>-->
                 <li>
-                    <input class="aw-register-mobile form-control" type="text" placeholder="<?php _e('手机'); ?>" name="mobile" tips="<?php _e('请输入你正在使用的手机号'); ?>" value="<?php echo htmlspecialchars($_GET['mobile']); ?>"  errortips="<?php _e('手机号不正确'); ?>" />
+                    <input class="aw-register-mobile form-control" type="text" placeholder="<?php _e('手机'); ?>" name="mobile" tips="<?php _e('请输入你正在使用的手机号'); ?>" id='phone' value="<?php echo htmlspecialchars($_GET['mobile']); ?>"  errortips="<?php _e('手机号不正确'); ?>" />
                 </li>
                 <li>
                     <input class="aw-register-smsflag form-control" type="text"  name="smsflag"  value=""  style="display:none" />
@@ -35,26 +35,27 @@
                     <p id="notice" class="hide">请先完成验证</p>
                 </li>
                 <li>
-                    <input class="aw-register-validate form-control" id="smscode" style="width:67%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" tips="<?php _e('请输入短信验证码'); ?>" errortips="<?php _e('短信验证码不正确'); ?>" />
-                    <button style="width: 30%;pointer-events:initial; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 2px 15px;height: 50px;" id="Smsbtn" type="button"  class="btn btn-large btn-blue btn-block">获取短信验证码</button>
+                    <input class="aw-register-validate form-control" id="smscode" style="width:56%;float:left;" type="text" placeholder="<?php _e('短信验证码'); ?>" name="smscode" tips="<?php _e('请输入短信验证码'); ?>" errortips="<?php _e('短信验证码不正确'); ?>" />
+                    <button style="width: 31%;pointer-events:initial; cursor:pointer;display:inline;font-size: 12px;margin: 0 0 2px 15px;height: 40px;" id="Smsbtn" type="button"  class="btn btn-large btn-blue btn-block">获取短信验证码</button>
                 </li>
                 <li>
                     <input class="aw-register-inviteCode form-control" type="text" placeholder="<?php _e('邀请码(非必填)'); ?>" name="inviteCode" tips="<?php _e('邀请码属于非必填项'); ?>" value="<?php if($this->inviteCode){?><?php echo $this->inviteCode; ?><?php }?>"  errortips="<?php _e('邀请码不存在'); ?>" />
                 </li>
                 <li>
-                    <input class="aw-register-pwd form-control" type="password" name="password" placeholder="密码" tips="<?php _e('请输入 6-16 个字符,区分大小写'); ?>" errortips="<?php _e('密码不符合规则'); ?>" />
+                    <label class="oldPwdTip password-label" onclick="$(this).hide();$('#password').focus();" style="display: block;margin-left: 15px;"><?php _e('密码'); ?></label>
+                    <input class="aw-register-pwd form-control" type="password" name="password" id="password" tips="<?php _e('请输入 6-16 个字符,区分大小写'); ?>" errortips="<?php _e('密码不符合规则'); ?>" onfocus="hideOldPwdTip('password');" onblur="toggleOldPwdTip('password',this.value);"/>
                 </li>
                 <li class="more-information collapse">
                     <ul>
                         <li>
                             <?php _e('性别'); ?>:
                             <label>
-                                <input name="sex" id="sex" value="1" type="radio" /> <?php _e('男'); ?>
+                                <input name="sex"  value="1" type="radio" /> <?php _e('男'); ?>
                             </label>&nbsp;
                             <label>
-                                <input name="sex" id="sex" value="2" type="radio" /> <?php _e('女'); ?> </label>&nbsp;
+                                <input name="sex"  value="2" type="radio" /> <?php _e('女'); ?> </label>&nbsp;
                             <label>
-                                <input name="sex" id="sex" value="3" type="radio" checked="checked" /> <?php _e('保密'); ?>
+                                <input name="sex"  value="3" type="radio" checked="checked" /> <?php _e('保密'); ?>
                             </label>
                         </li>
                         <li>
@@ -344,7 +345,8 @@
                                         geetest_challenge: validate.geetest_challenge,
                                         geetest_validate: validate.geetest_validate,
                                         geetest_seccode: validate.geetest_seccode,
-                                        client_type: 'web'
+                                        client_type: 'web',
+                                        genre: '1'
                                     }, function (result)
                                     {
                                         if (result.errno == -1)

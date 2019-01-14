@@ -14,10 +14,12 @@
 					<p style="background:#eed3d7;"><i class="icon-remove"></i><em></em></p>
 				</li>
 				<li>
-					<input class="aw-register-email form-control" name="password" type="password" placeholder="<?php _e('请输入新密码'); ?>" />
+					<label class="oldPwdTip password-label" onclick="$(this).hide();$('#password').focus();"><?php _e('请输入新密码'); ?></label>
+					<input class="aw-register-email form-control" id="password" name="password" type="password" onfocus="hideOldPwdTip('password');" onblur="toggleOldPwdTip('password',this.value);" />
 				</li>
 				<li>
-					<input class="aw-register-email form-control" name="re_password" type="password" placeholder="<?php _e('再次输入密码'); ?>" />
+					<label class="oldPwdTip re_password-label" onclick="$(this).hide();$('#re_password').focus();"><?php _e('再次输入密码'); ?></label>
+					<input class="aw-register-email form-control" id="re_password" name="re_password" type="password" onfocus="hideOldPwdTip('re_password');" onblur="toggleOldPwdTip('re_password',this.value);" />
 				</li>
 				
 				<li class="aw-register-verify">

@@ -13,7 +13,8 @@
 							<input type="text" id="aw-login-user-name" class="form-control" placeholder="<?php _e('邮箱'); ?> / <?php _e('用户名'); ?>/ <?php _e('手机号'); ?>" name="user_name" />
 						</li>
 						<li>
-							<input type="password" id="aw-login-user-password" class="form-control" placeholder="<?php _e('密码'); ?>" name="password" />
+							<label class="oldPwdTip aw-login-user-password-label" onclick="$(this).hide();$('#aw-login-user-password').focus();" style="margin-left: 15px;"><?php _e('密码'); ?></label>
+							<input type="password" id="aw-login-user-password" class="form-control" name="password" onfocus="hideOldPwdTip('aw-login-user-password');" onblur="toggleOldPwdTip('aw-login-user-password',this.value);"/>
 						</li>
 						<li class="alert alert-danger collapse error_message">
 							<i class="icon icon-delete"></i> <em></em>

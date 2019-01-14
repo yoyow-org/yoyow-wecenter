@@ -1,5 +1,30 @@
 <?php if ($this->drafts) { ?>
 <?php foreach ($this->drafts AS $key => $val) { ?>
+<?php if($val['type'] == 'question'){ ?>
+<div class="aw-item">
+	<h4><a href="publish/">发布问题</a></h4>
+	<div class="markitup-box"><?php echo nl2br(htmlspecialchars_decode($val['data'])); ?></div>
+	<div class="meta">
+		<span class="pull-right">
+			<a class="text-color-999" onclick="AWS.User.delete_draft(<?php echo $val['item_id']; ?>, 'question'); $(this).parents('.aw-item').fadeOut();"><?php _e('删除草稿'); ?></a> • 
+			<a class="text-color-999" href="publish/"><?php _e('编辑草稿'); ?></a>
+		</span>
+		<?php echo date_friendly($val['time']); ?>
+	</div>
+</div>
+<?php }else if($val['type'] == 'article'){ ?>
+<div class="aw-item">
+	<h4><a href="publish/article/">发布文章</a></h4>
+	<div class="markitup-box"><?php echo nl2br(htmlspecialchars_decode($val['data'])); ?></div>
+	<div class="meta">
+		<span class="pull-right">
+			<a class="text-color-999" onclick="AWS.User.delete_draft(<?php echo $val['item_id']; ?>, 'article'); $(this).parents('.aw-item').fadeOut();"><?php _e('删除草稿'); ?></a> • 
+			<a class="text-color-999" href="publish/article/"><?php _e('编辑草稿'); ?></a>
+		</span>
+		<?php echo date_friendly($val['time']); ?>
+	</div>
+</div>
+<?php }else{ ?>
 <div class="aw-item">
 	<h4><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a></h4>
 	<div class="markitup-box"><?php echo nl2br(htmlspecialchars($val['data']['message'])); ?></div>
@@ -11,5 +36,6 @@
 		<?php echo date_friendly($val['time']); ?>
 	</div>
 </div>
+<?php } ?>
 <?php } ?>
 <?php } ?>

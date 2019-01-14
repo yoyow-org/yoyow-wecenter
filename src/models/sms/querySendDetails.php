@@ -24,10 +24,8 @@ class sms_querySendDetails_class
         // *** 需用户填写部分 ***
 
         // fixme 必填: 请参阅 https://ak-console.aliyun.com/ 取得您的AK信息
-//        $accessKeyId = "LTAI2RDxrTZOzpqT";
-//        $accessKeySecret = "3L1TZgjo7AQxvPywQTLZPW7qj1IzPU";
-        $accessKeyId = "LTAIYmFX2ca5pakI"; // 新服务器
-        $accessKeySecret = "aLjrnQailnxagjoZuH4J8Xtd5P24RP";// 新服务器
+        $accessKeyId = get_setting('sms_app_id'); // 新服务器
+        $accessKeySecret = get_setting('sms_app_key');// 新服务器
 
         // fixme 必填: 短信接收号码
         $params["PhoneNumber"] = $mobile;

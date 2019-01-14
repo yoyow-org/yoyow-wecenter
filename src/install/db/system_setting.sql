@@ -73,7 +73,7 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('integral_unit', 's:6:"金币";'),
 ('nav_menu_show_child', 's:1:"N";'),
 ('anonymous_enable', 's:1:"Y";'),
-('report_reason', 's:50:"广告/SPAM\n违规内容\n文不对题\n重复发问";'),
+('report_reason', 's:0:"";'),
 ('allowed_upload_types', 's:45:"jpg,jpeg,png,gif,zip,doc,docx,rar,pdf,psd,bmp";'),
 ('icp_beian', 's:0:"";'),
 ('report_message_uid', 's:1:"1";'),

@@ -20,14 +20,14 @@
 						<?php if ($this->article_list) { ?>
 						<?php foreach ($this->article_list AS $key => $val) { ?>
 						<div class="aw-item">
-							<?php if(get_article_cover_url($val['id'])){?>
+							<?php if($val['cover_file']){?>
 
 								<a class="aw-user-name hidden-xs" href="article/<?php echo $val['id']?>">
-									<img src="<?php echo get_article_cover_url($val['id']); ?>?rand=<?php echo rand(1, 999); ?>">
+									<img src="<?php echo $val['cover_file']; ?>">
 								</a>
 							<?php }else{?>
 								<a class="aw-user-name hidden-xs" href="article/<?php echo $val['id']?>">
-									<img class="live_img aw-border-radius-5 fl" src="/static/common/Article_default_cover_<?php echo rand(1,5)?>.jpg">
+									<img class="live_img aw-border-radius-5 fl" src="/static/common/article-cover-min.png">
 								</a>
 							<?php }?>
 
@@ -75,7 +75,7 @@
 											</div>
 
 											<?php if (cjk_strlen($strbefore) > 50 ) { ?>
-											<a class="more" href="/article/<?php echo $val['id']; ?>"><?php _e('继续阅读'); ?> »</a>
+											<a class="more" href="article/<?php echo $val['id']; ?>"><?php _e('继续阅读'); ?> »</a>
 											<?php } ?>
 										</div>
 									</div>

@@ -40,7 +40,8 @@
 								<!-- 问题标题 -->
 								<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
 									<div>
-										<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
+										<label class="oldPwdTip question_contents-label" onclick="$(this).hide();$('#question_contents').focus();"><?php _e('问题标题'); ?>...</label>
+										<input type="text" name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" onfocus="hideOldPwdTip('question_contents');" onblur="toggleOldPwdTip('question_contents',this.value);"/>
 										<div class="aw-publish-suggest-question collapse">
 											<p class="text-color-999">你的问题可能已经有答案</p>
 											<ul class="aw-dropdown-list">

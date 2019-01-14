@@ -39,7 +39,8 @@
 		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
 		var G_CAN_CREATE_TOPIC = "<?php echo $this->user_info['permission']['create_topic']; ?>";
 		var G_TIMESTAMP = <?php echo TIMESTAMP; ?>;
-
+		var G_PER_PAGE = "<?php echo get_setting('contents_per_page'); ?>";
+    	var G_INDEX_PER_PAGE = "<?php echo get_setting('index_per_page'); ?>";
 		<?php if (human_valid('question_valid_hour')) { ?>
 		var G_QUICK_PUBLISH_HUMAN_VALID = true;
 		<?php } ?>

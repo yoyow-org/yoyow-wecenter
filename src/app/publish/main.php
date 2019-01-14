@@ -66,11 +66,11 @@ class main extends AWS_CONTROLLER
             if ($this->user_id && !$question_info['question_content'])
 	        {   
 	            $add_draft_type = 'question';
-
-	            if (HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id))
+	            $draft_content = $this->model('draft')->get_data(0, 'question', $this->user_id);
+	            /*if (HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id))
 	            {
 	                $draft_content = HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id);
-	            }
+	            }*/
 
 	        } 
 
@@ -164,11 +164,11 @@ class main extends AWS_CONTROLLER
             if ($this->user_id && !$question_info['question_content'])
 	        {   
 	            $add_draft_type = 'article';
-
-	            if (HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id))
+	            $draft_content = $this->model('draft')->get_data(0, 'article', $this->user_id);
+	            /*if (HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id))
 	            {
 	                $draft_content = HTTP::get_cookie('yoyow_add_draft_'.$add_draft_type.'_'.$this->user_id);
-	            }
+	            }*/
 	            
 	        } 
 

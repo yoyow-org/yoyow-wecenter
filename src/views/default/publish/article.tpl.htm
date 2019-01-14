@@ -24,6 +24,8 @@
 						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 						<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
+						<input type="hidden" name="logo_img"
+                                   value="<?php echo $this->article_info['article_img']?$this->article_info['article_img']:G_STATIC_URL.'/css/default/img/default-cover.jpg'; ?>"/>
 						<?php if ($this->article_category_list) { ?>
 							<select name="category_id" class="collapse" id="category_id">
 								<option value="0">- <?php _e('请选择分类'); ?> -</option>
@@ -53,65 +55,43 @@
 								<!-- end 文章标题 -->
 
 								<!-- 文章封面图 -->
-								<h3><?php _e('文章封面图'); ?>:</h3>
-								<div class="aw-mod aw-editor-box article-cover">
-									<div class="side-bar clearfix">
-										<p>
-											<input id='doc' type="file" name="article_cover_file" accept="image/*" class="form-control" multiple />
-											<?php _e('支持 jpg、jpeg、png、gif、bmp格式的图片，图片尺寸比例230px * 150px，图片最大为5M'); ?>
-										</p>
-										<?php if(get_article_cover_url($this->article_info['id'])){?>
-											<img class="live_img aw-border-radius-5 fl" src="<?php echo get_article_cover_url($this->article_info['id']); ?>?rand=<?php echo rand(1, 999); ?>" id="article_src" />
-										<?php }else{?>
-                                            <img class="live_img aw-border-radius-5 fl" src="/static/common/article-cover-min.png?rand=<?php echo rand(1, 999); ?>">
-										<?php }?>
-
-										<div style="width:230px;height:150px;" class="fl" id="localImag">
-											<img src="" class="aw-border-radius-5" id="preview" alt="">
-										</div>
-
-									</div>
-								</div>
+								<?php if($this->user_info['permission']['upload_attach']){ ?>
+								<h3><?php _e('文章封面'); ?>:</h3>
+                                <div class="side-bar">
+                                    <dl>
+                                        <dt class="pull-left">
+                                            <img class="aw-border-radius-5"
+                                                 src="<?php if ($this->article_info['article_img']) {
+                                                     echo $this->article_info['article_img'];
+                                                 } else {
+                                                     echo G_STATIC_URL . '/css/default/img/default-cover.jpg';
+                                                 } ?>"
+                                                 id="logo_img" style="height: 100px;width: 100px;"></dt>
+                                        <dd class="pull-left">
+                                            <h5><?php _e('封面设置');?></h5>
+                                            <p><?php _e('支持 jpg、gif、png 等格式的图片 建议图片尺寸为240*150');?></p>
+                                            <a class="btn btn-mini btn-success" id="logo_uploader"
+                                               href="javascript:;"><?php _e('上传封面');?></a>
+                                            <span id="logo_uploading_status" class="collapse"><i
+                                                        class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="clearfix"></div>
+                                <?php } ?>
 								<!-- end 文章封面图 -->
 
 								<h3><?php _e('文章内容'); ?>:</h3>
-								<!--<div class="btn-group mod-btn">-->
-									<!--<label  class="btn mod-btn-color">-->
-										<!--<input type="radio" id="text_fuwenben_radio" name="text_content_button" onclick="fuwenben()"  checked="checked" /> <?php _e('富文本编辑器'); ?>-->
-									<!--</label>-->
-
-									<!--<label  class="btn mod-btn-color">-->
-										<!--<input type="radio" id="text_markdown_radio" name="text_content_button" onclick="textmarkdown()"  /> <?php _e('Markdown'); ?>-->
-									<!--</label>-->
-								<!--</div>-->
 								<div class="aw-mod aw-editor-box">
-									<!--<div class="mod-head">-->
-										<!--<div class="wmd-panel">-->
-											<!--<textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message"><?php echo $this->article_info['message']; ?></textarea>-->
-								        <!--</div>-->
-									<!--</div>-->
 									<div class="mod-head">
 										<div class="wmd-panel">
 											<script class="fuwenben" style="display: block" id="container" type="text/plain" name="message"><?php echo html_entity_decode($this->article_info['message']); ?></script></p>
-											<!--<textarea class="wmd-input" id="container" rows="15" name="message"><?php echo $this->article_info['message']; ?></textarea>-->
-											<!--<textarea id="markdownFrameHide" style="display:none;" name="message"><?php echo html_entity_decode($this->article_info['message']);?></textarea>-->
-											<!--<iframe id="markdownFrame" class="marktext" style="display:none;width:692px;height:378px;" src="question/markdown/"></iframe>-->
 										</div>
 									</div>
 
 									<span style="color: #999999;font-size: 10px;" >如需问题补充中@其他用户,需要在名字后面添加空格。例如：我有一个问题想要@陈老师 来解答。</span>
 
 									<span style="color: #999999;font-size: 10px;" id="answer_content_message">&nbsp;</span>
-									<!--<div class="mod-body">-->
-										<!--<p class="text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span></p>-->
-										<!--<?php if (get_setting('upload_enable') == 'Y' AND get_setting('advanced_editor_enable' == 'Y')) { ?>-->
-										<!--<div class="aw-upload-box">-->
-											<!--<a class="btn btn-default">上传附件</a>-->
-											<!--<div class="upload-container"></div>-->
-											<!--<span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>-->
-										<!--</div>-->
-										<!--<?php } ?>-->
-									<!--</div>-->
 								</div>
 
 
@@ -211,6 +191,13 @@
     var EDITOR_CALLBACK;
 	var EDITOR;
 	var ANSWER_TYPE = 'article';
+	var logoUpload = new FileUpload('avatar', $('#logo_uploader'), $('#logo_img'), G_BASE_URL + '/publish/ajax/logo_upload/', {
+            loading_status: '#logo_uploading_status',
+            tag: 'logo',
+            accept:'image/*'
+        }, function () {
+            $('input[name="logo_img"]').val($('#logo_img').attr('src'));
+        });
 	$(function(){
 		if ($('#container').length)
 	    {
@@ -236,52 +223,7 @@
 	    		EDITOR.on( 'blur', EDITOR_CALLBACK);
 	    	}
 	    }
-		$(".article-cover input[name='article_cover_file']").change(function(){
-			var file = $(this).val();
-			if(file.length > 0){
-				setImagePreview(file);
-				$(".live_img").css("display","none");
-			}
-		});
-	})
-
-	function setImagePreview(avalue) {
-		var docObj = document.getElementById("doc");
-		//img
-		var imgObjPreview = document.getElementById("preview");
-		//div
-		var divs = document.getElementById("localImag");
-		if (docObj.files && docObj.files[0]) {
-			//火狐下，直接设img属性
-			imgObjPreview.style.display = 'block';
-			imgObjPreview.style.width = '230px';
-			imgObjPreview.style.height = '150px';
-			//imgObjPreview.src = docObj.files[0].getAsDataURL();
-			//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
-			imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-		} else {
-			//IE下，使用滤镜
-			docObj.select();
-			var imgSrc = document.selection.createRange().text;
-			var localImagId = document.getElementById("localImag");
-			//必须设置初始大小
-			localImagId.style.width = "230px";
-			localImagId.style.height = "150px";
-			//图片异常的捕捉，防止用户修改后缀来伪造图片
-			try {
-				localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"
-				localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-			} catch(e) {
-				alert("您上传的图片格式不正确，请重新选择!");
-				return false;
-			}
-			imgObjPreview.style.display = 'none';
-			document.selection.empty();
-		}
-		return true;
-	}
-
-
+	});
 </script>
 
 <script>

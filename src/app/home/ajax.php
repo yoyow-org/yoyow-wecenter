@@ -151,7 +151,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function draft_action()
 	{
-		if ($drafts = $this->model('draft')->get_all('answer', $this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
+		if ($drafts = $this->model('draft')->get_all($this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
 		{
 			foreach ($drafts AS $key => $val)
 			{

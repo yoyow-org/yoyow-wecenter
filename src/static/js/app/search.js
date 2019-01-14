@@ -43,8 +43,13 @@ $(function()
 
 				$('#search_result .aw-title a').highText(split_query, 'span', 'aw-text-color-red');
 
-				$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
-
+				var len = (response.split('<div>')).length;
+				if(parseInt(len) < parseInt(G_PER_PAGE)){
+					$(_this).find('span').html(_t('没有更多了'));
+					$(_this).addClass('disabled').css("pointer-events","none");
+				}else{
+					$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
+				}
 			}
 			else
 			{
@@ -53,7 +58,7 @@ $(function()
 					$('#search_result').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
 
-				$(_this).addClass('disabled');
+				$(_this).addClass('disabled').css("pointer-events","none");
 
 			}
 

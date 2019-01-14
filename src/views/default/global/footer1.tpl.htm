@@ -1,14 +1,14 @@
 <div class="aw-footer-wrap">
 <div class="aw-footer">
+	<?php if($this->link_list){ ?>
        <ol class="breadcrumb" >
-           <?php if($this->link_list){ ?>
            <?php foreach($this->link_list as $key => $val){ ?>
            <li>
            <a target="_blank" href="<?php echo $val['linkurl'];?>"><?php echo $val['title'];?></a>
            </li>
            <?php } ?>
-           <?php } ?>
        </ol>
+    <?php } ?>
 	<div class="aw-footer">
 		Copyright © <?php echo date('Y'); ?><?php if(get_setting('icp_beian')){ ?><span class="hidden-xs"> - <?php echo get_setting('icp_beian'); ?><?php } ?>,All Rights Reserved</span>
 

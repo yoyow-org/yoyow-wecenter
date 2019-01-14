@@ -109,7 +109,8 @@
 
                                     $.post(G_BASE_URL + '/account/ajax/send_mobile/',
                                         {
-                                            mobile:mobile
+                                            mobile:mobile,
+                                            genre: '2'
                                         }, function (result)
                                         {
                                             if (result.errno == -1)

@@ -277,7 +277,7 @@ var AWS =
 
 			if (result.rsm && result.rsm.url)
 			{
-                AWS.loading('show');
+                //AWS.loading('show');
 				// 判断返回url跟当前url是否相同
 				if (window.location.href == result.rsm.url)
 				{
@@ -1926,24 +1926,27 @@ AWS.User =
 			{
 				if (rating == 0)
 				{
-					selector.removeClass('active').find('b').html(parseInt(selector.find('b').html()) - 1);
+					if(parseInt(selector.find('b').html()) > 0){
+						selector.removeClass('active').find('b').html(parseInt(selector.find('b').html()) - 1);
+					}
 				}
 				else if (rating == -1)
 				{
 					if (selector.parents('.aw-article-vote').find('.agree').hasClass('active'))
 					{
 						selector.siblings('.agree').find('b').html(parseInt(selector.siblings('.agree').find('b').html()) - 1);
-						selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 						selector.parents('.aw-article-vote').find('a').removeClass('active');
 					}
-
+					selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 					selector.addClass('active');
 				}
 				else
 				{
 					selector.parents('.aw-article-vote').find('a').removeClass('active');
 					selector.addClass('active').find('b').html(parseInt(selector.find('b').html()) + 1);
-					selector.siblings('.disagree').find('b').html(parseInt(selector.siblings('.disagree').find('b').html()) - 1);
+					if(parseInt(selector.siblings('.disagree').find('b').html()) > 0){
+						selector.siblings('.disagree').find('b').html(parseInt(selector.siblings('.disagree').find('b').html()) - 1);
+					}
 				}
 			}
 		}, 'json');

@@ -46,7 +46,7 @@ class draft_class extends AWS_MODEL
 			));
 
 			$this->shutdown_update('users', array(
-				'draft_count' => $this->get_draft_count('answer', $uid)
+				'draft_count' => $this->count('draft', "uid = " . intval($uid))
 			), 'uid = ' . intval($uid));
 
 			return $draft_id;
@@ -100,9 +100,9 @@ class draft_class extends AWS_MODEL
 		return $draft['data'];
 	}
 
-	public function get_all($type, $uid, $page = null)
+	public function get_all($uid, $page = null)
 	{
-		if ($draft = $this->fetch_all('draft', "uid = " . intval($uid) . " AND `type` = '" . $this->quote($type) . "'", 'time DESC', $page))
+		if ($draft = $this->fetch_all('draft', "uid = " . intval($uid), 'time DESC', $page))
 		{
 			foreach ($draft AS $key => $val)
 			{

@@ -197,8 +197,8 @@ class main extends AWS_CONTROLLER
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
 			// editor
-			TPL::import_js('js/editor/ckeditor/ckeditor.js');
-			TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
+			//TPL::import_js('js/editor/ckeditor/ckeditor.js');
+			//TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
 		}
 
 		TPL::import_js('js/jquery.date_input.js');
